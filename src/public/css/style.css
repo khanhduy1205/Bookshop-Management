@@ -1,0 +1,256 @@
+/* Import Font Google */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* color */
+    --primary-color: #255DA1;
+    --tableContent-color: #D2E8FC;
+
+    /* font-family */
+    --font-dosis: 'Dosis', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+}
+
+body {
+    background: #E9E8E8 !important;
+}
+
+/* header ----------------------------------------------------------------- */
+#header {
+    height: 80px;
+    width: 100%;
+    background: white;    
+    position: fixed;
+    top: 0;
+}
+
+/* .navbar {
+    margin-left: 75px;
+    margin-right: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-items {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px;
+}
+
+.header__bookshop {
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-left: 28px;
+}
+ -----------------------------------------------------------------
+
+.btn {
+    background: var(--primary-color);
+    color: white;
+
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+.logo__account {
+    height: 20px;
+}
+
+.header__btn {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.name, .logout {
+    margin-left: 10px;
+}
+
+.logout{
+    border-left: 3px solid white;
+    padding-left: 10px;
+} */
+
+.navbar {
+    margin-left: 75px;
+    margin-right: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__logo {
+    width: 80px;
+}
+
+.navbar__bookshopName {
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-left: -840px;
+    font-family: var(--font-inter);
+}
+
+.navbar__list-items {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+
+    background: var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+.item + .item {
+    margin-left: 10px;
+}
+
+.account-avatar {
+    height: 20px;
+}
+
+.account-username, .logout-btn {
+    color: white;
+    font-family: var(--font-inter);
+    text-decoration: none;
+}
+
+.item:last-child {
+    border-left: 3px solid white;
+    padding-left: 10px;
+}
+
+/* container: main + sidebar ----------------------------------------------------------------- */
+#container {
+    margin: 90px 20px 10px;
+    display: flex;
+    /* height: 603px; */
+    height: 650px;
+}
+
+#main {
+    flex: 4;
+    margin-right: 16px;
+    background: white;
+    padding: 32px;
+}
+
+#side {
+    flex: 1;
+    background: white;
+    padding: 16px;
+}
+
+/* footer ----------------------------------------------------------------- */
+#footer {
+    height: 50px;
+    width: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}
+
+/* sidebar ----------------------------------------------------------------- */
+.side__menu {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.side__menu-btn{
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+    border-radius: 10px;
+    margin: 4px 8px;
+    padding: 8px;
+    color: black;
+    font-size: 22px;
+    font-family: var(--font-dosis);
+}
+
+.side__menu-icon {
+    margin-right: 20px;
+}
+
+.side__menu-btn:focus {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* main ----------------------------------------------------------------- */
+/* home page */
+
+
+/* search page */
+.search__title {
+    font-family: var(--font-inter);
+    margin-bottom: 24px;
+}
+
+.search__searchBar {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.searchBar__input {
+    width: 400px;
+    height: 50px;
+    border: none;
+    background: #F0F2F5;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-family: var(--font-dosis);
+
+    border-start-start-radius: 5px;
+    border-end-start-radius: 5px;
+}
+
+.searchBar__input:focus {
+    outline: none;                      /*tắt màu viền khi focus vào input*/
+}
+
+.searchBar__btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: #F0F2F5;
+    font-size: 30px;
+
+    border-start-end-radius: 5px;
+    border-end-end-radius: 5px;
+}
+
+.searchBar__btn:hover {
+    background: #D1D1D1;
+}
+
+.search__content {
+    margin-bottom: 24px;
+}
+
+.table {        /* Bootstrap */
+    --bs-table-striped-bg: var(--tableContent-color);
+}
+
+.search__pagination {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
