@@ -1,4 +1,4 @@
-<h1 class="main__title">Thư viện sách</h1>
+<h1 class="main__title">Hóa đơn bán sách</h1>
 
 <div class="main__searchBar">
     <input type="text" class="searchBar__input" placeholder="Tìm kiếm" id="" name="">
@@ -7,16 +7,28 @@
     </button>
 </div>
 
+<div class="import__menu">
+    <div class="import__menu-selectAll">
+        <input type="checkbox" id="selectAll">
+        <label for="selectAll">Chọn tất cả</label>
+    </div>
+
+    <ul class="import__menu-btns">
+        <li><button class="import__menu-btn"><ion-icon name="add" class="icon"></ion-icon>Thêm mới</button></li>
+        <li><button class="import__menu-btn"><ion-icon name="create" class="icon"></ion-icon>Cập nhật</button></li>
+        <li><button class="import__menu-btn"><ion-icon name="trash" class="icon"></ion-icon>Xóa</button></li>
+    </ul>
+</div>
+
 <div class="main__content">
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
                 <th scope="col">STT</th>
-                <th scope="col">Tác giả</th>
-                <th scope="col">Tên sách</th>
-                <th scope="col">Thể loại</th>
-                <th scope="col">Số lượng</th>
-                <th scope="col">Đơn giá</th>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Ngày lập</th>
+                <th scope="col">Ngày cập nhật</th>
+                <th scope="col">Người lập</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +38,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -34,7 +45,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -42,7 +52,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -50,7 +59,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -58,7 +66,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -66,7 +73,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -74,15 +80,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Otto</td>
-                <td>@mdo</td>
             </tr>
         </tbody>
     </table>

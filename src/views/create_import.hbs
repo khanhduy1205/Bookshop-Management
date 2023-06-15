@@ -1,10 +1,15 @@
-<h1 class="main__title">Thư viện sách</h1>
+<h1 class="main__title">Phiếu nhập sách</h1>
 
-<div class="main__searchBar">
-    <input type="text" class="searchBar__input" placeholder="Tìm kiếm" id="" name="">
-    <button class="searchBar__btn">
-        <ion-icon name="search" class="icon"></ion-icon>
-    </button>
+<div class="createImport__menu">
+    <div class="createImport__menu-id">ID: PHIEUNHAP03</div>
+    <div class="createImport__menu-date">
+        Ngày lập
+        <input type="date">
+    </div>
+    <ul class="createImport__menu-btns">
+        <li><button class="import__menu-btn"><ion-icon name="add" class="icon"></ion-icon>Thêm sách</button></li>
+        <li><button class="import__menu-btn"><ion-icon name="trash" class="icon"></ion-icon>Xóa sách</button></li>
+    </ul>
 </div>
 
 <div class="main__content">
@@ -12,9 +17,9 @@
         <thead>
             <tr>
                 <th scope="col">STT</th>
-                <th scope="col">Tác giả</th>
                 <th scope="col">Tên sách</th>
                 <th scope="col">Thể loại</th>
+                <th scope="col">Tác giả</th>
                 <th scope="col">Số lượng</th>
                 <th scope="col">Đơn giá</th>
             </tr>
@@ -26,7 +31,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -34,7 +38,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -42,7 +45,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -50,7 +52,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -58,7 +59,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -66,7 +66,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>Otto</td>
-                <td>@mdo</td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -74,15 +73,6 @@
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Otto</td>
-                <td>@mdo</td>
             </tr>
         </tbody>
     </table>
@@ -106,4 +96,17 @@
             </li>
         </ul>
     </nav>
+</div>
+
+<div class="createImport__info">
+    <div class="createImport__info-count">
+        Tổng số: <span>50</span> sách
+    </div>
+    <div class="createImport__info-cost">
+        Thành tiền: <span>500000</span> (VND)
+    </div>
+</div>
+
+<div class="createImport__submit">
+    <button class="createImport__submit-btn">Hoàn tất</button>
 </div>
