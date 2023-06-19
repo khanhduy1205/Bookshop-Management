@@ -345,6 +345,27 @@ nav {
 }
 
 /* invoice page ----------------------------------------------------------------- */
+/*  */
+.createInvoice__user-infor {
+    margin: 24px 50px 32px;
+    display: flex;
+    justify-content: flex-start;
+    font-family: var(--font-inter);
+}
+
+.createInvoice__user-infor input {
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+.createInvoice__user-id input {
+    width: 100px;
+}
+
+.createInvoice__user-name {
+    margin-left: 50px;
+}
 
 /* bill page ----------------------------------------------------------------- */
 
@@ -397,4 +418,51 @@ nav {
     background: none;
 }
 
+/* Add book */
+.form__addBook {
+    width: 500px;
+    margin-left: 50%;
+    transform: translateX(-50%);
 
+    font-family: var(--font-inter);  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* overflow: scroll; */
+}
+
+.form-row {
+    margin-bottom: 16px;  
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #787878;
+}
+
+.form-input {
+    padding: 5px;
+    border-radius: 5px;
+    width: 500px;
+}
+
+.form-btn {
+    border: none;
+    border-radius: 10px;
+    background: var(--primary-color);
+    color: white;
+    padding: 12px;
+    align-self: flex-end;
+}
+
+.form-row.short {
+    display: flex;
+    justify-content: space-between;
+}
+.form-row.short input {
+    width: 200px;
+}
+.form-row.short .date {
+    margin-left: 25%;
+}
