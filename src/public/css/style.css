@@ -410,7 +410,7 @@ nav {
 
 .form-row {
     margin-bottom: 12px;  
-    width: 50%;
+    /* width: 50%; */
 }
 
 .form-label {

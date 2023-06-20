@@ -131,3 +131,25 @@
         <button class="createImport__submit-btn">Hoàn tất</button>
     </div>
 </form>
+
+
+{{!-- add book modal --}}
+{{> modals/add_book}}
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+<script>
+
+    // show and hide add book modal
+    var addBookModal =  $("#addBookModal");
+
+    $("button[name='addBook']").click((e) => {
+        e.preventDefault();
+        addBookModal.addClass('show');
+    })
+
+    $(".btn-close").click((e) => {
+        e.preventDefault();
+        addBookModal.removeClass('show');
+    })
+
+</script>

@@ -44,7 +44,7 @@ exports.getSearch = async (req, res, next) => {
     });
 };
 
-exports.getImport = async (req, res, next) => {
+exports.getImports = async (req, res, next) => {
 
     var page = parseInt(req.query.page) || 1;
     // var perPage = 4;
@@ -66,7 +66,7 @@ exports.getImportCreate = async (req, res, next) => {
 
     var page = parseInt(req.query.page) || 1;
 
-    res.render('partials/modals/create_import', {
+    res.render('create_import', {
         active: { import: true },
         helpers,
         total: 20,
@@ -115,7 +115,7 @@ exports.postImportUpdate = async (req, res, next) => {
     res.redirect('/import');
 }
 
-exports.getInvoice = async (req, res, next) => {
+exports.getInvoices = async (req, res, next) => {
     var page = parseInt(req.query.page) || 1;
 
     res.render('invoice', {

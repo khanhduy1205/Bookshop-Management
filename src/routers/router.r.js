@@ -32,7 +32,7 @@ router.get('/', bookshopManager.getHome);
 router.get('/search', bookshopManager.getSearch);
 
 // ---------------------------------------------
-router.get('/import', bookshopManager.getImport);
+router.get('/import', bookshopManager.getImports);
 
 router.get('/import/create', bookshopManager.getImportCreate);
 
@@ -45,7 +45,7 @@ router.get('/import/update', bookshopManager.getImportUpdate);
 router.post('/import/update', bookshopManager.postImportUpdate);
 
 // ---------------------------------------------
-router.get('/invoice', bookshopManager.getInvoice);
+router.get('/invoice', bookshopManager.getInvoices);
 
 router.get('/invoice/create', bookshopManager.getInvoiceCreate);
 
