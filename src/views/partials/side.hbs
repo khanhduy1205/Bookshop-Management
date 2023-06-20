@@ -1,20 +1,84 @@
 <ul class="side__menu">
-    <li><a href="/" class="side__menu-btn active"><ion-icon name="home" class="side__menu-icon"></ion-icon>Trang chủ</a></li>
-    <li><a href="/search" class="side__menu-btn"><ion-icon name="search" class="side__menu-icon"></ion-icon>Tra cứu sách</a>
+    <li><a href="/" class="side__menu-btn {{#if active.home}} active no-hover {{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-sharp fa-solid fa-house"></i>
+            </span>
+            Trang chủ
+        </a>
     </li>
-    <li><a href="/import" class="side__menu-btn"><ion-icon name="save" class="side__menu-icon"></ion-icon>Phiếu nhập sách</a>
+
+    <li><a href="/search" class="side__menu-btn {{#if active.search}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            Tra cứu sách
+        </a>
     </li>
-    <li><a href="/invoice" class="side__menu-btn"><ion-icon name="logo-usd" class="side__menu-icon"></ion-icon>Hóa đơn</a></li>
-    <li><a href="/bill" class="side__menu-btn"><ion-icon name="paper" class="side__menu-icon"></ion-icon>Phiếu thu tiền</a>
+
+    <li><a href="/import" class="side__menu-btn {{#if active.import}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-floppy-disk"></i>
+            </span>
+            Phiếu nhập sách
+        </a>
     </li>
-    <li><a href="/report" class="side__menu-btn"><ion-icon name="stats" class="side__menu-icon"></ion-icon>Báo cáo tháng</a>
+
+    <li><a href="/invoice" class="side__menu-btn {{#if active.invoice}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+            </span>
+            Hóa đơn
+        </a>
     </li>
-    <li><a href="/rule" class="side__menu-btn"><ion-icon name="build" class="side__menu-icon"></ion-icon>Quy định</a></li>
+
+    <li><a href="/bill" class="side__menu-btn {{#if active.bill}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-money-bill"></i>
+            </span>
+            Phiếu thu tiền
+        </a>
+    </li>
+
+    <li><a href="/report" class="side__menu-btn {{#if active.report}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-chart-simple"></i>
+            </span>
+            Báo cáo tháng
+        </a>
+    </li>
+
+    <li><a href="/rule" class="side__menu-btn {{#if active.rule}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-list-ul"></i>
+            </span>
+            Quy định
+        </a>
+    </li>
 </ul>
 <hr>
 <ul class="side__menu">
-    <li><a href="#" class="side__menu-btn"><ion-icon name="settings" class="side__menu-icon"></ion-icon>Chỉnh sửa tài
-            khoản</a></li>
-    <li><a href="#" class="side__menu-btn"><ion-icon name="contact" class="side__menu-icon"></ion-icon>Đổi mật khẩu</a>
+
+    <li><a href="/account/setting" class="side__menu-btn {{#if active.accountSetting}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-user-gear"></i>
+            </span>
+            Chỉnh sửa tài khoản
+        </a>
+    </li>
+
+    <li><a href="/account/password" class="side__menu-btn {{#if active.passwordChanging}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-user-pen"></i>
+            </span>
+            Đổi mật khẩu
+        </a>
+    </li>
+
+    <li><a href="/logout" class="side__menu-btn {{#if active.logout}} active no-hover{{/if}}">
+            <span class="side__menu-icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </span>
+            Đăng xuất
+        </a>
     </li>
 </ul>

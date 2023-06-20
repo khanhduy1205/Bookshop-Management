@@ -1,0 +1,24 @@
+<div class="main__pagination">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination m-0">
+            <li class="page-item">
+                <a class="page-link" href="?page= {{prevPage page}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            {{#each (getNumberOfPage total)}}
+            <li class="page-item {{#if (isEqual ../page (sum this 1)) }} active {{/if}}">
+                <a class="page-link" href="?page={{sum this 1}}">
+                    {{sum this 1}}
+                </a>
+            </li>
+            {{/each}}
+            <li class="page-item">
+                <a class="page-link" href="?page={{nextPage page total}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

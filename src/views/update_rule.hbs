@@ -1,0 +1,46 @@
+<form action="/invoice/create" method="post">
+    <div class="main__header">
+        <a href="/rule" class="main__header-btn">
+            <i class="fa-solid fa-angle-left"></i>
+            Trở về
+        </a>
+        <h2 class="main__title">Cập nhật quy định</h2>
+    </div>
+
+    <div class="main__content">
+        <div class="modal-body">
+            <div class="form-row">
+                <label for="book-name" class="form-label">Tên quy định</label>
+                <input type="text" name="book-name" id="book-name" class="form-input" required>
+            </div>
+
+            <div class="form-row">
+                <label for="author" class="form-label">Nội dung</label>
+                <input type="text" name="author" id="author" class="form-input" required>
+            </div>
+
+            <div class="form-row">
+                <label for="quantity" class="form-label">Loại quy định</label>
+                <select name="typeOfRule" id="rule-type">
+                    <option value="1">Tối đa</option>
+                    <option value="2">Tối thiểu</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="category" class="form-label">Giá trị</label>
+                <input type="text" name="category" id="category" class="form-input" required>
+            </div>
+
+            <div class="form-row">
+                <label for="price" class="form-label">Tình trạng sử dụng</label>
+                <input type="text" name="price" id="price" class="form-input" required>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="createImport__submit">
+        <button class="createImport__submit-btn">Hoàn tất</button>
+    </div>
+</form>

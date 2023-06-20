@@ -1,0 +1,59 @@
+<form action="/account/setting" method="post">
+
+    <div class="main__header">
+        <h2 class="main__title">Chỉnh sửa tài khoản</h2>
+    </div>
+
+    <div class="main__content">
+        <div class="content__body">
+
+            <div class="input__group">
+                <span class="input__label">Tên tài khoản</span>
+                <input name="username" type="text" value="{{user.username}}" readonly>
+            </div>
+
+            <div class="input__group">
+                <span class="input__label">Họ tên</span>
+                <input name="fullname" type="text" value="{{user.fullname}}">
+            </div>
+
+            {{#if error.fullname }}
+            <span class="error-alert"><p>{{error.fullname}}</p></span>
+            {{/if}}
+            
+            <div class="input__group">
+                <span class="input__label">Điện thoại</span>
+                <input name="phone" type="text" value="{{user.phone}}">
+            </div>
+
+            {{#if error.phone }}
+            <span class="error-alert"><p>{{error.phone}}</p></span>
+            {{/if}}
+
+            <div class="input__group">
+                <span class="input__label">Email</span>
+                <input name="email" type="email" value="{{user.email}}">
+            </div>
+
+            {{#if error.email}}
+            <span class="error-alert"><p>{{error.email}}</p></span>
+            {{/if}}
+            
+            <div class="input__group">
+                <span class="input__label">Địa chỉ</span>
+                <input name="address" type="text" value="{{user.address}}">
+            </div>
+
+            <div class="input__group">
+                <span class="input__label">Ghi chú</span>
+                <textarea name="note" id="note"></textarea>
+            </div>
+        </div>
+        <div class="content__footer">
+            <div class="content__btn">
+                <a href="/account/setting" class="btn btn-secondary">Hủy bỏ</a>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</form>

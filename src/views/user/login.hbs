@@ -1,0 +1,69 @@
+<div class="main">
+    <!-- Sing in  Form -->
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="./images/signin_image.jpg" alt="sing in image"></figure>
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Đăng nhập</h2>
+                    <form method="POST" action="/login" class="register-form" id="login-form">
+                        <div class="form-group">
+                            <label for="your_name"><i class="fa-solid fa-user input-icon"></i></label>
+                            <input type="text" name="username" id="usernameRegex" placeholder="Tên đăng nhập"
+                                required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="your_pass"><i class="fa-solid fa-lock input-icon"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Mật khẩu" required />
+                            <label name="eye" for="your_pass"><i class="fa-solid fa-eye-slash"></i></label>
+                        </div>
+
+                        {{#if message}}
+                        <span>
+                            <p style="color:red; font-size:12px">{{message}}</p>
+                        </span>
+                        {{/if}}
+
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng nhập" />
+                        </div>
+
+                        <div class="form-helper">
+                            <a href="#" name="forget-pw" id="forget-pw" class="forget-pw">Quên mật khẩu?</a>
+                        </div>
+
+                        <div class="new-account">
+                            <p class="form-query">Chưa có tài khoản?
+                                <a href="/register" class="signup-now">Đăng ký ngay!</a>
+                            </p>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- JS -->
+<script src="./js/jquery-3.6.1.min.js"></script>
+<script src="./js/validation.js"></script>
+
+<script>
+    $("label[name='eye']").click(() => {
+        var passwordInput = $("input[name='password']");
+        if (passwordInput.prop('type') == 'password') {
+            passwordInput.prop('type', 'text');
+            $("label[name='eye']").html('<i class="fa-solid fa-eye"></i>');
+        }
+        else {
+             passwordInput.prop('type', 'password');
+            $("label[name='eye']").html('<i class="fa-solid fa-eye-slash"></i>');
+
+        }
+    })
+</script>

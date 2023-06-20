@@ -1,0 +1,40 @@
+<div class="modal fade" id="addBookModal">
+    <div class="modal-container">
+        <div class="modal-content">
+            <form action="/import/create/add-book" method="post">
+                <div class="modal-header">
+                    <h2 class="modal-title">Thêm sách</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <label for="book-name" class="form-label">Tên sách</label>
+                        <input type="text" name="book-name" id="book-name" class="form-input" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="author" class="form-label">Tác giả</label>
+                        <input type="text" name="author" id="author" class="form-input" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="category" class="form-label">Thể loại sách</label>
+                        <input type="text" name="category" id="category" class="form-input" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="quantity" class="form-label">Số lượng</label>
+                        <input type="text" name="quantity" id="quantity" class="form-input" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="price" class="form-label">Đơn giá</label>
+                        <input type="text" name="price" id="price" class="form-input" required>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="ok-btn" class="btn btn-primary">Hoàn tất</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
