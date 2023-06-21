@@ -1,157 +1,195 @@
-<form action="/invoice/create" method="post">
+<form id="invoice-form" method="post">
     <div class="main__header">
         <a href="/invoice" class="main__header-btn">
             <i class="fa-solid fa-angle-left"></i>
             Trở về
         </a>
-        <h2 class="main__title">Cập nhật hóa đơn bán sách</h2>
+        <h2 class="main__title">Hóa đơn bán sách</h2>
     </div>
 
-    <h4>Thông tin khách hàng</h4>
 
-    <div class="createInvoice__user-infor">
-        <div class="createInvoice__user-id">
-            <label for="user-id">Mã khách hàng: </label>
-            <input type="text" name="user-id" id="createInvoice__user-id" class="border-input">
+    <div class="form-content">
+
+        <div class="customer-info">
+            <div class="header-info">
+                <h4>Thông tin khách hàng</h4>
+            </div>
+
+            <div class="createInvoice__customer-infor ">
+                <div class="input-group">
+                    <label for="customer-name">Họ tên</label>
+                    <input type="text" name="customer-name" class="border-input">
+                </div>
+
+                <div class="input-group">
+                    <label for="customer-phone">Số điện thoại </label>
+                    <input type="text" name="customer-phone" class="border-input">
+                </div>
+
+                <div class="input-group">
+                    <label for="customer-email">Email </label>
+                    <input type="email" name="customer-email" class="border-input">
+                </div>
+
+                <div class="input-group">
+                    <label for="customer-address">Địa chỉ </label>
+                    <input type="email" name="customer-address" class="border-input">
+                </div>
+            </div>
+
         </div>
-        <div class="createInvoice__user-name">
-            <label for="user-name">Họ tên: </label>
-            <input type="text" name="user-name" id="createInvoice__user-name" class="border-input">
+
+        <div class="invoice-content">
+            <div class="createImport__menu">
+                <div class="createImport__menu-id">ID:
+                    <h6 name="importID">HOADON03</h6>
+                </div>
+
+                <div class="createImport__menu-date">
+                    <div class="d-inline">Ngày lập:</div>
+                    <input type="date" name="importDate">
+                </div>
+                <ul class="createImport__menu-btns">
+                    <li><button name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
+                            sách</button></li>
+                    <li><button name="removeBook" class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
+                            sách</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main__content">
+                <div class="table-fixed table-large table-responsive rounded">
+                    <table class="table table-striped table-hover table-bordered ">
+                        <thead>
+                            <tr>
+                                <th scope="col"><i class="fa-regular fa-square"></i></th>
+                                <th scope="col" width="10%">STT</th>
+                                <th scope="col" width="20%">Tên sách</th>
+                                <th scope="col" width="20%">Thể loại</th>
+                                <th scope="col">Tác giả</th>
+                                <th scope="col" width="10%">Số lượng</th>
+                                <th scope="col" width="15%">Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-center">
+                                    <input type="checkbox">
+                                </th>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">
+                                    <input type="checkbox">
+                                </th>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">
+                                    <input type="checkbox">
+                                </th>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">
+                                    <input type="checkbox">
+                                </th>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row" class="text-center">
+                                    <input type="checkbox">
+                                </th>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row" class="text-center">
+                                    <input type="checkbox">
+                                </th>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="createImport__info">
+                <div class="createImport__info-count">
+                    <h6>Tổng số: <span>50</span> sách</h6>
+                </div>
+                <div class="createImport__info-cost">
+                    <h6>Thành tiền: <span>500000</span> (VND)</h6>
+                </div>
+            </div>
+
+            <div class="createImport__submit">
+                <button class="createImport__submit-btn btn-grey" form="invoice-form" formaction="/invoice/debt">Ghi
+                    nợ</button>
+                <button class="createImport__submit-btn" form="invoice-form" formaction="/invoice/update">Thanh
+                    toán</button>
+            </div>
+
         </div>
     </div>
 
-    <div class="createImport__menu">
-        <div class="createImport__menu-id">ID:
-            <h6 name="importID">HOADON03</h6>
-        </div>
 
-        <div class="createImport__menu-date">
-            <div class="d-inline">Ngày lập</div>
-            <input type="date" name="importDate">
-        </div>
-        <ul class="createImport__menu-btns">
-            <li><button name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
-                    sách</button></li>
-            <li><button name="removeBook" class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
-                    sách</button>
-            </li>
-        </ul>
-    </div>
-
-    <div class="main__content">
-        <div class="table-fixed table-medium table-responsive rounded">
-            <table class="table table-striped table-hover table-bordered ">
-                <thead>
-                    <tr>
-                        <th scope="col"><i class="fa-regular fa-square"></i></th>
-                        <th scope="col" width="10%">STT</th>
-                        <th scope="col" width="20%">Tên sách</th>
-                        <th scope="col" width="20%">Thể loại</th>
-                        <th scope="col">Tác giả</th>
-                        <th scope="col" width="10%">Số lượng</th>
-                        <th scope="col" width="15%">Đơn giá</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="createImport__submit">
-        <button class="createImport__submit-btn">Hoàn tất</button>
-    </div>
 </form>
 
+{{!-- --}}
 
-<script src="/js/jquery-3.6.1.min.js"></script>
+{{> modals/list_book}}
 
 {{!-- add book modal --}}
-{{> modals/add_book}}
 
-
+<script src="/js/jquery-3.6.1.min.js"></script>
 <script>
 
-    // show and hide add book modal
-    var addBookModal =  $("#addBookModal");
+    // show and hide list book modal
+    var listBookModal = $("#listBookModal");
 
     $("button[name='addBook']").click((e) => {
         e.preventDefault();
-        addBookModal.addClass('show');
+        listBookModal.addClass('show');
     })
 
     $(".btn-close").click((e) => {
         e.preventDefault();
-        addBookModal.removeClass('show');
+        listBookModal.removeClass('show');
     })
 
 </script>

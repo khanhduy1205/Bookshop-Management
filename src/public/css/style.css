@@ -35,14 +35,36 @@ body {
     border: 1px solid #bfbfbf;
 }
 
+.table-extra-large {
+    height: 400px !important;
+    max-height: 400px !important;
+}
+
 .table-large {
-    height: 320px;
-    max-height: 320px;
+    height: 320px !important;
+    max-height: 320px !important;
 }
 
 .table-medium {
-    height: 250px;
-    max-height: 250px;
+    height: 250px !important;
+    max-height: 250px !important;
+}
+
+.btn-grey {
+    background-color: #6c757d !important;
+}
+
+.btn-grey:hover {
+    background-color: #5c636a !important;
+}
+
+.row-info {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.row-info+.row-info {
+    margin-top: 12px;
 }
 
 /* header ----------------------------------------------------------------- */
@@ -274,6 +296,11 @@ body {
 thead {
     background: #0066C3;
     color: white;
+    word-wrap: break-word;
+}
+
+thead tr {
+    text-align: center;
 }
 
 nav {
@@ -353,18 +380,25 @@ nav {
     justify-content: space-between;
 }
 
-.createImport__menu-btns button {
+.createImport__menu-btns button,
+.createImport__menu-btns a {
     border: none;
     background: none;
+    text-decoration: none;
+    color: inherit;
 }
 
+.createImport__menu-btns li:first-child a:hover,
 .createImport__menu-btns li:first-child button:hover {
     color: #198754;
 }
 
+.createImport__menu-btns li:last-child a:hover,
 .createImport__menu-btns li:last-child button:hover {
     color: #dc3545;
 }
+
+
 
 .createImport__info {
     font-family: var(--font-inter);
@@ -387,12 +421,17 @@ nav {
 
 .createImport__submit-btn {
     font-family: var(--font-inter);
-    margin-bottom: 12px;
+    margin: 0 0 12px 12px;
+    /* margin-bottom: 1; */
     border: none;
     border-radius: 10px;
-    background: var(--primary-color);
+    background: #2b69b5;
     color: white;
     padding: 12px 16px;
+}
+
+.createImport__submit-btn:hover {
+    background-color: #255DA1;
 }
 
 /* Add book */
@@ -401,15 +440,14 @@ nav {
     margin-left: 50%;
     transform: translateX(-50%);
 
-    font-family: var(--font-inter);  
+    font-family: var(--font-inter);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* overflow: scroll; */
 }
 
 .form-row {
-    margin-bottom: 12px;  
+    margin-bottom: 12px;
 }
 
 .form-label {
@@ -421,6 +459,10 @@ nav {
 .form-input {
     padding: 5px;
     border-radius: 5px;
+    width: 500px;
+}
+
+.form-input-selection {
     width: 500px;
 }
 
@@ -437,9 +479,11 @@ nav {
     display: flex;
     justify-content: space-around;
 }
+
 .form-row.short input {
     width: 200px;
 }
+
 .form-row.short .date {
     margin-left: 25%;
 }
@@ -449,26 +493,59 @@ nav {
 }
 
 /* invoice page ----------------------------------------------------------------- */
-.createInvoice__user-infor {
-    margin: 12px 50px;
+
+.form-content {
     display: flex;
+    width: 100%;
+}
+
+.customer-info {
+    text-align: center;
+    width: 25%;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 5px;
+    border: 2px solid #bfbfbf;
+    height: fit-content;
+}
+
+.customer-info .header-info {
+    border-bottom: 1px solid #bfbfbf;
+    padding: 4px 0;
+}
+
+/* .customer-info h4 {
+    margin-top: 24px;
+} */
+
+.invoice-content {
+    width: 75%;
+    margin-left: 16px;
+
+}
+
+.input-group input {
+    border-radius: 5px !important;
+    margin: 8px 0;
+    padding: 8px;
+    /* background-color: #e7e7e7ff; */
+    border-radius: 5px;
+    width: 100%;
+}
+
+
+.createInvoice__customer-infor {
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     font-family: var(--font-inter);
 }
 
-.createInvoice__user-infor input {
-    margin-left: 10px;
-    border-radius: 5px;
-    padding: 4px;
+.book-amount {
+    width: 50px;
 }
 
-.createInvoice__user-id input {
-    width: 100px;
-}
-
-.createInvoice__user-name {
-    margin-left: 50px;
-}
 /* bill page ----------------------------------------------------------------- */
 
 .add__bill-btn i {
@@ -526,7 +603,7 @@ nav {
 
 /* Rule page ----------------------------------------------------------------- */
 .rule__menu {
-    text-align: end;    
+    text-align: end;
     font-family: var(--font-inter);
     margin-bottom: 12px;
 }
@@ -600,7 +677,7 @@ nav {
 }
 
 .input__group #note {
-    height: 50   px;
+    height: 50 px;
 }
 
 .content__footer {
@@ -626,6 +703,7 @@ nav {
 .table-fixed {
     overflow-y: auto;
     max-height: 320px;
+    width: 100%;
     min-width: max-content;
     border-collapse: separate;
 }
@@ -634,6 +712,7 @@ nav {
     position: sticky;
     top: 0px;
     background-color: #0066C3;
+    white-space: nowrap;
 }
 
 .modal .table-fixed {
@@ -644,6 +723,8 @@ nav {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+
+
 .modal-container {
     margin: 32px;
     display: flex;
@@ -653,6 +734,10 @@ nav {
 
 .modal-content {
     width: 600px;
+}
+
+.modal-extra-lg {
+    width: 1140px !important;
 }
 
 .modal-title {
@@ -668,7 +753,8 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;
+    /* width: fit-content;*/
+    width: 100%;
     margin: auto;
 }
 

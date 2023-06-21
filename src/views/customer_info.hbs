@@ -1,0 +1,32 @@
+<form id="customer-form" class="" method="post">
+    <div class="main__header">
+        <a href="/invoice" class="main__header-btn">
+            <i class="fa-solid fa-angle-left"></i>
+            Trở về
+        </a>
+        <h2 class="main__title">Thông tin khách hàng</h2>
+    </div>
+    <div class="modal-body">
+        <div class="form-row">
+            <label for="fullname" class="form-label">Họ tên khách hàng</label>
+            <input type="text" name="fullname" id="fullname" class="form-input" value="" required>
+        </div>
+        <div class="form-row">
+            <label for="addr" class="form-label">Địa chỉ</label>
+            <input type="text" name="addr" id="addr" class="form-input" value="" required>
+        </div>
+        <div class="form-row">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-input" value="" required>
+        </div>
+        <div class="form-row">
+            <label for="phone" class="form-label">Điện thoại</label>
+            <input type="text" name="phone" id="phone" class="form-input" value="" required>
+        </div>
+    </div>
+
+    <div class="createImport__submit">
+        <button class="createImport__submit-btn" form="invoice-form" formaction="/invoice/create">Tiếp tục</button>
+    </div>
+
+</form>

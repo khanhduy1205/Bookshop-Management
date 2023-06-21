@@ -55,6 +55,9 @@ router.get('/invoice/update', bookshopManager.getInvoiceUpdate);
 
 router.post('/invoice/update', bookshopManager.postInvoiceUpdate);
 
+router.get('/invoice/add-book-to-invoice', bookshopManager.getAddBookToInvoice);
+
+router.post('/invoice/add-book-to-invoice', bookshopManager.postAddBookToInvoice);
 // ---------------------------------------------
 router.get('/bill', bookshopManager.getBills);
 

@@ -127,6 +127,8 @@ exports.getInvoices = async (req, res, next) => {
     });
 };
 
+
+
 exports.getInvoiceCreate = async (req, res, next) => {
 
     res.render('create_invoice', {
@@ -154,6 +156,18 @@ exports.getInvoiceUpdate = async (req, res, next) => {
 exports.postInvoiceUpdate = async (req, res, next) => {
     
     res.redirect('/invoice');
+}
+
+exports.getAddBookToInvoice = async (req, res, next) => {
+
+    res.render('list_book', {
+        active: { invoice: true }
+    })
+}
+
+exports.postAddBookToInvoice = async (req, res, next) => {
+
+    res.redirect('/invoice/create');
 }
 
 
