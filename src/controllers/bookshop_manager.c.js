@@ -171,17 +171,22 @@ exports.postAddBookToInvoice = async (req, res, next) => {
 }
 
 
-exports.getBills = async (req, res, next) => {
+exports.getReceipts = async (req, res, next) => {
     var page = parseInt(req.query.page) || 1;
 
-    res.render('bill', {
-        active: { bill: true },
+    res.render('receipt', {
+        active: { receipt: true },
         helpers,
         total: 20,
         page: page,
         // user: req.session.passport.user
     });
 };
+
+exports.postReceiptCreate = async (req, res, next) => {
+
+    res.redirect('/receipt');
+}
 
 exports.getReports = async (req, res, next) => {
     var page = parseInt(req.query.page) || 1;
@@ -195,11 +200,11 @@ exports.getReports = async (req, res, next) => {
     });
 };
 
-exports.getRules = async (req, res, next) => {
+exports.getRegulations = async (req, res, next) => {
     var page = parseInt(req.query.page) || 1;
 
-    res.render('rule', {
-        active: { rule: true },
+    res.render('regulation', {
+        active: { regulation: true },
         helpers,
         total: 20,
         page: page,
@@ -207,16 +212,16 @@ exports.getRules = async (req, res, next) => {
     });
 };
 
-exports.getRuleUpdate = async (req, res, next) => {
+exports.getRegulationUpdate = async (req, res, next) => {
 
-    res.render('update_rule', {
-        active: { rule: true }
+    res.render('update_regulation', {
+        active: { regulation: true }
     });
 }
 
-exports.postRuleUpdate = async (req, res, next) => {
+exports.postRegulationUpdate = async (req, res, next) => {
 
-   res.redirect('/rule');
+   res.redirect('/regulation');
 }
 
 

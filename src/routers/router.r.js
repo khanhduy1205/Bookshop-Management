@@ -59,17 +59,18 @@ router.get('/invoice/add-book-to-invoice', bookshopManager.getAddBookToInvoice);
 
 router.post('/invoice/add-book-to-invoice', bookshopManager.postAddBookToInvoice);
 // ---------------------------------------------
-router.get('/bill', bookshopManager.getBills);
+router.get('/receipt', bookshopManager.getReceipts);
 
+router.post('/receipt/create', bookshopManager.postReceiptCreate);
 // ---------------------------------------------
 router.get('/report', bookshopManager.getReports);
 
 // ---------------------------------------------
-router.get('/rule', bookshopManager.getRules);
+router.get('/regulation', bookshopManager.getRegulations);
 
-router.get('/rule/update', bookshopManager.getRuleUpdate);
+router.get('/regulation/update', bookshopManager.getRegulationUpdate);
 
-router.post('/rule/update', bookshopManager.postRuleUpdate);
+router.post('/regulation/update', bookshopManager.postRegulationUpdate);
 
 
 module.exports = router;
