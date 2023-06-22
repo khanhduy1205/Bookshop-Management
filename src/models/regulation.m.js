@@ -4,7 +4,7 @@ const pgp = require('pg-promise')(initOption);
 const cn = {
     host: 'localhost',
     port: '5432',
-    database: 'Bookstore',
+    database: 'Bookshop',
     user: 'postgres',
     password: '20120275'
 };
@@ -17,8 +17,8 @@ module.exports = {
         return result;
     },
     add: async regulation => {
-        const result = await db.one('INSERT INTO "Regulations"("regulationID", "regulationName", "content", "status") VALUES($1, $2, $3, $4) RETURNING *',
-            [regulation.regulationID, regulation.regulationName, regulation.content, regulation.status]);
+        const result = await db.one('INSERT INTO "Regulations"("regulationID", "regulationName", "content", "status", "type", "value") VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+            [regulation.regulationID, regulation.regulationName, regulation.content, regulation.status, regulation.type, regulation.status]);
         return result;
     },
     byID: async regulationID => {
@@ -27,8 +27,8 @@ module.exports = {
         return result;
     },
     editRegulation: async regulation => {
-        const result = await db.none('UPDATE "Regulations" SET "regulationName"=$1, "content"=$2, "status"=$3 WHERE "regulationID"=$4',
-            [regulation.regulationName, regulation.content, regulation.status, regulation.regulationID]);
+        const result = await db.none('UPDATE "Regulations" SET "regulationName"=$1, "content"=$2, "status"=$3, "type"=$4, "value"=$5 WHERE "regulationID"=$6',
+            [regulation.regulationName, regulation.content, regulation.status, regulation.regulationID, regulation.type, regulation.status]);
         return result;
     },
     deleteRegulationByID: async (id) => {

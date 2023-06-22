@@ -1,10 +1,40 @@
 
 const userM = require('../models/user.m');
+const booksM = require('../models/bookshop.m')
 const passport = require('passport');
 const CryptoJS = require('crypto-js');
 const helpers = require('../helpers/helpers');
 
 const hashLength = 64;
+
+exports.getAllBooks = async (req, res, next) => {
+    try {
+        const allBooks = await booksM.getAllBooksFromJSON();
+        const listBook = Object.keys(allBooks);
+
+        for (var i = 0; i < listBook.length; i++) {
+            let bookID = i;
+            let bookname = allBooks[listBook[i]].title;
+            let category = allBooks[listBook[i]].category;
+            let author = allBooks[listBook[i]].authors;
+            let quantity = allBooks[listBook[i]].quantity;
+            let price = allBooks[listBook[i]].original_price;
+
+            let book = {
+                bookID,
+                bookname,
+                category,
+                author,
+                quantity,
+                price
+            };
+            const bookNew = await booksM.addBookToDB(book);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 exports.getHome = async (req, res, next) => {
 
@@ -13,6 +43,8 @@ exports.getHome = async (req, res, next) => {
         // if (!req.isAuthenticated()) {
         //     return res.redirect('/login');
         // }
+
+        const books = await this.getAllBooks(req, res, next);
 
         res.render('home', {
             active: { home: true },
