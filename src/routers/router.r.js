@@ -30,6 +30,7 @@ router.get('/', bookshopManager.getHome);
 
 // ---------------------------------------------
 router.get('/search', bookshopManager.getSearch);
+router.post('/search', bookshopManager.postSearch);
 
 // ---------------------------------------------
 router.get('/import', bookshopManager.getImports);

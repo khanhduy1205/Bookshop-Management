@@ -13,7 +13,7 @@ exports.getAllBooks = async (req, res, next) => {
         const allBooks = await booksM.getAllBooksFromJSON();
         const listBook = Object.keys(allBooks);
 
-        for (var i = 0; i < listBook.length; i++) {
+        for (var i = 0; i < 50; i++) {
             let bookID = i;
             let bookname = allBooks[listBook[i]].title;
             let category = allBooks[listBook[i]].category;
@@ -44,7 +44,10 @@ exports.getHome = async (req, res, next) => {
         //     return res.redirect('/login');
         // }
 
-        const books = await this.getAllBooks(req, res, next);
+        const books = await booksM.getAll();
+        if (!books || !books?.length) {
+            const books = await this.getAllBooks(req, res, next);
+        }
 
         res.render('home', {
             active: { home: true },
@@ -67,11 +70,47 @@ exports.getSearch = async (req, res, next) => {
 
     var page = parseInt(req.query.page) || 1;
 
+    const books = await booksM.getAll();
+
     res.render('search', {
         active: { search: true },
         helpers,
         total: 20,
         page: page,
+        books
+        // user: req.session.passport.user
+    });
+};
+
+exports.postSearch = async (req, res, next) => {
+
+    // if (!req.isAuthenticated()) {
+    //     return res.redirect('/');
+    // }
+
+    var page = parseInt(req.query.page) || 1;
+        
+    let { search } = req.body;
+    search = search.toLowerCase();
+
+    let books = [];
+
+    const allBooks = await booksM.getAll();
+    
+    for(var i = 0; i < allBooks.length; i++){
+        let bookname = allBooks[i].bookname.toLowerCase();
+        let category = allBooks[i].category.toLowerCase();
+        if(bookname.includes(search) || category.includes(search)){
+            books.push(allBooks[i]);
+        }
+    }
+
+    res.render('search', {
+        active: { search: true },
+        helpers,
+        total: 20,
+        page: page,
+        books
         // user: req.session.passport.user
     });
 };
