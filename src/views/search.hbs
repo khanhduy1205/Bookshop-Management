@@ -1,85 +1,39 @@
 <h2 class="main__title">Thư viện sách</h2>
 
-<div class="main__searchBar">
-    <input type="text" class="searchBar__input" placeholder="Tìm kiếm" id="" name="">
-    <button class="searchBar__btn">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-</div>
+<form action="/search" method="post">
+    <div class="main__searchBar">
+        <input type="text" class="searchBar__input" placeholder="Tìm kiếm" id="search" name="search">
+        <button class="searchBar__btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+    </div>
+</form>
 
 <div class="main__content border-0">
     <div class="table-responsive rounded">
-        <table class="table table-striped table-hover m-0">
+        <table class="table table-striped table-hover table-bordered text-start m-0">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Tác giả</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Tên sách</th>
+                    <th scope="col">Tác giả</th>
                     <th scope="col">Thể loại</th>
                     <th scope="col">Số lượng</th>
                     <th scope="col">Đơn giá</th>
                 </tr>
             </thead>
             <tbody>
+                {{#each books}}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{this.bookID}}</th>
+                    <td>{{this.bookname}}</td>
+                    <td>{{this.author}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.price}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-            </tbody>
+                {{/each}}
         </table>
     </div>
 </div>

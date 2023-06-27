@@ -7,7 +7,7 @@
                 </a>
             </li>
 
-            {{#each (getNumberOfPage total)}}
+            {{#each (getNumberOfPage total perPage)}}
             <li class="page-item {{#if (isEqual ../page (sum this 1)) }} active {{/if}}">
                 <a class="page-link" href="?page={{sum this 1}}">
                     {{sum this 1}}
@@ -15,7 +15,7 @@
             </li>
             {{/each}}
             <li class="page-item">
-                <a class="page-link" href="?page={{nextPage page total}}" aria-label="Next">
+                <a class="page-link" href="?page={{nextPage page total perPage}}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

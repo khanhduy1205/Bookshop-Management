@@ -4,6 +4,7 @@ const bookshopManager = require('../controllers/bookshop_manager.c');
 const { check } = require('express-validator');
 const accountManager = require('../controllers/account_manager.c');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
 
 
@@ -28,8 +29,13 @@ router.post('/account/password', accountManager.postPasswordChanging);
 // ----------------------------------------------
 router.get('/', bookshopManager.getHome);
 
+// ----------------------------------------------
+router.get('/customer', bookshopManager.getCustomer);
+
 // ---------------------------------------------
 router.get('/search', bookshopManager.getSearch);
+
+router.post('/search', bookshopManager.postSearch);
 
 // ---------------------------------------------
 router.get('/import', bookshopManager.getImports);
@@ -58,10 +64,18 @@ router.post('/invoice/update', bookshopManager.postInvoiceUpdate);
 router.get('/invoice/add-book-to-invoice', bookshopManager.getAddBookToInvoice);
 
 router.post('/invoice/add-book-to-invoice', bookshopManager.postAddBookToInvoice);
+
 // ---------------------------------------------
 router.get('/receipt', bookshopManager.getReceipts);
 
 router.post('/receipt/create', bookshopManager.postReceiptCreate);
+
+router.post('/receipt/update', bookshopManager.postReceiptUpdate);
+
+router.post('/receipt/delete', bookshopManager.postReceiptDelete);
+
+router.get('/debt', bookshopManager.getDebtList);
+
 // ---------------------------------------------
 router.get('/report', bookshopManager.getReports);
 

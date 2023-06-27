@@ -9,7 +9,7 @@
 
                 <div class="modal-body">
                     <div class="table-fixed table-extra-large table-responsive rounded">
-                        <table class="table table-striped table-hover table-bordered ">
+                        <table class="table table-striped table-hover text-start table-bordered ">
                             <thead>
                                 <tr>
                                     <th scope="col" width="30%">Tên sách</th>
@@ -21,63 +21,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
-                                    <td><input type="number" name="book-amount" class="book-amount" min="0"></td>
-
+                                {{#each books}}
+                                <tr id="addbook-row-{{this.bookID}}">
+                                    <td name="addbook-name">{{this.bookname}}</td>
+                                    <td name="addbook-category">{{this.category}}</td>
+                                    <td name="addbook-author">{{this.author}}</td>
+                                    <td name="addbook-price">{{this.price}}</td>
+                                    <td name="addbook-stock">{{this.quantity}}</td>
+                                    <td><input type="number" name="{{this.bookID}}" class="book-quantity" min="0" value="0"></td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
-                                    <td><input type="number" name="book-amount" class="book-amount" min="0"></td>
-
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
-                                    <td><input type="number" name="book-amount" class="book-amount" min="0"></td>
-
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
-                                    <td><input type="number" name="book-amount" class="book-amount" min="0"></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
-                                    <td><input type="number" name="book-amount" class="book-amount" min="0"></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
-                                    <td><input type="number" name="book-amount" class="book-amount" min="0"></td>
-
-                                </tr>
-
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>
@@ -90,3 +43,63 @@
         </div>
     </div>
 </div>
+
+<!-- notificaiton modal -->
+<div class="modal fade" id="notificationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="notificationModalLabel">Thông báo</h1>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancel-btn" class="btn btn-outline-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+<script>
+
+    $(window).ready( (e) => {
+ // hide notification
+        $('#notificationModal #cancel-btn').on('click', () => {
+            $('#notificationModal').removeClass('show');
+        })
+
+        $('#notificationModal #cancel-btn').on('click', () => {
+            $('#notificationModal').removeClass('show');
+        })
+
+        $('input[type="number"]').change((e) => {
+
+            const id = Number($(e.target).attr('name'));
+            const quantity = Number($(e.target).val());
+            const inStock = Number($('#addbook-row-' + id + ' > td[name="addbook-stock"]').text());
+            const bookname = $('#addbook-row-' + id + ' > td[name="addbook-name"]').text();
+            
+            if (quantity < 0) {
+                e.target.value = 0;
+            }
+            else if (quantity > inStock) {
+
+                $('#notificationModal').addClass('show');
+                $('#notificationModal .modal-body').html(`
+                    <div class="alert alert-warning" role="alert">
+                        Số lượng tựa sách <b>${bookname}</b> không đủ cung cấp. Vui lòng nhập số lượng ít hơn lượng tồn. 
+                    </div>
+                `)
+            } 
+        })
+
+        // kiểm tra lượng tồn
+
+
+    
+    })
+    
+</script>

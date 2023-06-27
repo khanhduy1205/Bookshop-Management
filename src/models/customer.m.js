@@ -16,6 +16,10 @@ module.exports = {
         const result = await db.any('SELECT * FROM "Customers"');
         return result;
     },
+    getListByDebt: async () => {
+        const result = await db.any('SELECT * FROM "Customers" WHERE "unpaidAmount" > 0');
+        return result;
+    },
     add: async customer => {
         const result = await db.one('INSERT INTO "Customers"("customerID", fullname, address, email, phone, unpaidAmount) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
             [customer.customerID, customer.fullname, customer.address, customer.email, customer.phone, customer.unpaidAmount]);

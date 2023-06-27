@@ -59,5 +59,10 @@ module.exports = {
         const result = await db.none('DELETE FROM "Books" WHERE "bookID"=$1',
             [bookID]);
         return result;
+    },
+    updateQuantity: async (bookID, quantity) => {
+        const rs = await db.none('UPDATE "Books" SET "quantity"=$2 WHERE "bookID"=$1',
+            [bookID, quantity]);
+        return rs;
     }
 }

@@ -299,8 +299,16 @@ thead {
     word-wrap: break-word;
 }
 
-thead tr {
-    text-align: center;
+table td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#listBookModal table td {
+    max-width: 200px;
+
 }
 
 nav {
@@ -332,15 +340,18 @@ nav {
     color: inherit;
 }
 
-.import__menu-btns li:first-child a:hover {
+.import__menu-btns li:first-child a:hover,
+.import__menu-btns li:first-child button:hover {
     color: #198754;
 }
 
-.import__menu-btns li a:hover {
+.import__menu-btns li a:hover,
+.import__menu-btns li button:hover  {
     color: #0d6efd;
 }
 
-.import__menu-btns li:last-child a:hover {
+.import__menu-btns li:last-child a:hover,
+.import__menu-btns li:last-child button:hover {
     color: #dc3545;
 }
 
@@ -542,7 +553,7 @@ nav {
     font-family: var(--font-inter);
 }
 
-.book-amount {
+.book-quantity {
     width: 50px;
 }
 
@@ -551,6 +562,8 @@ nav {
 .add__bill-btn i {
     font-size: 25px;
 }
+
+
 
 /* report page ----------------------------------------------------------------- */
 .report__menu {
@@ -724,7 +737,6 @@ nav {
 }
 
 
-
 .modal-container {
     margin: 32px;
     display: flex;
@@ -760,4 +772,17 @@ nav {
 
 .show {
     display: block;
+}
+
+.modal .alert {
+    margin: 0;
+    width: 100%;
+}
+.modal .alert .bi {
+    text-align: center;
+    font-size: 18px;
+    line-height: 30px;
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 16px !important;
 }

@@ -16,6 +16,10 @@ module.exports = {
         const result = await db.any('SELECT * FROM "Receipts"');
         return result;
     },
+    getReceiptJoinCustomer: async () => {
+        const result = await db.any('SELECT * FROM "Receipts" INNER JOIN "Customers" ON "Receipts"."customerID" = "Customers"."customerID"');
+        return result;
+    },
     add: async receipt => {
         const result = await db.one('INSERT INTO "Receipts"("receiptID", "customerID", "amountPaid", "paymentDate") VALUES($1, $2, $3, $4) RETURNING *',
             [receipt.receiptID, receipt.customerID, receipt.amountPaid, receipt.paymentDate]);

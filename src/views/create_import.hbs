@@ -11,12 +11,12 @@
 
     <div class="createImport__menu">
         <div class="createImport__menu-id">ID:
-            <h6 name="importID">PHIEUNHAP03</h6>
+            <h6 name="importID">PHIEUNHAP{{importID}}</h6>
         </div>
 
         <div class="createImport__menu-date">
             <div class="d-inline">Ngày lập</div>
-            <input type="date" name="importDate">
+            <input type="date" name="importDate" id="importDate" placeholder="" value="">
         </div>
         <ul class="createImport__menu-btns">
             <li><button name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
@@ -33,8 +33,7 @@
                 <thead>
                     <tr>
                         <th scope="col"><i class="fa-regular fa-square"></i></th>
-                        <th scope="col">STT</th>
-                        <th scope="col" width="20%">Tên sách</th>
+                        <th scope="col" width="30%">Tên sách</th>
                         <th scope="col" width="15%">Thể loại</th>
                         <th scope="col" width="20%">Tác giả</th>
                         <th scope="col" width="15%">Số lượng</th>
@@ -42,94 +41,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row" class="text-center">
+                   {{#each listBooks}}
+                    <tr id="row-id-{{@index}}">
+                        <th name="checkbox" scope="row" class="text-center">
                             <input type="checkbox">
                         </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
+                        <td name="bookname">{{this.bookname}}</td>
+                        <td name="category">{{this.category}}</td>
+                        <td name="author">{{this.author}}</td>
+                        <td name="quantity">{{this.quantity}}</td>
+                        <td name="price">{{this.price}}</td>
                     </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
@@ -137,10 +60,10 @@
 
     <div class="createImport__info">
         <div class="createImport__info-count">
-            <h6>Tổng số: <span>50</span> sách</h6>
+            <h6>Tổng số: <span name="totalBooks"></span>(sách)</h6>
         </div>
         <div class="createImport__info-cost">
-            <h6>Thành tiền: <span>500000</span> (VND)</h6>
+            <h6>Thành tiền: <span name="totalMoney"></span> (VND)</h6>
         </div>
     </div>
     <div class="createImport__submit">
@@ -169,4 +92,6 @@
         addBookModal.removeClass('show');
     })
 
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById("importDate").value = today;
 </script>
