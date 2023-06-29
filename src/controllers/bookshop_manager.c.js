@@ -1,10 +1,12 @@
 
 const userM = require('../models/user.m');
 const booksM = require('../models/bookshop.m');
+const importsM = require('../models/import.m');
 
 const passport = require('passport');
 const CryptoJS = require('crypto-js');
 const helpers = require('../helpers/helpers');
+var moment = require('moment');
 
 const hashLength = 64;
 
@@ -89,18 +91,18 @@ exports.postSearch = async (req, res, next) => {
     // }
 
     var page = parseInt(req.query.page) || 1;
-        
+
     let { search } = req.body;
     search = search.toLowerCase();
 
     let books = [];
 
     const allBooks = await booksM.getAll();
-    
-    for(var i = 0; i < allBooks.length; i++){
+
+    for (var i = 0; i < allBooks.length; i++) {
         let bookname = allBooks[i].bookname.toLowerCase();
         let category = allBooks[i].category.toLowerCase();
-        if(bookname.includes(search) || category.includes(search)){
+        if (bookname.includes(search) || category.includes(search)) {
             books.push(allBooks[i]);
         }
     }
@@ -115,6 +117,9 @@ exports.postSearch = async (req, res, next) => {
     });
 };
 
+let listBooks = [];
+
+//trang lập phiếu thu
 exports.getImports = async (req, res, next) => {
 
     var page = parseInt(req.query.page) || 1;
@@ -122,52 +127,140 @@ exports.getImports = async (req, res, next) => {
     // var start = (page - 1) * perPage;
     // var next = (page - 1) * perPage + perPage;
 
+    const imports = await importsM.getAllImports();
+
     res.render('all_imports', {
         active: { import: true },
         helpers,
         total: 20,
         page: page,
+        imports
         // user: req.session.passport.user
     });
 };
 
-
-
+//bấm button thêm sách
 exports.getImportCreate = async (req, res, next) => {
 
     var page = parseInt(req.query.page) || 1;
+
+    const imports = await importsM.getAllImports();
+    let importID = 0;
+    if (imports && imports?.length) {
+        importID = imports.length;
+    }
 
     res.render('create_import', {
         active: { import: true },
         helpers,
         total: 20,
         page: page,
+        importID
     });
 }
 
+//bấm nút hoàn tất
 exports.postImportCreate = async (req, res, next) => {
     // add new import to import list
+    const { importDate } = req.body;
 
-    res.redirect('/import');
+    const imports = await importsM.getAllImports();
+    let importID = 0;
+    if (imports && imports?.length) {
+        importID = imports.length;
+    }
+
+    let imp = {
+        importID,
+        importDate
+    };
+    const newImport = await importsM.add(imp);
+
+    for (var i = 0; i < listBooks.length; i++) {
+        const books = await booksM.getAll();
+        let bookID = books[books.length - 1].bookID + 1;
+
+        const importDetails = await importsM.getAllImportDetails();
+        let importDetailID = 0;
+        if (importDetails && importDetails?.length) {
+            importDetailID = importDetails[importDetails.length - 1].importDetailID + 1;
+        }
+
+        const book = books.find(b => (b.bookname == listBooks[i].bookname) &&
+            (b.author == listBooks[i].author) &&
+            (b.category == listBooks[i].category) &&
+            (b.price == listBooks[i].price));
+        if (book) {
+            bookID = book.bookID;
+            const newQuantity = parseInt(listBooks[i].quantity) + book.quantity;
+            const updateBook = await booksM.updateQuantity(bookID, newQuantity);
+        }
+        else {
+            let bookname = listBooks[i].bookname;
+            let category = listBooks[i].category;
+            let author = listBooks[i].author;
+            let quantity = listBooks[i].quantity;
+            let price = listBooks[i].price;
+
+            let newBook = {
+                bookID,
+                bookname,
+                category,
+                author,
+                quantity,
+                price
+            };
+            const bookNew = await booksM.addBookToDB(newBook);
+        }
+
+        let temp = {
+            importDetailID,
+            bookID,
+            importID,
+            bookname: listBooks[i].bookname,
+            quantity: listBooks[i].quantity
+        };
+        const newImportDetail = await importsM.addImportDetails(temp);
+    }
+    // listBooks = [];    
+    listBooks.splice(0, listBooks.length);
+
+    return res.redirect('/import');
 }
 
-exports.postCreateImport = async (req, res, next) => {
-
-    var page = parseInt(req.query.page) || 1;
-
-    res.render('all_import', {
-        active: { import: true },
-        helpers,
-        total: 20,
-        page: page,
-    })
-}
-
+//modal
 exports.postImportAddBook = async (req, res, next) => {
-
     // add book to import note
+    const { bookname, author, category, quantity, price } = req.body;
 
-    res.redirect('/import/create');
+    const addBook = { bookname, author, category, quantity, price };
+    listBooks.push(addBook);
+
+    const imports = await importsM.getAllImports();
+    let importID = 0;
+    if (imports && imports?.length) {
+        importID = imports.length;
+    }
+
+    res.render('create_import', {
+        importID,
+        listBooks,
+    });
+}
+
+exports.postImportRemoveBook = async (req, res, next) => {
+    let { books } = req.body;
+    if (books !== undefined) {
+        for (let i = 0; i < books.length; i++) {
+            const bookIndex = listBooks.findIndex(b => b.bookname === books[i]);
+            if (bookIndex !== -1) {
+                listBooks.splice(bookIndex, 1);
+            }
+        }
+    }
+    res.render('create_import', {
+        listBooks,
+    });
 }
 
 exports.getImportUpdate = async (req, res, next) => {

@@ -35,5 +35,10 @@ module.exports = {
     getAll: async () => {
         const result = await db.any('SELECT * FROM "Books"');
         return result;
-    }
+    },
+    updateQuantity: async (bookID, quantity) => {
+        const rs = await db.none('UPDATE "Books" SET "quantity"=$2 WHERE "bookID"=$1',
+                    [bookID, quantity]);
+        return rs;
+    },
 }

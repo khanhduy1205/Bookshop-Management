@@ -1,4 +1,4 @@
-<h2 class="main__title">Phiếu nhập sách</h2>
+<h2 class="main__title">Chi tiết phiếu nhập sách</h2>
 
 <div class="main__searchBar">
     <input type="text" class="searchBar__input" placeholder="Tìm kiếm" id="" name="">
@@ -16,9 +16,6 @@
     <ul class="import__menu-btns">
         <li><a href="/import/create" name="add" class="import__menu-btn"><i
                     class="fa-solid fa-circle-plus icon"></i>Thêm mới</a></li>
-        <li><a href="/import/update" name="update" class="import__menu-btn"><i
-                    class="fa-solid fa-pen-to-square icon"></i>Cập
-                nhật</a></li>
         <li><a href="/import/delete" name="delete" class="import__menu-btn"><i
                     class="fa-solid fa-trash icon"></i>Xóa</a></li>
     </ul>
@@ -31,23 +28,21 @@
                 <tr>
                     <th scope="col"><i class="fa-regular fa-square"></i></th>
                     {{!-- <th scope="col" width="10%">STT</th> --}}
-                    <th scope="col" width="20%">Mã phiếu</th>
-                    <th scope="col">Ngày lập phiếu</th>
-                    <th scope="col">Ngày cập nhật</th>
-                    <th scope="col">Người lập</th>
+                    <th scope="col" width="20%">Mã chi tiết phiếu</th>
+                    <th scope="col">Tên sách</th>
+                    <th scope="col">Số lượng</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each imports}}
+                {{#each detail_import}}
                 <tr>
                     <th scope="row" class="text-center">
                         <input type="checkbox">
                     </th>
                     {{!-- <td>1</td> --}}
-                    <td>{{this.importID}}</td>
-                    <td>{{formatDate this.importDate}}</td>
-                    <td>{{formatDate this.importDate}}</td>
-                    <td>ADMIN</td>
+                    <td>{{this.importDetailID}}</td>
+                    <td>{{formatDate this.bookname}}</td>
+                    <td>{{formatDate this.quantity}}</td>
                 </tr>
                 {{/each}}
             </tbody>

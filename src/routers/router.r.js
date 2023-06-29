@@ -40,6 +40,7 @@ router.get('/import/create', bookshopManager.getImportCreate);
 router.post('/import/create', bookshopManager.postImportCreate);
 
 router.post('/import/create/add-book', bookshopManager.postImportAddBook);
+router.post('/import/create/remove-book', bookshopManager.postImportRemoveBook);
 
 router.get('/import/update', bookshopManager.getImportUpdate);
 
