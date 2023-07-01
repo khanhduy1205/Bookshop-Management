@@ -1,133 +1,131 @@
-<form action="/import/create" method="post">
-
-    <div class="main__header">
-        <a href="/import" class="main__header-btn">
-            <i class="fa-solid fa-angle-left"></i>
-            Trở về
-        </a>
-        <h2 class="main__title">Lập phiếu nhập sách</h2>
-    </div>
-
-
-    <div class="createImport__menu">
-        <div class="createImport__menu-id">ID:
-            <h6 name="importID">{{importID}}</h6>
+{{!-- <form action="/import/create" method="post"> --}}
+    <form id="form-createImport" method="post">
+        <div class="main__header">
+            <a href="/import" class="main__header-btn">
+                <i class="fa-solid fa-angle-left"></i>
+                Trở về
+            </a>
+            <h2 class="main__title">Lập phiếu nhập sách</h2>
         </div>
 
-        <div class="createImport__menu-date">
-            <div class="d-inline">Ngày lập</div>
-            <input type="date" name="importDate" id="importDate" placeholder="" value="">
+
+        <div class="createImport__menu">
+            <div class="createImport__menu-id">ID:
+                <h6 name="importID">{{importID}}</h6>
+            </div>
+
+            <div class="createImport__menu-date">
+                <div class="d-inline">Ngày lập</div>
+                <input type="date" name="importDate" id="importDate" placeholder="" value="">
+            </div>
+            <ul class="createImport__menu-btns">
+                <li>
+                    <button form="form-createImport" name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
+                            sách</button>
+                </li>
+                <li>
+                    <button form="form-createImport" formaction="/import/create/remove-book" name="removeBook" class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
+                            sách</button>
+                </li>
+            </ul>
         </div>
-        <ul class="createImport__menu-btns">
-            <li><button name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
-                    sách</button></li>
-        </ul>
-    </div>
 
-    <div class="main__content">
-        <div class="table-fixed table-responsive rounded">
-            <table class="table table-striped table-hover table-bordered m-0">
-                <thead>
-                    <tr>
-                        <th scope="col"><i class="fa-regular fa-square"></i></th>
-                        {{!-- <th scope="col">STT</th> --}}
-                        <th scope="col" width="20%">Tên sách</th>
-                        <th scope="col" width="15%">Thể loại</th>
-                        <th scope="col" width="20%">Tác giả</th>
-                        <th scope="col" width="15%">Số lượng</th>
-                        <th scope="col" width="15%">Đơn giá</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each listBooks}}
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox" id="{{this.bookname}}" onclick="getBookName('{{this.bookname}}')">
-                        </th>
-                        {{!-- <td>1</td> --}}
-                        <td>{{this.bookname}}</td>
-                        <td>{{this.category}}</td>
-                        <td>{{this.author}}</td>
-                        <td>{{this.quantity}}</td>
-                        <td>{{this.price}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+        <div class="main__content">
+            <div class="table-fixed table-responsive rounded">
+                <table class="table table-striped table-hover table-bordered m-0">
+                    <thead>
+                        <tr>
+                            <th scope="col"><i class="fa-regular fa-square"></i></th>
+                            {{!-- <th scope="col">STT</th> --}}
+                            <th scope="col" width="20%">Tên sách</th>
+                            <th scope="col" width="15%">Thể loại</th>
+                            <th scope="col" width="20%">Tác giả</th>
+                            <th scope="col" width="15%">Số lượng</th>
+                            <th scope="col" width="15%">Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each listBooks}}
+                        <tr>
+                            <th scope="row" class="text-center">
+                                <input type="checkbox" id="{{this.bookname}}"
+                                    onclick="getBookName('{{this.bookname}}')">
+                            </th>
+                            {{!-- <td>1</td> --}}
+                            <td>{{this.bookname}}</td>
+                            <td>{{this.category}}</td>
+                            <td>{{this.author}}</td>
+                            <td>{{this.quantity}}</td>
+                            <td>{{this.price}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <div class="createImport__info">
-        <div class="createImport__info-count">
-            <h6>Tổng số: <span>50</span> sách</h6>
+        <div class="createImport__info">
+            <div class="createImport__info-count">
+                <h6>Tổng số: <span>50</span> sách</h6>
+            </div>
+            <div class="createImport__info-cost">
+                <h6>Thành tiền: <span>500000</span> (VND)</h6>
+            </div>
         </div>
-        <div class="createImport__info-cost">
-            <h6>Thành tiền: <span>500000</span> (VND)</h6>
+        <div class="createImport__submit">
+            <button form="form-createImport" formaction="/import/create" class="createImport__submit-btn">Hoàn tất</button>
         </div>
-    </div>
-    <div class="createImport__submit">
-        <button class="createImport__submit-btn">Hoàn tất</button>
-    </div>
-</form>
+    </form>
 
-<form action="/import/create/remove-book" method="post">
-    <ul class="createImport__menu-btns">
-        <li>
-            <button name="removeBook" class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
-                sách</button>
-        </li>
-    </ul>
-</form>
+    <script src="/js/jquery-3.6.1.min.js"></script>
 
-<script src="/js/jquery-3.6.1.min.js"></script>
-
-{{!-- add book modal --}}
-{{> modals/add_book}}
+    {{!-- add book modal --}}
+    {{> modals/add_book}}
 
 
-<script>
+    <script>
 
-    // show and hide add book modal
-    var addBookModal = $("#addBookModal");
+        // show and hide add book modal
+        var addBookModal = $("#addBookModal");
 
-    $("button[name='addBook']").click((e) => {
-        e.preventDefault();
-        addBookModal.addClass('show');
-    })
+        $("button[name='addBook']").click((e) => {
+            e.preventDefault();
+            addBookModal.addClass('show');
+        })
 
-    $(".btn-close").click((e) => {
-        e.preventDefault();
-        addBookModal.removeClass('show');
-    })
+        $(".btn-close").click((e) => {
+            e.preventDefault();
+            addBookModal.removeClass('show');
+        })
 
-    //default date for date input
-    var today = new Date().toISOString().split('T')[0];
-    document.getElementById("importDate").value = today;
+        //default date for date input
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("importDate").value = today;
 
-</script>
+    </script>
 
-<script>
+    <script>
 
-    let books = [];
-    const getBookName = async (name) => {
-        if (document.getElementById(name).checked) {
-            books.push(name);
-        }
-        else {
-            var index = books.indexOf(name);
-            if (index !== -1) {
-                books.splice(index, 1);
+        let books = [];
+        const getBookName = async (name) => {
+            if (document.getElementById(name).checked) {
+                books.push(name);
+            }
+            else {
+                var index = books.indexOf(name);
+                if (index !== -1) {
+                    books.splice(index, 1);
+                }
+            }
+
+            if (books.length > 0) {
+                const res = await fetch('http://localhost:3000/import/create/remove-book', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ books })
+                });
             }
         }
-
-        if (books.length > 0) {
-            const res = await fetch('http://localhost:3000/import/create/remove-book', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ books })
-            });
-        }
-    }
-</script>
+    </script>

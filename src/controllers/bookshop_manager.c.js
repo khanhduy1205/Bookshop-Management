@@ -266,17 +266,73 @@ exports.postImportRemoveBook = async (req, res, next) => {
 exports.getImportUpdate = async (req, res, next) => {
     var page = parseInt(req.query.page) || 1;
 
+    const id = req.params.id;
+
+    let listBookDetails = [];
+    const importDetails = await importsM.getAllImportDetailsByID(parseInt(id));
+    const books = await booksM.getAll();
+
+    for (var i = 0; i < importDetails.length; i++) {            
+        const book = books.find(b => b.bookID === importDetails[i].bookID);
+        listBookDetails.push(book);
+    }
+
     res.render('update_import', {
         active: { import: true },
         helpers,
         total: 20,
         page: page,
+        listBookDetails
     });
 }
 
 exports.postImportUpdate = async (req, res, next) => {
 
     res.redirect('/import');
+}
+
+exports.postImportDelete = async (req, res, next) => {
+    var page = parseInt(req.query.page) || 1;
+    // var perPage = 4;
+    // var start = (page - 1) * perPage;
+    // var next = (page - 1) * perPage + perPage;
+
+    let { listID } = req.body;
+    if (listID !== undefined) {
+        const books = await booksM.getAll();
+        for (let i = 0; i < listID.length; i++) {
+            const importDetails = await importsM.getAllImportDetailsByID(parseInt(listID[i]));
+            for (var j = 0; j < importDetails.length; j++) {
+                const bookID = importDetails[j].bookID;
+                const quantity = importDetails[j].quantity;
+
+                const deleteImportDetail = await importsM.deleteImportDetail(importDetails[j].importDetailID)
+                
+                const book = books.find(b => b.bookID === bookID);
+                
+                if (book.quantity === quantity) {
+                    const deleteBook = await booksM.deleteBook(book.bookID)
+                }
+                else {
+                    const newQuantity = book.quantity - quantity;
+                    const updateBook = await booksM.updateQuantity(book.bookID, newQuantity);
+                }
+            }
+
+            const deleteImport = await importsM.deleteImport(parseInt(listID[i]))
+        }
+    }
+
+    const imports = await importsM.getAllImports();
+
+    res.render('all_imports', {
+        active: { import: true },
+        helpers,
+        total: 20,
+        page: page,
+        imports
+        // user: req.session.passport.user
+    });
 }
 
 exports.getInvoices = async (req, res, next) => {

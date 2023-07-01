@@ -33,7 +33,6 @@
                 <thead>
                     <tr>
                         <th scope="col"><i class="fa-regular fa-square"></i></th>
-                        <th scope="col">STT</th>
                         <th scope="col" width="20%">Tên sách</th>
                         <th scope="col" width="15%">Thể loại</th>
                         <th scope="col" width="20%">Tác giả</th>
@@ -42,94 +41,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each listBookDetails}}
                     <tr>
                         <th scope="row" class="text-center">
                             <input type="checkbox">
                         </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
+                        <td>{{this.bookname}}</td>
+                        <td>{{this.category}}</td>
+                        <td>{{this.author}}</td>
+                        <td>{{this.quantity}}</td>
+                        <td>{{this.price}}</td>
                     </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">
-                            <input type="checkbox">
-                        </th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>

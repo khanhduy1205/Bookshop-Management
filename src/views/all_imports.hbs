@@ -7,56 +7,110 @@
     </button>
 </div>
 
-<div class="import__menu">
-    <div class="import__menu-selectAll">
-        <input type="checkbox" id="selectAll">
-        <label for="selectAll">Chọn tất cả</label>
+<form id="form-allImports" method="post">
+    <div class="import__menu">
+        <div class="import__menu-selectAll">
+            <input type="checkbox" id="selectAll">
+            <label for="selectAll">Chọn tất cả</label>
+        </div>
+
+        <ul class="import__menu-btns">
+            <li><a href="/import/create" name="add" class="import__menu-btn"><i
+                        class="fa-solid fa-circle-plus icon"></i>Thêm mới</a></li>
+            
+            <li><a href="" name="update" class="import__menu-btn"><i
+                        class="fa-solid fa-pen-to-square icon"></i>Cập
+                    nhật</a></li>
+            
+            <li><button form="form-allImports" formaction="/import/delete" name="delete" class="import__menu-btn"><i
+                        class="fa-solid fa-trash icon"></i>Xóa</button></li>
+        </ul>
     </div>
 
-    <ul class="import__menu-btns">
-        <li><a href="/import/create" name="add" class="import__menu-btn"><i
-                    class="fa-solid fa-circle-plus icon"></i>Thêm mới</a></li>
-        <li><a href="/import/update" name="update" class="import__menu-btn"><i
-                    class="fa-solid fa-pen-to-square icon"></i>Cập
-                nhật</a></li>
-        <li><a href="/import/delete" name="delete" class="import__menu-btn"><i
-                    class="fa-solid fa-trash icon"></i>Xóa</a></li>
-    </ul>
-</div>
-
-<div class="main__content">
-    <div class="table-responsive rounded">
-        <table class="table table-striped table-hover table-bordered m-0">
-            <thead>
-                <tr>
-                    <th scope="col"><i class="fa-regular fa-square"></i></th>
-                    {{!-- <th scope="col" width="10%">STT</th> --}}
-                    <th scope="col" width="20%">Mã phiếu</th>
-                    <th scope="col">Ngày lập phiếu</th>
-                    <th scope="col">Ngày cập nhật</th>
-                    <th scope="col">Người lập</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each imports}}
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    {{!-- <td>1</td> --}}
-                    <td>{{this.importID}}</td>
-                    <td>{{formatDate this.importDate}}</td>
-                    <td>{{formatDate this.importDate}}</td>
-                    <td>ADMIN</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    <div class="main__content">
+        <div class="table-responsive rounded">
+            <table class="table table-striped table-hover table-bordered m-0">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa-regular fa-square"></i></th>
+                        <th scope="col" width="20%">Mã phiếu</th>
+                        <th scope="col">Ngày lập phiếu</th>
+                        <th scope="col">Ngày cập nhật</th>
+                        <th scope="col">Người lập</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if imports}}
+                    {{#each imports}}
+                    <tr>
+                        <th scope="row" class="text-center">
+                            <input type="checkbox" id="{{this.importID}}" onclick="getID('{{this.importID}}')">
+                        </th>
+                        <td>{{this.importID}}</td>
+                        <td>{{formatDate this.importDate}}</td>
+                        <td>{{formatDate this.importDate}}</td>
+                        <td>ADMIN</td>
+                    </tr>
+                    {{/each}}
+                    {{/if}}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</form>
 
 {{>pagination}}
 
 <script src="/js/jquery-3.6.1.min.js"></script>
 
 <script src="/js/checkbox.js"></script>
+
+<script>
+    const button = document.querySelector('button[name="delete"]');
+    const link = document.querySelector('a[name="update"]');
+
+    let listID = [];
+    const getID = async (id) => {
+        if (document.getElementById(id).checked) {
+            listID.push(id);
+        }
+        else {
+            var index = listID.indexOf(id);
+            if (index !== -1) {
+                listID.splice(index, 1);
+            }
+        }
+    }
+
+    async function handleClick(event) {
+        if (event.currentTarget === button) {
+            if (listID.length > 0) {
+                const res = await fetch('http://localhost:3000/import/delete', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ listID })
+                });
+            };
+        }
+
+        else {
+            if (listID.length === 1) {
+                const id = listID;
+                let link = document.querySelector('a[name="update"]');
+                link.href = `http://localhost:3000/import/update/${id}`;
+            }
+            else if (listID.length > 1) {
+                alert('Chỉ được chọn 1 phiếu lập sách');
+            }
+            else {
+                alert('Mời bạn chọn 1 phiếu lập sách');
+            }
+        }
+    }
+
+    button.addEventListener("click", handleClick);
+    link.addEventListener("click", handleClick);
+
+</script>

@@ -26,9 +26,9 @@ module.exports = {
             });
         });
     },
-    addBookToDB: async(b) => {
+    addBookToDB: async (b) => {
         const result = await db.one('INSERT INTO "Books"("bookID", "bookname", "category", "author", "quantity", "price") VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
-                            [b.bookID, b.bookname, b.category, b.author, b.quantity, b.price]);;
+            [b.bookID, b.bookname, b.category, b.author, b.quantity, b.price]);;
         return result;
     },
 
@@ -37,8 +37,12 @@ module.exports = {
         return result;
     },
     updateQuantity: async (bookID, quantity) => {
-        const rs = await db.none('UPDATE "Books" SET "quantity"=$2 WHERE "bookID"=$1',
-                    [bookID, quantity]);
-        return rs;
+        const result = await db.none('UPDATE "Books" SET "quantity"=$2 WHERE "bookID"=$1',
+            [bookID, quantity]);
+        return result;
+    },
+    deleteBook: async (id) => {
+        const result = await db.none('DELETE FROM "Books" WHERE "bookID"=$1',[id]);
+        return result;
     },
 }

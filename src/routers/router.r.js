@@ -42,9 +42,10 @@ router.post('/import/create', bookshopManager.postImportCreate);
 router.post('/import/create/add-book', bookshopManager.postImportAddBook);
 router.post('/import/create/remove-book', bookshopManager.postImportRemoveBook);
 
-router.get('/import/update', bookshopManager.getImportUpdate);
-
+router.get('/import/update/:id', bookshopManager.getImportUpdate);
 router.post('/import/update', bookshopManager.postImportUpdate);
+
+router.post('/import/delete', bookshopManager.postImportDelete);
 
 // ---------------------------------------------
 router.get('/invoice', bookshopManager.getInvoices);
