@@ -1,4 +1,4 @@
-<form action="/import/create" method="post">
+<form id="form-createImport" method="post">
 
     <div class="main__header">
         <a href="/import" class="main__header-btn">
@@ -11,7 +11,7 @@
 
     <div class="createImport__menu">
         <div class="createImport__menu-id">ID:
-            <h6 name="importID">PHIEUNHAP{{importID}}</h6>
+            <h6 name="importID">{{importID}}</h6>
         </div>
 
         <div class="createImport__menu-date">
@@ -19,9 +19,13 @@
             <input type="date" name="importDate" id="importDate" placeholder="" value="">
         </div>
         <ul class="createImport__menu-btns">
-            <li><button name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
-                    sách</button></li>
-            <li><button name="removeBook" class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
+            <li>
+                <button form="form-createImport" name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
+                    sách</button>
+            </li>
+            <li>
+                <button form="form-createImport" formaction="/import/create/remove-book" name="removeBook"
+                    class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
                     sách</button>
             </li>
         </ul>
@@ -41,10 +45,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                   {{#each listBooks}}
-                    <tr id="row-id-{{@index}}">
-                        <th name="checkbox" scope="row" class="text-center">
-                            <input type="checkbox">
+                    {{#each listBooks}}
+                    <tr>
+                        <th scope="row" class="text-center">
+                            <input type="checkbox" id="{{this.bookname}}"
+                                onclick="getBookName('{{this.bookname}}')">
                         </th>
                         <td name="bookname">{{this.bookname}}</td>
                         <td name="category">{{this.category}}</td>
@@ -60,14 +65,14 @@
 
     <div class="createImport__info">
         <div class="createImport__info-count">
-            <h6>Tổng số: <span name="totalBooks"></span>(sách)</h6>
+            <h6>Tổng số: <span name="totalBooks">{{totalBook}}</span>(sách)</h6>
         </div>
         <div class="createImport__info-cost">
-            <h6>Thành tiền: <span name="totalMoney"></span> (VND)</h6>
+            <h6>Thành tiền: <span name="totalPrice">{{totalPrice}}</span>(VND)</h6>
         </div>
     </div>
     <div class="createImport__submit">
-        <button class="createImport__submit-btn">Hoàn tất</button>
+        <button form="form-createImport" formaction="/import/create" class="createImport__submit-btn">Hoàn tất</button>
     </div>
 </form>
 
@@ -78,19 +83,64 @@
 
 <script>
 
-    // show and hide add book modal
-    var addBookModal =  $("#addBookModal");
+    $(window).ready((e) => {
 
-    $("button[name='addBook']").click((e) => {
-        e.preventDefault();
-        addBookModal.addClass('show');
+        // show and hide add book modal
+        var addBookModal = $("#addBookModal");
+
+        $("button[name='addBook']").click((e) => {
+            e.preventDefault();
+            addBookModal.addClass('show');
+        })
+
+        $(".btn-close").click((e) => {
+            e.preventDefault();
+            addBookModal.removeClass('show');
+        })
+
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("importDate").value = today;
+
+
+        {{!-- // update total books and total money
+        var totalBooks = 0;
+        var totalPrice = 0;
+
+        $('table td[name="quantity"]').each((index, element) => {
+            totalBooks += Number($(element).text());
+            console.log(totalBooks);
+        })
+
+        $('table td[name="price"]').each((index, element) => {
+            totalPrice += Number($(element).text());
+            console.log(totalPrice);
+        })--}}
+
+        $('span[name="totalPrice"]').html(totalPrice + " ");
+        $('span[name="totalBooks"]').html(totalBooks + " ");
     })
 
-    $(".btn-close").click((e) => {
-        e.preventDefault();
-        addBookModal.removeClass('show');
-    })
+    // xóa sách trong phiếu nhập
+    let books = [];
+    const getBookName = async (name) => {
+        if (document.getElementById(name).checked) {
+            books.push(name);
+        }
+        else {
+            var index = books.indexOf(name);
+            if (index !== -1) {
+                books.splice(index, 1);
+            }
+        }
 
-    var today = new Date().toISOString().split('T')[0];
-    document.getElementById("importDate").value = today;
+        if (books.length > 0) {
+            const res = await fetch('http://localhost:3000/import/create/remove-book', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ books })
+            });
+        }
+    }
 </script>

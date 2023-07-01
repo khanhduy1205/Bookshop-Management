@@ -7,7 +7,6 @@
         <h2 class="main__title">Hóa đơn bán sách</h2>
     </div>
 
-
     <div class="form-content">
 
         <div class="customer-info">
@@ -17,23 +16,27 @@
 
             <div class="createInvoice__customer-infor ">
                 <div class="input-group">
+                    <label for="customer-id">ID</label>
+                    <input type="text" id="customerID" name="customer-id" class="border-input"
+                        value="{{customerInfo.customerID}}">
+                </div>
+
+                <div class="input-group">
                     <label for="customer-name">Họ tên</label>
-                    <input type="text" name="customer-name" class="border-input">
+                    <input type="text" id="fullname" name="customer-name" class="border-input"
+                        value="{{customerInfo.fullname}}">
                 </div>
 
                 <div class="input-group">
                     <label for="customer-phone">Số điện thoại </label>
-                    <input type="text" name="customer-phone" class="border-input">
+                    <input type="text" id="phone" name="customer-phone" class="border-input"
+                        value="{{customerInfo.phone}}">
                 </div>
 
                 <div class="input-group">
                     <label for="customer-email">Email </label>
-                    <input type="email" name="customer-email" class="border-input">
-                </div>
-
-                <div class="input-group">
-                    <label for="customer-address">Địa chỉ </label>
-                    <input type="email" name="customer-address" class="border-input">
+                    <input type="email" id="email" name="customer-email" class="border-input"
+                        value="{{customerInfo.email}}">
                 </div>
             </div>
 
@@ -42,12 +45,12 @@
         <div class="invoice-content">
             <div class="createImport__menu">
                 <div class="createImport__menu-id">ID:
-                    <h6 name="importID">{{importID}}</h6>
+                    <h6 name="invoiceID">{{invoiceID}}</h6>
                 </div>
 
                 <div class="createImport__menu-date">
                     <div class="d-inline">Ngày lập:</div>
-                    <input type="date" name="importDate">
+                    <input type="date" id="invoiceDate" name="invoiceDate">
                 </div>
                 <ul class="createImport__menu-btns">
                     <li><button name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
@@ -60,7 +63,7 @@
 
             <div class="main__content">
                 <div class="table-fixed table-large table-responsive rounded">
-                    <table class="table table-striped table-hover text-start table-bordered">
+                    <table id="listbook-invoice" class="table table-striped table-hover text-start table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col"><i class="fa-regular fa-square"></i></th>
@@ -73,58 +76,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each books}}
-                            <tr>
-                                <th scope="row" class="text-center">
-                                    <input type="checkbox">
-                                </th>
-                                <td>{{this.bookID}}</td>
-                                <td>{{this.bookname}}</td>
-                                <td>{{this.category}}</td>
-                                <td>{{this.author}}</td>
-                                <td>{{this.quantity}}</td>
-                                <td>{{this.price}}</td>
-                            </tr>
-                            {{/each}}
+
                         </tbody>
                     </table>
                 </div>
-
             </div>
 
             <div class="createImport__info">
                 <div class="createImport__info-count">
-                    <h6>Tổng số: <span>50</span> sách</h6>
+                    <h6>Tổng số: <span name="totalBooks"></span> (sách)</h6>
                 </div>
                 <div class="createImport__info-cost">
-                    <h6>Thành tiền: <span>500000</span> (VND)</h6>
+                    <h6>Thành tiền: <span name="totalPrice"></span> (VND)</h6>
                 </div>
             </div>
 
             <div class="createImport__submit">
-                <button class="createImport__submit-btn btn-grey" form="invoice-form" formaction="/invoice/debt">Ghi
+                <button id="debit-btn" class="createImport__submit-btn btn-grey" form="invoice-form" formaction="/invoice/debt">Ghi
                     nợ</button>
-                <button class="createImport__submit-btn" form="invoice-form" formaction="/invoice/create">Thanh
+                <button id="payment-btn" class="createImport__submit-btn" form="invoice-form" formaction="/invoice/payment">Thanh
                     toán</button>
             </div>
 
         </div>
     </div>
-
-
 </form>
 
-
-
-
 {{!-- --}}
-
 {{> modals/list_book}}
 
 {{!-- add book modal --}}
 
 <script src="/js/jquery-3.6.1.min.js"></script>
 <script>
+
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById("invoiceDate").value = today;
 
     // show and hide list book modal
     var listBookModal = $("#listBookModal");
@@ -139,6 +126,68 @@
         listBookModal.removeClass('show');
     })
 
-    // check validation
+
+    $('#payment-btn').on('click', (e) => {
+        
+        const customerInfo = {
+            customerID: $('input#customerID').val(),
+            fullname: $('input#fullname').val(),
+            phone: $('input#phone').val(),
+            email: $('input#email').val(),
+        }
+
+        var listBooks = [];
+
+        $('.invoice-row').each((index, element) => {
+            e.preventDefault();
+            const id = $(element).prop('id');
+            
+            listBooks.push({
+                bookID: $('tr#' + id + ' td[name="bookID"]').text(),
+                bookname:  $('tr#' + id + ' td[name="bookname"]').text(),
+                category:  $('tr#' + id + ' td[name="category"]').text(),
+                author:  $('tr#' + id + ' td[name="author"]').text(),
+                quantity:  $('tr#' + id + ' td[name="quantity"]').text(),
+                price:  $('tr#' + id + ' td[name="price"]').text(),
+            })
+        })
+
+        const invoiceInfo = {
+            customerInfo,
+            listBooks,
+            invoiceDate: $('#invoiceDate').val()
+        }
+
+        fetch('/invoice/payment', {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ invoiceInfo })
+        })
+    })
+
+{{!-- 
+
+    // update total books and total money
+    $('table#listbook-invoice').on('change', 'tbody', () => {
+
+        console.log('change')
+        var totalBooks = 0;
+        var totalPrice = 0;
+
+        $('table#listbook-invoice td[name="quantity"]').each((index, element) => {
+            totalBooks += Number($(element).text());
+            console.log(totalBooks);
+        })
+
+        $('table#listbook-invoice td[name="price"]').each((index, element) => {
+            totalPrice += Number($(element).text());
+            console.log(totalPrice);
+        })
+
+        $('span[name="totalPrice"]').html(totalPrice + " ");
+        $('span[name="totalBooks"]').html(totalBooks + " ");
+    }) --}}
 
 </script>

@@ -13,7 +13,7 @@ const db = pgp(cn);
 
 module.exports = {
     getAll: async () => {
-        const result = await db.any('SELECT * FROM "Receipts"');
+        const result = await db.any('SELECT * FROM "Receipts" ORDER BY "receiptID" ASC');
         return result;
     },
     getReceiptJoinCustomer: async () => {

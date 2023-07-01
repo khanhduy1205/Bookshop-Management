@@ -1,24 +1,69 @@
-{{!-- <div id="header">
-    <div class="navbar">
-        <ul class="list-items">
-            <li>
-                <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-bookstore-logo-template_23-2149337115.jpg?w=2000"
-                    alt="Logo Bookshop" class="logo">
-            </li>
-            <li class="header__bookshop">Bookshop Manager</li>
-        </ul>
+<div class="main__header">
+    <h2 class="main__title">Danh sách khách hàng</h2>
+    <a href="/debt" class="btn outline btn-outline-secondary position-absolute end-0">
+        <h6 class="m-0 p-1">
+            Danh sách nợ
+        </h6>
+    </a>
+</div>
 
-        <ul class="list-items btn">
-            <li>
-                <img src="https://img.favpng.com/23/3/6/circle-line-point-area-clip-art-png-favpng-CvaYhEcU64kWWSUQa3gVdNS78.jpg"
-                    alt="Avatar" class="logo__account">
-            </li>
-            <li class="name">
-                <button class="header__btn">Admin</button>
-            </li>
-            <li class="logout">
-                <button class="header__btn">Đăng xuất</button>
-            </li>
-        </ul>
+<div class="main__searchBar">
+    <input type="text" class="searchBar__input" placeholder="Tìm kiếm" id="" name="">
+    <button class="searchBar__btn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</div>
+
+<div class="import__menu">
+    <div class="import__menu-selectAll">
+        <input type="checkbox" id="selectAll">
+        <label for="selectAll">Chọn tất cả</label>
     </div>
-</div> --}}
+
+    <ul class="import__menu-btns">
+        <li><a name="add" class="import__menu-btn"><i
+                    class="fa-solid fa-circle-plus icon"></i>Thêm mới</a></li>
+        <li><a name="update" class="import__menu-btn"><i
+                    class="fa-solid fa-pen-to-square icon"></i>Cập
+                nhật</a></li>
+        <li><a name="delete" class="import__menu-btn"><i
+                    class="fa-solid fa-trash icon"></i>Xóa</a></li>
+    </ul>
+</div>
+
+<div class="main__content">
+    <div class="table-responsive rounded">
+        <table class="table table-striped table-hover text-start table-bordered m-0">
+            <thead>
+                <tr>
+                    <th scope="col"><i class="fa-regular fa-square"></i></th>
+                     <th scope="col">Họ tên</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" width="20%">Điện thoại</th>
+                </tr>
+            </thead>
+            <tbody>
+
+               {{#each customers}}
+                <tr id="row-id-{{this.customerID}}">
+                    <th scope="row" class="text-center">
+                        <input type="checkbox">
+                    </th>
+                    <td name="fullname">{{this.fullname}}</td>
+                    <td name="address">{{this.address}}</td>
+                    <td name="email">{{this.email}}</td>
+                    <td name="phone">{{this.phone}}</td>
+                </tr>
+                {{/each}}   
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{>pagination}}
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+
+<script src="/js/checkbox.js"></script>

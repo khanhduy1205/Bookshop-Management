@@ -32,7 +32,7 @@ module.exports = {
         return result;
     },
     getAll: async () => {
-        const result = await db.any('SELECT * FROM "Books"');
+        const result = await db.any('SELECT * FROM "Books" ORDER BY "bookID" ASC');
         return result;
     },
     add: async book => {
@@ -46,7 +46,7 @@ module.exports = {
         return result;
     },
     byBookID: async bookID => {
-        const result = await db.one('SELECT * FROM "Books" WHERE bookID=$1',
+        const result = await db.one('SELECT * FROM "Books" WHERE "bookID"=$1',
             [bookID]);
         return result;
     },
@@ -55,9 +55,8 @@ module.exports = {
             [book.bookname, book.category, book.author, book.quantity, book.price, book.bookID]);
         return result;
     },
-    deleteBookByID: async (bookID) => {
-        const result = await db.none('DELETE FROM "Books" WHERE "bookID"=$1',
-            [bookID]);
+    deleteBook: async (id) => {
+        const result = await db.none('DELETE FROM "Books" WHERE "bookID"=$1',[id]);
         return result;
     },
     updateQuantity: async (bookID, quantity) => {

@@ -46,16 +46,20 @@ router.post('/import/create', bookshopManager.postImportCreate);
 
 router.post('/import/create/add-book', bookshopManager.postImportAddBook);
 
-router.get('/import/update', bookshopManager.getImportUpdate);
+router.post('/import/create/remove-book', bookshopManager.postImportRemoveBook);
+
+router.get('/import/update/:id', bookshopManager.getImportUpdate);
 
 router.post('/import/update', bookshopManager.postImportUpdate);
+
+router.post('/import/delete', bookshopManager.postImportDelete);
 
 // ---------------------------------------------
 router.get('/invoice', bookshopManager.getInvoices);
 
 router.get('/invoice/create', bookshopManager.getInvoiceCreate);
 
-router.post('/invoice/create', bookshopManager.postInvoiceCreate);
+router.post('/invoice/payment', bookshopManager.postInvoicePayment);
 
 router.get('/invoice/update', bookshopManager.getInvoiceUpdate);
 

@@ -140,4 +140,47 @@ ALTER TABLE "InventoryReports" ADD CONSTRAINT "FK_InventoryReports_Books" FOREIG
 
 ALTER TABLE "ImportDetails" ADD CONSTRAINT "FK_ImportDetails_Imports" FOREIGN KEY ("importID") REFERENCES "Imports" ("importID");
 	
+-- Insert to customers --------------------------------------------------------
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (0, 'Phạm Hoài Nam', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'phnam@gmail.com', '0123455672', 0);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (1, 'Hồ Thanh Nhân', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'htnhan@gmail.com', '012655568', 0);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (2, 'Đoàn Nhật Trường', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'dntruong@gmail.com', '0132489672', 25000);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (3, 'Hà Bảo Ngọc', 'Lương Định Của, Đông Hoà, Dĩ An, Bình Dương, Việt Nam' ,'hbngoc@gmail.com', '0123455672', 50000);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (4, 'Nguyễn Hoàng Tuấn Anh', 'Dĩ An, Bình Dương, Việt Nam' ,'nhtanh@gmail.com', '0123455672', 0);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (5, 'Phan Trần Thu Hằng', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'ptthang@gmail.com', '0145123578', 0);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (6, 'Trần Quang Nhật', 'Lương Định Của, Đông Hoà, Dĩ An, Bình Dương, Việt Nam' ,'tqnhat@gmail.com', '0136547895', 25000);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (7, 'Đoàn Nguyễn Tấn Hưng', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'dnthung@gmail.com', '0135644892', 0);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (8, 'Võ Đăng Khoa', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'vdk@gmail.com', '01236545852', 12000);
+INSERT INTO "Customers"(
+	"customerID", fullname, address, email, phone, "unpaidAmount")
+	VALUES (9, 'Trần Hoài Nam', 'Dĩ An, Bình Dương, Việt Nam' ,'thnam@gmail.com', '01236542565', 60000);
 	
+-- Insert to invoice ---------------------------
+INSERT INTO "Invoices"(
+	"invoiceID", "customerID", fullname, "invoiceDate")
+	VALUES (0, 0, 'Phạm Hoài Nam', '2023-06-27');
+
+-- Insert to invoice details---------------------------
+INSERT INTO "InvoiceDetails"(
+	"invoiceDetailID", "bookID", "invoiceID", quantity, price)
+	VALUES (0, 0, 0, 1, 86000);
+INSERT INTO "InvoiceDetails"(
+	"invoiceDetailID", "bookID", "invoiceID", quantity, price)
+	VALUES (1, 2, 0, 2, 158000);

@@ -21,7 +21,7 @@ if (updateAnchor.length > 0) {
 
         var countChecked = $('table input:checked').length;
 
-        if (countChecked > 1) {
+        if (countChecked !=  1) {
             updateAnchor.removeAttr('href');
         }
         else {
@@ -47,7 +47,8 @@ if (updateBtn.length > 0) {
 
         var countChecked = $('table input:checked').length;
 
-        if (countChecked > 1) {
+        console.log(countChecked);
+        if (countChecked != 1) {
             updateBtn.prop('disabled', true);
         }
         else {

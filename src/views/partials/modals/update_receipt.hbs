@@ -47,8 +47,8 @@
                     </div>
 
                     <div class="form-row">
-                        <input type="checkbox" name="apply-rule-4" id="apply-rule-4">
-                        <label for="apply-rule-4">Thu nợ (Áp dụng quy định 4)</label>
+                        <input type="checkbox" name="applyRule" id="applyRule">
+                        <label for="applyRule">Thu nợ (Áp dụng quy định 4)</label>
                     </div>
                 </div>
 
@@ -60,3 +60,25 @@
         </div>
     </div>
 </div>
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+<script>
+     {{!-- $('button[name="ok-btn"]').click((e) => {
+
+        if ($('#applyRule').prop('checked') == true) {
+            {{!-- var moneyPaid = parseInt($('#amount-paid').val()); --}}
+            var error = $('#receipt-error');
+
+            var date = new Date($('#date').val());
+            var today = new Date();
+
+            if (today < date) {
+                e.preventDefault();
+                error.html('Ngày thu tiền không hợp lệ');
+                return;
+            } else {
+                error.html('');
+            }
+        }
+    }) --}}
+</script>

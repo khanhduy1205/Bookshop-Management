@@ -30,84 +30,24 @@
             <thead>
                 <tr>
                     <th scope="col"><i class="fa-regular fa-square"></i></th>
-                    <th scope="col" width="10%">STT</th>
-                    <th scope="col" width="20%">Mã hóa đơn</th>
-                    <th scope="col" width="20%">Mã khách hàng</th>
-                    <th scope="col" width="20%">Ngày lập</th>
-                    <th scope="col" width="20%">Ngày cập nhật</th>
+                    <th scope="col">Mã hóa đơn</th>
+                    <th scope="col">Mã khách hàng</th>
+                    <th scope="col">Họ tên khách hàng</th>
+                    <th scope="col">Ngày lập hóa đơn</th>
                 </tr>
             </thead>
             <tbody>
+                {{#each invoices}}
                 <tr>
                     <th scope="row" class="text-center">
                         <input type="checkbox">
                     </th>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
+                    <td>{{this.invoiceID}}</td>
+                    <td>{{this.customerID}}</td>
+                    <td>{{this.fullname}}</td>
+                    <td>{{this.invoiceDate}}</td>
                 </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>1</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>1</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>1</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
-                </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>

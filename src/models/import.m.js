@@ -13,7 +13,7 @@ const db = pgp(cn);
 
 module.exports = {
     getAllImports: async () => {
-        const result = await db.any('SELECT * FROM "Imports"');
+        const result = await db.any('SELECT * FROM "Imports" ORDER BY "importID" ASC');
         return result;
     },
     add: async (imp) => {
@@ -40,9 +40,16 @@ module.exports = {
             [imprt.importDate, imprt.imprtID]);
         return result;
     },
-    deleteImportByID: async (importID) => {
-        const result = await db.none('DELETE FROM "Imports" WHERE "importID"=$1',
-            [importID]);
+    getAllImportDetailsByID: async (id) => {
+        const result = await db.any('SELECT * FROM "ImportDetails" WHERE "importID"=$1', [id]);
+        return result;
+    },
+    deleteImport: async (id) => {
+        const result = await db.none('DELETE FROM "Imports" WHERE "importID"=$1', [id]);
+        return result;
+    },
+    deleteImportDetail: async (id) => {
+        const result = await db.none('DELETE FROM "ImportDetails" WHERE "importDetailID"=$1', [id]);
         return result;
     },
 }

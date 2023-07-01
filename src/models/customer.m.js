@@ -13,7 +13,7 @@ const db = pgp(cn);
 
 module.exports = {
     getAll: async () => {
-        const result = await db.any('SELECT * FROM "Customers"');
+        const result = await db.any('SELECT * FROM "Customers" ORDER BY "customerID" ASC');
         return result;
     },
     getListByDebt: async () => {
@@ -21,7 +21,7 @@ module.exports = {
         return result;
     },
     add: async customer => {
-        const result = await db.one('INSERT INTO "Customers"("customerID", fullname, address, email, phone, unpaidAmount) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+        const result = await db.one('INSERT INTO "Customers"("customerID", "fullname", "address", "email", "phone", "unpaidAmount") VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
             [customer.customerID, customer.fullname, customer.address, customer.email, customer.phone, customer.unpaidAmount]);
         return result;
     },

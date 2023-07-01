@@ -1,7 +1,7 @@
 <div class="modal fade " id="listBookModal">
     <div class="modal-container">
         <div class="modal-content modal-extra-lg">
-            <form action="/invoice/add-book-to-invoice" method="post">
+            <form id="listbook-form">
                 <div class="modal-header">
                     <h2 class="modal-title">Thêm sách</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -28,7 +28,8 @@
                                     <td name="addbook-author">{{this.author}}</td>
                                     <td name="addbook-price">{{this.price}}</td>
                                     <td name="addbook-stock">{{this.quantity}}</td>
-                                    <td><input type="number" name="{{this.bookID}}" class="book-quantity" min="0" value="0"></td>
+                                    <td><input type="number" name="{{this.bookID}}" class="book-quantity" min="0"
+                                            value="0"></td>
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -37,9 +38,10 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="ok-btn" class="btn btn-primary">Hoàn tất</button>
+                    <button type="button" name="ok-btn" class="btn btn-primary" data-dismiss="modal">Hoàn tất</button>
                 </div>
-            </form>
+                {{!--
+            </form> --}}
         </div>
     </div>
 </div>
@@ -53,10 +55,11 @@
                 <h1 class="modal-title fs-5" id="notificationModalLabel">Thông báo</h1>
             </div>
             <div class="modal-body">
-                
+
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancel-btn" class="btn btn-outline-primary" data-bs-dismiss="modal">OK</button>
+                <button type="button" id="cancel-btn" class="btn btn-outline-primary"
+                    data-bs-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -65,8 +68,9 @@
 <script src="/js/jquery-3.6.1.min.js"></script>
 <script>
 
-    $(window).ready( (e) => {
- // hide notification
+    $(window).ready((e) => {
+
+        // hide notification
         $('#notificationModal #cancel-btn').on('click', () => {
             $('#notificationModal').removeClass('show');
         })
@@ -81,11 +85,11 @@
             const quantity = Number($(e.target).val());
             const inStock = Number($('#addbook-row-' + id + ' > td[name="addbook-stock"]').text());
             const bookname = $('#addbook-row-' + id + ' > td[name="addbook-name"]').text();
-            
+
             if (quantity < 0) {
                 e.target.value = 0;
             }
-            else if (quantity > inStock) {
+            else if (inStock < quantity) {
 
                 $('#notificationModal').addClass('show');
                 $('#notificationModal .modal-body').html(`
@@ -93,13 +97,61 @@
                         Số lượng tựa sách <b>${bookname}</b> không đủ cung cấp. Vui lòng nhập số lượng ít hơn lượng tồn. 
                     </div>
                 `)
-            } 
+            }
         })
 
-        // kiểm tra lượng tồn
+        const booksSelected = [];
+        $('#listBookModal button[name="ok-btn"]').click((e) => {
+            $('table#listbook-invoice tbody').empty();
 
+            $('input[type="number"]').each((index, element) => {
+                const id = $(element).attr('name');
+                const quantity = Number($(element).val());
+                const totalPrice = Number($('#addbook-row-' + id + ' td[name="addbook-price"]').text()) * quantity;
+                const inStock = Number($('#addbook-row-' + id + ' > td[name="addbook-stock"]').text());
 
-    
+                if (quantity > 0) {
+
+                    const index = booksSelected.findIndex(book => book.bookID == id)
+
+                    if (index != -1) {
+                        booksSelected[index].quantity += quantity;
+                        booksSelected[index].price += totalPrice;
+                    } else {
+                        booksSelected.push({
+                            bookID: id,
+                            bookname: $('#addbook-row-' + id + ' td[name="addbook-name"]').text(),
+                            category: $('#addbook-row-' + id + ' td[name="addbook-category"]').text(),
+                            author: $('#addbook-row-' + id + ' td[name="addbook-author"]').text(),
+                            price: totalPrice,
+                            quantity,
+                        });
+                    }
+
+                    $('#addbook-row-' + id + ' > td[name="addbook-stock"]').html(inStock - quantity);
+                }
+
+            })
+
+            for (const bookSelected of booksSelected) {
+
+                $('table#listbook-invoice tbody').append(`
+                <tr class="invoice-row" id="${bookSelected.bookID}">
+                    <th scope="row" class="text-center">
+                        <input type="checkbox">
+                    </th>
+                    <td name="bookID">${bookSelected.bookID}</td>
+                    <td name="bookname">${bookSelected.bookname}</td>
+                    <td name="category">${bookSelected.category}</td>
+                    <td name="author">${bookSelected.author}</td>
+                    <td name="quantity">${bookSelected.quantity}</td>
+                    <td name="price">${bookSelected.price}</td>
+                </tr>`)
+            }
+
+            $('#listBookModal').removeClass('show');
+            $('#listbook-form')[0].reset();
+        })
     })
-    
+
 </script>

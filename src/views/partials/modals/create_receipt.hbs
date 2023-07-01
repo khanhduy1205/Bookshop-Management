@@ -1,4 +1,4 @@
-<div class="modal fade" id="addBillModal">
+<div class="modal fade" id="addReceiptModal">
     <div class="modal-container">
         <div class="modal-content">
             <form action="/receipt/create" method="post">
@@ -9,24 +9,24 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <label for="customer-id" class="form-label">Mã khách hàng</label>
-                        <input type="text" name="customerID" id="customer-id" class="form-input" value="" required readonly>
+                        <input type="text" name="customerID" id="customer-id" class="form-input" value="" required>
                     </div>
                     <div class="form-row">
                         <label for="fullname" class="form-label">Họ tên khách hàng</label>
-                        <input type="text" name="fullname" id="fullname" class="form-input" value="" required readonly>
+                        <input type="text" name="fullname" id="fullname" class="form-input" value="" required>
                     </div>
                     <div class="form-row">
                         <label for="addr" class="form-label">Địa chỉ</label>
-                        <input type="text" name="addr" id="addr" class="form-input" value="" required readonly>
+                        <input type="text" name="addr" id="addr" class="form-input" value="" required>
                     </div>
                     <div class="form-row">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" id="email" class="form-input" value="" required readonly>
+                        <input type="email" name="email" id="email" class="form-input" value="" required>
                     </div>
                     <div class="form-row short">
                         <div class="phone">
                             <label for="phone" class="form-label">Điện thoại</label>
-                            <input type="text" name="phone" id="phone" class="form-input" value="" required readonly>
+                            <input type="text" name="phone" id="phone" class="form-input" value="" required>
                         </div>
                         <div class="date">
                             <label for="date"   class="form-label">Ngày thu tiền</label>
@@ -56,3 +56,24 @@
         </div>
     </div>
 </div>
+
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(() => {
+
+        var updateModal = $("#updateReceiptModal");
+        var addModal = $("#addReceiptModal");
+
+        // add receipt modal
+         $('button[name="add"]').click((e) => {
+            addModal.addClass('show');
+        })
+
+        $('#addReceiptModal .btn-close').click((e) => {
+            addModal.removeClass('show');
+            $('#apply-rule-4').prop('checked', false);
+            $('#receipt-error').html("");
+        })
+    })
+</script>

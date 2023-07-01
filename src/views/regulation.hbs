@@ -7,7 +7,7 @@
 
 <div class="main__content">
     <div class="table-responsive rounded">
-        <table class="table table-striped table-hover table-bordered m-0">
+        <table class="table table-striped table-hover text-start table-bordered m-0">
             <thead>
                 <tr>
                     <th scope="col"><i class="fa-regular fa-square"></i></th>
@@ -17,22 +17,20 @@
                 </tr>
             </thead>
             <tbody>
+                {{#each regulation}}
                 <tr>
                     <th scope="row" class="text-center">
                         <input type="checkbox">
                     </th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>{{this.regulationName}}</td>
+                    <td>{{this.content}} {{#if (notZero this.value)}} {{this.value}} {{/if}}</td>
+                    {{#if this.status}}
+                        <td>Đang áp dụng</td>
+                    {{else}}
+                        <td>Vô hiệu hóa</td>
+                    {{/if}}
                 </tr>
-                <tr>
-                    <th scope="row" class="text-center">
-                        <input type="checkbox">
-                    </th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>

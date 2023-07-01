@@ -27,4 +27,7 @@ module.exports = {
     formatDate: (date) => {
         return moment(date).format('DD/MM/YYYY');
     },
+    notZero: value => {
+        return value != 0;
+    }
 }

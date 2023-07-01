@@ -13,7 +13,7 @@
 
 // module.exports = {
 //     getAll: async () => {
-//         const result = await db.any('SELECT * FROM "ImportDetails"');
+//         const result = await db.any('SELECT * FROM "ImportDetails"  ORDER BY "importDetailID" ASC');
 //         return result;
 //     },
 //     add: async importDetail => {
