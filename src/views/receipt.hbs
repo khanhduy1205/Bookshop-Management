@@ -16,13 +16,13 @@
         <label for="selectAll">Chọn tất cả</label>
     </div>
 
-    <ul class="import__menu-btns" style="width: 14rem;"  >
+    <ul class="import__menu-btns" >
+        <li><button name="add" class="import__menu-btn"><i class="fa-solid fa-pen-to-square icon"></i>Thêm mới</button></li>
         <li><button name="update" class="import__menu-btn"><i class="fa-solid fa-pen-to-square icon"></i>Cập
                 nhật</button></li>
         <li><button name="delete" class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa</button></li>
     </ul>
 </div>
-
 
 <div class="main__content">
 
@@ -116,6 +116,10 @@
 
 {{> modals/update_receipt}}
 
+{{!-- create receipt --}}
+{{> modals/create_receipt}}
+
+
 <script src="/js/jquery-3.6.1.min.js"></script>
 <script src="/js/checkbox.js"></script>
 
@@ -124,17 +128,18 @@
     $(document).ready(() => {
 
         var updateModal = $("#updateReceiptModal");
+        var addReceiptModal = $('#addReceiptModal');
 
-        {{!-- // add receipt modal
+        // add receipt modal
          $('button[name="add"]').click((e) => {
-            addModal.addClass('show');
+            addReceiptModal.addClass('show');
         })
 
         $('#addReceiptModal .btn-close').click((e) => {
-            addModal.removeClass('show');
+            addReceiptModal.removeClass('show');
             $('#apply-rule-4').prop('checked', false);
             $('#receipt-error').html("");
-        }) --}}
+        })
 
         // update receipt modal
         $('button[name="update"]').click((e) => {

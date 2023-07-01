@@ -87,6 +87,14 @@ CREATE TABLE "Receipts" (
 DROP TABLE IF EXISTS "InventoryReports";
 CREATE TABLE "InventoryReports" (
 	"inventoryReportID" int4 NOT NULL,
+	"Month" int4 NOT NULL,
+	"Year" int4 NOT NULL
+);
+
+DROP TABLE IF EXISTS "InventoryReportDetails";
+CREATE TABLE "InventoryReportDetails" (
+	"inventoryReportDetailID" int4 NOT NULL,
+	"inventoryReportID" int4 NOT NULL,
 	"bookID" int4 NOT NULL,
 	"bookname" varchar(255) NOT NULL,
 	"beginningInventory" int4 NOT NULL,
@@ -96,6 +104,14 @@ CREATE TABLE "InventoryReports" (
 
 DROP TABLE IF EXISTS "DebtReports";
 CREATE TABLE "DebtReports" (
+	"debtReportID" int4 NOT NULL,
+	"Month" int4 NOT NULL,
+	"Year" int4 NOT NULL
+);
+
+DROP TABLE IF EXISTS "DebtReportDetails";
+CREATE TABLE "DebtReportDetails" (
+	"debtReportDetailID" int4 NOT NULL,
 	"debtReportID" int4 NOT NULL,
 	"customerID" int4 NOT NULL,
 	"fullname" varchar(255) NOT NULL,	
@@ -126,17 +142,23 @@ ALTER TABLE "Receipts" ADD CONSTRAINT "PK_Receipts" PRIMARY KEY ("receiptID");
 ALTER TABLE "InventoryReports" ADD CONSTRAINT "PK_InventoryReports" PRIMARY KEY ("inventoryReportID");
 ALTER TABLE "DebtReports" ADD CONSTRAINT "PK_DebtReports" PRIMARY KEY ("debtReportID");
 ALTER TABLE "Regulations" ADD CONSTRAINT "PK_Regulations" PRIMARY KEY ("regulationID");
+ALTER TABLE "InventoryReportDetails" ADD CONSTRAINT "PK_InventoryReportDetails" PRIMARY KEY ("inventoryReportDetailID");
+ALTER TABLE "DebtReportDetails" ADD CONSTRAINT "PK_DebtReportDetails" PRIMARY KEY ("DebtReportDetailID");
 
 -- ------------------------------------------------------------------------------------------------------------------------------------
 ALTER TABLE "Invoices" ADD CONSTRAINT "FK_Invoices_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
 ALTER TABLE "Receipts" ADD CONSTRAINT "FK_Receipts_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
-ALTER TABLE "DebtReports" ADD CONSTRAINT "FK_DebtReports_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
+ALTER TABLE "DebtReportDetails" ADD CONSTRAINT "FK_DebtReportDetails_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
+
+ALTER TABLE "DebtReportDetails" ADD CONSTRAINT "FK_DebtReportDetails_DebtReports" FOREIGN KEY ("debtReportID") REFERENCES "DebtReports" ("debtReportID");
 
 ALTER TABLE "InvoiceDetails" ADD CONSTRAINT "FK_InvoiceDetails_Invoices" FOREIGN KEY ("invoiceID") REFERENCES "Invoices" ("invoiceID");
 
 ALTER TABLE "InvoiceDetails" ADD CONSTRAINT "FK_InvoiceDetails_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
 ALTER TABLE "ImportDetails" ADD CONSTRAINT "FK_ImportDetails_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
-ALTER TABLE "InventoryReports" ADD CONSTRAINT "FK_InventoryReports_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
+ALTER TABLE "InventoryReportDetails" ADD CONSTRAINT "FK_InventoryReportDetails_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
+
+ALTER TABLE "InventoryReportDetails" ADD CONSTRAINT "FK_InventoryReportDetails_InventoryReports" FOREIGN KEY ("inventoryReportID") REFERENCES "InventoryReports" ("inventoryReportID");
 
 ALTER TABLE "ImportDetails" ADD CONSTRAINT "FK_ImportDetails_Imports" FOREIGN KEY ("importID") REFERENCES "Imports" ("importID");
 	

@@ -706,7 +706,7 @@ exports.getDebtList = async (req, res, next) => {
         const customers = customersDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
 
         res.render('debt_list', {
-            active: { receipt: true },
+            active: { customer: true },
             helpers,
             customers,
             total: customersDb.length,
