@@ -24,11 +24,14 @@
                         <label for="quantity" class="form-label">Số lượng</label>
                         <input type="text" name="quantity" id="quantity" class="form-input" required>
                     </div>
+
+                    <div style="width: 500px;">
+                        <p id="error" class="d-none" style="color:red; font-size:13px; margin: 0;"></p>
+                    </div>
                     <div class="form-row">
                         <label for="price" class="form-label">Đơn giá</label>
                         <input type="text" name="price" id="price" class="form-input" required>
                     </div>
-
 
                 </div>
                 <div class="modal-footer">
@@ -38,3 +41,22 @@
         </div>
     </div>
 </div>
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+
+<script>
+    $('#addBookModal #quantity').on('change', (e) => {
+
+        const quantity = $(e.target).val();
+
+        if (quantity < {{minImportValue}}) {
+            $('#addBookModal #error').removeClass('d-none');
+            $('#addBookModal #error').addClass('show');
+            $('#addBookModal #error').html(`Số lượng sách nhập ít nhất là {{minImportValue}}`)
+        }
+        else {
+            $('#addBookModal #error').removeClass('show');
+            $('#addBookModal #error').addClass('d-none');
+        }
+    } )
+</script>

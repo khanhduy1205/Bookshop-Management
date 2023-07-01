@@ -210,13 +210,18 @@ exports.getImportCreate = async (req, res, next) => {
         importID = imports.length;
     }
 
+    const fistRegulation = await regulationM.byID(0);
+    const secondRegulation = await regulationM.byID(1);
+
     res.render('create_import', {
         active: { import: true },
         helpers,
         total: imports.length,
         page: page,
         importID,
-        listBooks
+        listBooks,
+        maxStockToImport: secondRegulation.value,
+        minImportValue: fistRegulation.value
     });
 }
 
