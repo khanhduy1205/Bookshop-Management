@@ -17,7 +17,7 @@ module.exports = {
         return result;
     },
     getListByDebt: async () => {
-        const result = await db.any('SELECT * FROM "Customers" WHERE "unpaidAmount" > 0');
+        const result = await db.any('SELECT * FROM "Customers" WHERE "unpaidAmount" > 0 ORDER BY "customerID" ASC');
         return result;
     },
     add: async customer => {

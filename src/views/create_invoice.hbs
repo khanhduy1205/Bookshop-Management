@@ -127,7 +127,7 @@
     })
 
 
-    $('#payment-btn').on('click', (e) => {
+    {{!-- $('#payment-btn').on('click', (e) => {
         
         const customerInfo = {
             customerID: $('input#customerID').val(),
@@ -139,7 +139,7 @@
         var listBooks = [];
 
         $('.invoice-row').each((index, element) => {
-            e.preventDefault();
+          
             const id = $(element).prop('id');
             
             listBooks.push({
@@ -165,29 +165,55 @@
             },
             body: JSON.stringify({ invoiceInfo })
         })
+        .then(res => {
+            res.json();
+            window.location.reload();
+        }) 
     })
+   --}}
 
-{{!-- 
 
-    // update total books and total money
-    $('table#listbook-invoice').on('change', 'tbody', () => {
+    const paymentBtn = document.getElementById('payment-btn');
+    paymentBtn.addEventListener('click', handlePayment);
 
-        console.log('change')
-        var totalBooks = 0;
-        var totalPrice = 0;
+    async function handlePayment (event) {
+        
+        const customerInfo = {
+            customerID: $('input#customerID').val(),
+            fullname: $('input#fullname').val(),
+            phone: $('input#phone').val(),
+            email: $('input#email').val(),
+        }
 
-        $('table#listbook-invoice td[name="quantity"]').each((index, element) => {
-            totalBooks += Number($(element).text());
-            console.log(totalBooks);
+        var listBooks = [];
+
+        $('.invoice-row').each((index, element) => {
+        
+            const id = $(element).prop('id');
+            
+            listBooks.push({
+                bookID: $('tr#' + id + ' td[name="bookID"]').text(),
+                bookname:  $('tr#' + id + ' td[name="bookname"]').text(),
+                category:  $('tr#' + id + ' td[name="category"]').text(),
+                author:  $('tr#' + id + ' td[name="author"]').text(),
+                quantity:  $('tr#' + id + ' td[name="quantity"]').text(),
+                price:  $('tr#' + id + ' td[name="price"]').text(),
+            })
         })
 
-        $('table#listbook-invoice td[name="price"]').each((index, element) => {
-            totalPrice += Number($(element).text());
-            console.log(totalPrice);
-        })
+        const invoiceInfo = {
+            customerInfo,
+            listBooks,
+            invoiceDate: $('#invoiceDate').val()
+        }
 
-        $('span[name="totalPrice"]').html(totalPrice + " ");
-        $('span[name="totalBooks"]').html(totalBooks + " ");
-    }) --}}
+        const res = await fetch('http://localhost:3000/invoice/payment', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ invoiceInfo })
+        })
+    }
 
 </script>

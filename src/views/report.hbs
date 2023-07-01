@@ -4,8 +4,8 @@
     <div class="report__type">
         <label for="type-of-report">Loại báo cáo</label>
         <select name="type-of-report" id="type-of-report">
-            <option value="tonsach">Báo cáo tồn sách</option>
-            <option value="congno">Báo cáo công nợ</option>
+            <option id="inventoryOption" value="tonsach">Báo cáo tồn sách</option>
+            <option id="debtOption" value="congno">Báo cáo công nợ</option>
         </select>
     </div>
 
@@ -41,7 +41,7 @@
     <button class="report__btn">Lập báo cáo</button>
 </div>
 
-<div class="main__content report__active">
+<div id="inventoryReport" class="main__content report__active ">
     <div class="report__table-title">Báo cáo tồn sách</div>
     <div class="table-responsive rounded">
         <table class="table table-striped table-hover table-bordered m-0">
@@ -74,7 +74,7 @@
     </div>
 </div>
 
-<div class="main__content report__active">
+<div id="debtReport" class="main__content report__active d-none">
     <div class="report__table-title">Báo cáo công nợ</div>
     <div class="table-responsive rounded">
 
@@ -109,3 +109,34 @@
 </div>
 
 {{>pagination}}
+
+<script src="/js/jquery-3.6.1.min.js"></script>
+<script>
+
+    let inventoryReport = $('#inventoryReport');
+    let debtReport = $('#debtReport');
+
+    $('#type-of-report').change(() => {
+        const val = $('#type-of-report option:selected').text();
+        
+        if (val == "Báo cáo tồn sách") {
+           
+            inventoryReport.removeClass('d-none');
+            inventoryReport.addClass('show');
+
+            debtReport.addClass('d-none');
+            debtReport.removeClass('show');
+            console.log(val);
+
+        }
+        else if (val == "Báo cáo công nợ") {
+          
+            debtReport.removeClass('d-none');
+            debtReport.addClass('show');
+
+            inventoryReport.addClass('d-none');
+            inventoryReport.removeClass('show');
+    
+        }
+    })
+</script>

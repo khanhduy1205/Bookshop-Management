@@ -20,12 +20,12 @@
         </div>
         <ul class="createImport__menu-btns">
             <li>
-                <button form="form-createImport" name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
+                <button form="form-createImport" id="addBook" name="addBook" class="import__menu-btn"><i class="fa-solid fa-circle-plus icon"></i>Thêm
                     sách</button>
             </li>
             <li>
                 <button form="form-createImport" formaction="/import/create/remove-book" name="removeBook"
-                    class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
+                  id="removeBook"  class="import__menu-btn"><i class="fa-solid fa-trash icon"></i>Xóa
                     sách</button>
             </li>
         </ul>
@@ -100,24 +100,6 @@
 
         var today = new Date().toISOString().split('T')[0];
         document.getElementById("importDate").value = today;
-
-
-        {{!-- // update total books and total money
-        var totalBooks = 0;
-        var totalPrice = 0;
-
-        $('table td[name="quantity"]').each((index, element) => {
-            totalBooks += Number($(element).text());
-            console.log(totalBooks);
-        })
-
-        $('table td[name="price"]').each((index, element) => {
-            totalPrice += Number($(element).text());
-            console.log(totalPrice);
-        })--}}
-
-        $('span[name="totalPrice"]').html(totalPrice + " ");
-        $('span[name="totalBooks"]').html(totalBooks + " ");
     })
 
     // xóa sách trong phiếu nhập
@@ -132,7 +114,12 @@
                 books.splice(index, 1);
             }
         }
+    }
 
+    var deleteBtn = document.getElementById('removeBook');
+    deleteBtn.addEventListener('click', deleteBook);
+
+    async function deleteBook () {
         if (books.length > 0) {
             const res = await fetch('http://localhost:3000/import/create/remove-book', {
                 method: 'post',
@@ -143,6 +130,7 @@
             });
         }
     }
+ 
 
-    
+
 </script>

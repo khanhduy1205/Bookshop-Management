@@ -64,9 +64,9 @@ exports.getHome = async (req, res, next) => {
 
 exports.getSearch = async (req, res, next) => {
 
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     try {
         var page = parseInt(req.query.page) || 1;
 
@@ -87,7 +87,7 @@ exports.getSearch = async (req, res, next) => {
             total: currentBooks.length,
             perPage,
             page: page,
-            // user: req.session.passport.user
+            user: req.session.passport.user
         });
 
     } catch (err) {
@@ -130,7 +130,7 @@ exports.postSearch = async (req, res, next) => {
             total: booksLookedUp.length,
             perPage,
             page: page,
-            // user: req.session.passport.user
+            user: req.session.passport.user
         });
     } catch (err) {
         next(err);
@@ -140,9 +140,9 @@ exports.postSearch = async (req, res, next) => {
 //---------- Customers-------------------------------
 exports.getCustomer = async (req, res, next) => {
 
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
 
     try {
         var page = parseInt(req.query.page) || 1;
@@ -159,7 +159,7 @@ exports.getCustomer = async (req, res, next) => {
             total: customersDb.length,
             perPage,
             page: page,
-            // user: req.session.passport.user
+            user: req.session.passport.user
         });
 
     } catch (err) {
@@ -172,9 +172,9 @@ let listBooks = [];
 
 //trang lập phiếu thu
 exports.getImports = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
 
     var page = parseInt(req.query.page) || 1;
     var perPage = 7;
@@ -189,7 +189,7 @@ exports.getImports = async (req, res, next) => {
         perPage,
         page: page,
         imports,
-        // user: req.session.passport.user
+        user: req.session.passport.user
     });
 };
 
@@ -197,9 +197,9 @@ exports.getImports = async (req, res, next) => {
 //bấm button thêm sách
 exports.getImportCreate = async (req, res, next) => {
 
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
 
     var page = parseInt(req.query.page) || 1;
     var perpage = 7;
@@ -323,11 +323,16 @@ exports.postImportAddBook = async (req, res, next) => {
         totalPrice += book.price * book.quantity;
     }
 
+    const fistRegulation = await regulationM.byID(0);
+    const secondRegulation = await regulationM.byID(1);
+
     res.render('create_import', {
         importID,
         listBooks,   
         totalBook,
-        totalPrice
+        totalPrice,
+        maxStockToImport: secondRegulation.value,
+        minImportValue: fistRegulation.value
     });
 }
 
@@ -349,18 +354,24 @@ exports.postImportRemoveBook = async (req, res, next) => {
         totalBook += parseInt(book.quantity);
         totalPrice += book.price * book.quantity;
     }
+
+    const fistRegulation = await regulationM.byID(0);
+    const secondRegulation = await regulationM.byID(1);
+
     res.render('create_import', {
         listBooks,
         totalBook,
-        totalPrice
+        totalPrice,
+        maxStockToImport: secondRegulation.value,
+        minImportValue: fistRegulation.value
     });
 }
 
 exports.getImportUpdate = async (req, res, next) => {
 
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     var page = parseInt(req.query.page) || 1;
     const perPage = 7;
 
@@ -439,15 +450,15 @@ exports.postImportDelete = async (req, res, next) => {
         total: imports.length,
         page: page,
         perPage,
-        imports
-        // user: req.session.passport.user
+        imports,
+        user: req.session.passport.user
     });
 }
 
 exports.getInvoices = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     var page = parseInt(req.query.page) || 1;
 
     const perPage = 7;
@@ -465,14 +476,14 @@ exports.getInvoices = async (req, res, next) => {
         perPage,
         page: page,
         invoices,
-        // user: req.session.passport.user
+        user: req.session.passport.user
     });
 };
 
 exports.getInvoiceCreate = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     try {
 
         const invoicesDb = await invoiceM.getAll();
@@ -488,7 +499,7 @@ exports.getInvoiceCreate = async (req, res, next) => {
             active: { invoice: true },
             invoiceID,
             books: booksDb,
-            // user: req.session.passport.user
+            user: req.session.passport.user
         })
     } catch (err) {
         next(err);
@@ -496,14 +507,14 @@ exports.getInvoiceCreate = async (req, res, next) => {
 }
 
 exports.postInvoicePayment = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     try {
 
         const invoiceInfo = req.body.invoiceInfo;
-        console.log(invoiceInfo);
-
+        const invoicesDb = await invoiceM.getAll();
+            
         if (invoiceInfo) {
             const customerInfo = invoiceInfo.customerInfo;
             const listBooks = invoiceInfo.listBooks;
@@ -532,7 +543,6 @@ exports.postInvoicePayment = async (req, res, next) => {
             }
 
             // insert to invoice
-            const invoicesDb = await invoiceM.getAll();
             
             let newInvoiceID = 0;
             if (invoicesDb || invoicesDb?.length) {
@@ -578,8 +588,25 @@ exports.postInvoicePayment = async (req, res, next) => {
                 }
             }
         }
-        res.redirect('/invoice');
 
+        //render invoice page
+        var page = parseInt(req.query.page) || 1;
+        const perPage = 7;
+
+        const invoices = invoicesDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
+        invoices.forEach(invoice => {
+            invoice.invoiceDate = new Date(invoice.invoiceDate).toLocaleDateString('zh-Hans-CN');
+        })
+    
+        res.render('invoice', {
+            active: { invoice: true },
+            helpers,
+            total: invoices.length,
+            perPage,
+            page: page,
+            invoices,
+            user: req.session.passport.user
+        });
     } catch (err) {
         next(err);
     }
@@ -587,9 +614,9 @@ exports.postInvoicePayment = async (req, res, next) => {
 }
 
 exports.getInvoiceUpdate = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     var page = parseInt(req.query.page) || 1;
 
     const perPage = 7;
@@ -600,7 +627,7 @@ exports.getInvoiceUpdate = async (req, res, next) => {
         total: 20,
         perPage,
         page: page,
-        // user: req.session.passport.user
+        user: req.session.passport.user
     });
 }
 
@@ -610,9 +637,9 @@ exports.postInvoiceUpdate = async (req, res, next) => {
 }
 
 exports.getAddBookToInvoice = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     res.render('list_book', {
         active: { invoice: true }
     })
@@ -654,7 +681,7 @@ exports.postAddBookToInvoice = async (req, res, next) => {
             // invoiceID,
             // customerInfo,
             // listBook
-            // user: req.session.passport.user
+            user: req.session.passport.user
         })
 
         // res.redirect('/invoice/create');
@@ -666,9 +693,9 @@ exports.postAddBookToInvoice = async (req, res, next) => {
 
 
 exports.getDebtList = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
 
     try {
         var page = parseInt(req.query.page) || 1;
@@ -685,7 +712,7 @@ exports.getDebtList = async (req, res, next) => {
             total: customersDb.length,
             perPage,
             page: page,
-            // user: req.session.passport.user
+            user: req.session.passport.user
         });
 
     } catch (err) {
@@ -695,9 +722,9 @@ exports.getDebtList = async (req, res, next) => {
 
 exports.getReceipts = async (req, res, next) => {
 
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     try {
         var page = parseInt(req.query.page) || 1;
 
@@ -719,7 +746,7 @@ exports.getReceipts = async (req, res, next) => {
             total: receiptsDb.length,
             perPage,
             page: page,
-            // user: req.session.passport.user
+            user: req.session.passport.user
         });
 
     } catch (err) {
@@ -754,7 +781,7 @@ exports.postReceiptCreate = async (req, res, next) => {
 
             const receipt = await receiptM.add(newReceipt);
             const customer = await customerM.editCustomer(customerDb);
-            res.redirect('/receipt');
+            res.redirect('/debt');
         }
 
     } catch (error) {
@@ -841,9 +868,9 @@ exports.postReceiptDelete = async (req, res, next) => {
 
 exports.getReports = async (req, res, next) => {
 
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     var page = parseInt(req.query.page) || 1;
 
     const perPage = 7;
@@ -854,14 +881,14 @@ exports.getReports = async (req, res, next) => {
         total: 20,
         perPage,
         page: page,
-        // user: req.session.passport.user
+        user: req.session.passport.user
     });
 };
 
 exports.getRegulations = async (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     return res.redirect('/');
-    // }
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
     var page = parseInt(req.query.page) || 1;
     const perPage = 8;
 
@@ -875,7 +902,7 @@ exports.getRegulations = async (req, res, next) => {
         perPage,
         page: page,
         regulation,
-        // user: req.session.passport.user
+        user: req.session.passport.user
     });
 };
 

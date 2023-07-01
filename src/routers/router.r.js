@@ -6,8 +6,6 @@ const accountManager = require('../controllers/account_manager.c');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-
-
 router.get('/login', accountManager.getLogin)
 
 router.post('/login', accountManager.postLogin);
@@ -89,6 +87,5 @@ router.get('/regulation', bookshopManager.getRegulations);
 router.get('/regulation/update', bookshopManager.getRegulationUpdate);
 
 router.post('/regulation/update', bookshopManager.postRegulationUpdate);
-
 
 module.exports = router;
