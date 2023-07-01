@@ -139,10 +139,9 @@ exports.postAccountSetting = async (req, res, next) => {
     }
 
     // validation
-    const fullnameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
+    const fullnameRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/,
         phoneRegex = /0[0-9][0-9]{8}\b/,
         emailRegex = /^[a-z][a-z0-9_\.]{1,}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/
-
 
     var error = { fullname: undefined, phone: undefined, email: undefined };
 
@@ -239,6 +238,6 @@ exports.postPasswordChanging = async (req, res, next) => {
     salt = Date.now().toString(16);
     const newPwdHashed = hashPassword(newPassword, salt);
 
-    await userM.editPassword(newPwdHashed + salt, user.id);
+    await userM.editPassword(newPwdHashed + salt, user.accountID);
     res.redirect('/logOut');
 }
