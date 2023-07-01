@@ -81,7 +81,7 @@ exports.postRegister = async (req, res, next) => {
     if (!usersDb || !usersDb?.length) { // ?. return undefine if object is undefined or null
         id = 0;
     } else {
-        id = usersDb[usersDb.length - 1].id + 1;
+        id = usersDb[usersDb.length - 1].accountID + 1;
     }
 
     const acc = {
