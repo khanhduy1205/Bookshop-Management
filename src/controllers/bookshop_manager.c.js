@@ -1,4 +1,3 @@
-
 const customerM = require('../models/customer.m'),
     booksM = require('../models/bookshop.m'),
     receiptM = require('../models/receipt.m'),
@@ -12,7 +11,6 @@ var currentBooks = [];
 
 exports.getAllBooks = async (req, res, next) => {
     try {
-
         const allBooksDb = await booksM.getAll();
 
         // dừng nếu đã lưu books từ json sang db rồi
@@ -37,17 +35,16 @@ exports.getAllBooks = async (req, res, next) => {
                 category,
                 author,
                 quantity,
-                price
+                price,
             };
             const bookNew = await booksM.addBookToDB(book);
         }
     } catch (error) {
         next(error);
     }
-}
+};
 
 exports.getHome = async (req, res, next) => {
-
     try {
         if (!req.isAuthenticated()) {
             return res.redirect('/login');
@@ -57,28 +54,27 @@ exports.getHome = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-
 };
 
 // ---------- Search ---------------------------------------
-
 exports.getSearch = async (req, res, next) => {
-
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
+
     try {
         var page = parseInt(req.query.page) || 1;
 
         const perPage = 8;
 
         const booksDb = await booksM.getAll();
+        console.log(booksDb);
 
         if (!currentBooks || currentBooks.length == 0) {
             currentBooks = booksDb;
         }
 
-        const books = currentBooks.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+        const books = currentBooks.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
 
         res.render('search', {
             active: { search: true },
@@ -87,16 +83,14 @@ exports.getSearch = async (req, res, next) => {
             total: currentBooks.length,
             perPage,
             page: page,
-            user: req.session.passport.user
+            user: req.session.passport.user,
         });
-
     } catch (err) {
         next(err);
     }
 };
 
 exports.postSearch = async (req, res, next) => {
-
     try {
         var page = parseInt(req.query.page) || 1;
         var perPage = 8;
@@ -109,8 +103,7 @@ exports.postSearch = async (req, res, next) => {
 
         if (!search) {
             booksLookedUp = allBooks;
-        }
-        else {
+        } else {
             for (var i = 0; i < allBooks.length; i++) {
                 let bookname = allBooks[i].bookname.toLowerCase();
                 let category = allBooks[i].category.toLowerCase();
@@ -121,7 +114,7 @@ exports.postSearch = async (req, res, next) => {
         }
 
         currentBooks = booksLookedUp;
-        const books = booksLookedUp.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+        const books = booksLookedUp.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
 
         res.render('search', {
             active: { search: true },
@@ -130,16 +123,15 @@ exports.postSearch = async (req, res, next) => {
             total: booksLookedUp.length,
             perPage,
             page: page,
-            user: req.session.passport.user
+            user: req.session.passport.user,
         });
     } catch (err) {
         next(err);
     }
+};
 
-}
 //---------- Customers-------------------------------
 exports.getCustomer = async (req, res, next) => {
-
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
@@ -150,7 +142,7 @@ exports.getCustomer = async (req, res, next) => {
         const perPage = 7;
 
         const customersDb = await customerM.getAll();
-        const customers = customersDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+        const customers = customersDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
 
         res.render('customer', {
             active: { customer: true },
@@ -159,13 +151,12 @@ exports.getCustomer = async (req, res, next) => {
             total: customersDb.length,
             perPage,
             page: page,
-            user: req.session.passport.user
+            user: req.session.passport.user,
         });
-
     } catch (err) {
         next(err);
     }
-}
+};
 
 // ---------- Imports ------------------------------
 let listBooks = [];
@@ -189,14 +180,12 @@ exports.getImports = async (req, res, next) => {
         perPage,
         page: page,
         imports,
-        user: req.session.passport.user
+        user: req.session.passport.user,
     });
 };
 
-
 //bấm button thêm sách
 exports.getImportCreate = async (req, res, next) => {
-
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
@@ -221,9 +210,9 @@ exports.getImportCreate = async (req, res, next) => {
         importID,
         listBooks,
         maxStockToImport: secondRegulation.value,
-        minImportValue: fistRegulation.value
+        minImportValue: fistRegulation.value,
     });
-}
+};
 
 //bấm nút hoàn tất
 exports.postImportCreate = async (req, res, next) => {
@@ -240,7 +229,7 @@ exports.postImportCreate = async (req, res, next) => {
 
     let imp = {
         importID,
-        importDate
+        importDate,
     };
     const newImport = await importM.add(imp);
 
@@ -254,16 +243,18 @@ exports.postImportCreate = async (req, res, next) => {
             importDetailID = importDetails[importDetails.length - 1].importDetailID + 1;
         }
 
-        const book = books.find(b => (b.bookname == listBooks[i].bookname) &&
-            (b.author == listBooks[i].author) &&
-            (b.category == listBooks[i].category) &&
-            (b.price == listBooks[i].price));
+        const book = books.find(
+            (b) =>
+                b.bookname == listBooks[i].bookname &&
+                b.author == listBooks[i].author &&
+                b.category == listBooks[i].category &&
+                b.price == listBooks[i].price,
+        );
         if (book) {
             bookID = book.bookID;
             const newQuantity = parseInt(listBooks[i].quantity) + book.quantity;
             const updateBook = await booksM.updateQuantity(bookID, newQuantity);
-        }
-        else {
+        } else {
             let bookname = listBooks[i].bookname;
             let category = listBooks[i].category;
             let author = listBooks[i].author;
@@ -276,7 +267,7 @@ exports.postImportCreate = async (req, res, next) => {
                 category,
                 author,
                 quantity,
-                price
+                price,
             };
             const bookNew = await booksM.addBookToDB(newBook);
 
@@ -291,15 +282,15 @@ exports.postImportCreate = async (req, res, next) => {
             bookname: listBooks[i].bookname,
             quantity: listBooks[i].quantity,
             totalBook,
-            totalPrice
+            totalPrice,
         };
         const newImportDetail = await importM.addImportDetails(temp);
     }
-    // listBooks = [];    
+    // listBooks = [];
     listBooks.splice(0, listBooks.length);
 
     return res.redirect('/import');
-}
+};
 
 //modal
 exports.postImportAddBook = async (req, res, next) => {
@@ -308,7 +299,8 @@ exports.postImportAddBook = async (req, res, next) => {
     const { bookname, author, category, quantity, price } = req.body;
 
     const addBook = { bookname, author, category, quantity, price };
-    let totalBook = 0, totalPrice = 0;
+    let totalBook = 0,
+        totalPrice = 0;
 
     listBooks.push(addBook);
 
@@ -328,19 +320,19 @@ exports.postImportAddBook = async (req, res, next) => {
 
     res.render('create_import', {
         importID,
-        listBooks,   
+        listBooks,
         totalBook,
         totalPrice,
         maxStockToImport: secondRegulation.value,
-        minImportValue: fistRegulation.value
+        minImportValue: fistRegulation.value,
     });
-}
+};
 
 exports.postImportRemoveBook = async (req, res, next) => {
     let { books } = req.body;
     if (books !== undefined) {
         for (let i = 0; i < books.length; i++) {
-            const bookIndex = listBooks.findIndex(b => b.bookname === books[i]);
+            const bookIndex = listBooks.findIndex((b) => b.bookname === books[i]);
             if (bookIndex !== -1) {
                 listBooks.splice(bookIndex, 1);
             }
@@ -363,12 +355,11 @@ exports.postImportRemoveBook = async (req, res, next) => {
         totalBook,
         totalPrice,
         maxStockToImport: secondRegulation.value,
-        minImportValue: fistRegulation.value
+        minImportValue: fistRegulation.value,
     });
-}
+};
 
 exports.getImportUpdate = async (req, res, next) => {
-
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
@@ -383,11 +374,11 @@ exports.getImportUpdate = async (req, res, next) => {
     let totalBook = 0;
     let totalPrice = 0;
 
-    for (var i = 0; i < importDetails.length; i++) {            
-        const book = books.find(b => b.bookID === importDetails[i].bookID);
+    for (var i = 0; i < importDetails.length; i++) {
+        const book = books.find((b) => b.bookID === importDetails[i].bookID);
         listBookDetails.push({
             book,
-            quantity: importDetails[i].quantity
+            quantity: importDetails[i].quantity,
         });
         totalBook += importDetails[i].quantity;
         totalPrice += book.price * importDetails[i].quantity;
@@ -403,13 +394,13 @@ exports.getImportUpdate = async (req, res, next) => {
         listBookDetails,
         importDetails,
         totalBook,
-        totalPrice
+        totalPrice,
     });
-}
+};
 
 exports.postImportUpdate = async (req, res, next) => {
     res.redirect('/import');
-}
+};
 
 exports.postImportDelete = async (req, res, next) => {
     var page = parseInt(req.query.page) || 1;
@@ -424,20 +415,19 @@ exports.postImportDelete = async (req, res, next) => {
                 const bookID = importDetails[j].bookID;
                 const quantity = importDetails[j].quantity;
 
-                const deleteImportDetail = await importM.deleteImportDetail(importDetails[j].importDetailID)
-                
-                const book = books.find(b => b.bookID === bookID);
-                
+                const deleteImportDetail = await importM.deleteImportDetail(importDetails[j].importDetailID);
+
+                const book = books.find((b) => b.bookID === bookID);
+
                 if (book.quantity === quantity) {
-                    const deleteBook = await booksM.deleteBook(book.bookID)
-                }
-                else {
+                    const deleteBook = await booksM.deleteBook(book.bookID);
+                } else {
                     const newQuantity = book.quantity - quantity;
                     const updateBook = await booksM.updateQuantity(book.bookID, newQuantity);
                 }
             }
 
-            const deleteImport = await importM.deleteImport(parseInt(listID[i]))
+            const deleteImport = await importM.deleteImport(parseInt(listID[i]));
         }
     }
 
@@ -451,9 +441,9 @@ exports.postImportDelete = async (req, res, next) => {
         page: page,
         perPage,
         imports,
-        user: req.session.passport.user
+        user: req.session.passport.user,
     });
-}
+};
 
 exports.getInvoices = async (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -465,9 +455,9 @@ exports.getInvoices = async (req, res, next) => {
     const invoiceDb = await invoiceM.getAll();
 
     const invoices = invoiceDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
-    invoices.forEach(invoice => {
+    invoices.forEach((invoice) => {
         invoice.invoiceDate = new Date(invoice.invoiceDate).toLocaleDateString('zh-Hans-CN');
-    })
+    });
 
     res.render('invoice', {
         active: { invoice: true },
@@ -476,7 +466,7 @@ exports.getInvoices = async (req, res, next) => {
         perPage,
         page: page,
         invoices,
-        user: req.session.passport.user
+        user: req.session.passport.user,
     });
 };
 
@@ -485,7 +475,6 @@ exports.getInvoiceCreate = async (req, res, next) => {
         return res.redirect('/');
     }
     try {
-
         const invoicesDb = await invoiceM.getAll();
         let invoiceID = 0;
 
@@ -499,22 +488,21 @@ exports.getInvoiceCreate = async (req, res, next) => {
             active: { invoice: true },
             invoiceID,
             books: booksDb,
-            user: req.session.passport.user
-        })
+            user: req.session.passport.user,
+        });
     } catch (err) {
         next(err);
     }
-}
+};
 
 exports.postInvoicePayment = async (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
     try {
-
         const invoiceInfo = req.body.invoiceInfo;
         const invoicesDb = await invoiceM.getAll();
-            
+
         if (invoiceInfo) {
             const customerInfo = invoiceInfo.customerInfo;
             const listBooks = invoiceInfo.listBooks;
@@ -523,9 +511,9 @@ exports.postInvoicePayment = async (req, res, next) => {
                 res.redirect('/invoice');
             }
 
-            if (customerInfo.customerID == "") {
+            if (customerInfo.customerID == '') {
                 const customerDb = await customerM.getAll();
-                let newCustomerID = 0;   
+                let newCustomerID = 0;
                 if (customerDb || customerDb?.length) {
                     newCustomerID = customerDb[customerDb.length - 1].customerID + 1;
                 }
@@ -534,16 +522,16 @@ exports.postInvoicePayment = async (req, res, next) => {
                 const newCustomer = {
                     customerID: customerInfo.customerID,
                     fullname: customerInfo.fullname,
-                    address: " ",
+                    address: ' ',
                     email: customerInfo.email,
                     phone: customerInfo.phone,
                     unpaidAmount: 0,
-                }
+                };
                 await customerM.add(newCustomer);
             }
 
             // insert to invoice
-            
+
             let newInvoiceID = 0;
             if (invoicesDb || invoicesDb?.length) {
                 newInvoiceID = invoicesDb[invoicesDb.length - 1].invoiceID + 1;
@@ -553,14 +541,13 @@ exports.postInvoicePayment = async (req, res, next) => {
                 invoiceID: newInvoiceID,
                 customerID: Number(customerInfo.customerID),
                 fullname: customerInfo.fullname,
-                invoiceDate: new Date(invoiceInfo.invoiceDate)
-            }
+                invoiceDate: new Date(invoiceInfo.invoiceDate),
+            };
 
             await invoiceM.add(newInvoice);
 
             // insert to invoice detail
             for (const book of listBooks) {
-                
                 const invoiceDetailsDb = await invoiceDetailM.getAll();
 
                 let newDetailID = 0;
@@ -573,12 +560,12 @@ exports.postInvoicePayment = async (req, res, next) => {
                     bookID: book.bookID,
                     invoiceID: newInvoiceID,
                     quantity: book.quantity,
-                    price: book.price
-                }
+                    price: book.price,
+                };
 
                 await invoiceDetailM.add(newDetail);
 
-                // change book instock 
+                // change book instock
                 const bookDb = await booksM.byBookID(book.bookID);
 
                 if (bookDb) {
@@ -594,10 +581,10 @@ exports.postInvoicePayment = async (req, res, next) => {
         const perPage = 7;
 
         const invoices = invoicesDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
-        invoices.forEach(invoice => {
+        invoices.forEach((invoice) => {
             invoice.invoiceDate = new Date(invoice.invoiceDate).toLocaleDateString('zh-Hans-CN');
-        })
-    
+        });
+
         res.render('invoice', {
             active: { invoice: true },
             helpers,
@@ -605,13 +592,12 @@ exports.postInvoicePayment = async (req, res, next) => {
             perPage,
             page: page,
             invoices,
-            user: req.session.passport.user
+            user: req.session.passport.user,
         });
     } catch (err) {
         next(err);
     }
-
-}
+};
 
 exports.getInvoiceUpdate = async (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -627,31 +613,27 @@ exports.getInvoiceUpdate = async (req, res, next) => {
         total: 20,
         perPage,
         page: page,
-        user: req.session.passport.user
+        user: req.session.passport.user,
     });
-}
+};
 
 exports.postInvoiceUpdate = async (req, res, next) => {
-
     res.redirect('/invoice');
-}
+};
 
 exports.getAddBookToInvoice = async (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
     res.render('list_book', {
-        active: { invoice: true }
-    })
-}
+        active: { invoice: true },
+    });
+};
 
 exports.postAddBookToInvoice = async (req, res, next) => {
-
     try {
-
         const invoiceInfo = req.body.invoiceInfo;
 
-        console.log(invoiceInfo);
         const booksSelected = invoiceInfo.booksSelected;
         const customerInfo = invoiceInfo.customerInfo;
         const listBook = [];
@@ -663,8 +645,8 @@ exports.postAddBookToInvoice = async (req, res, next) => {
                 const bookInfo = {
                     book: bookDb,
                     quantity: bookSelected.quantity,
-                    price: bookDb.price * bookSelected.quantity
-                }
+                    price: bookDb.price * bookSelected.quantity,
+                };
                 listBook.push(bookInfo);
             }
         }
@@ -681,16 +663,14 @@ exports.postAddBookToInvoice = async (req, res, next) => {
             // invoiceID,
             // customerInfo,
             // listBook
-            user: req.session.passport.user
-        })
+            user: req.session.passport.user,
+        });
 
         // res.redirect('/invoice/create');
-
     } catch (err) {
         next(err);
     }
-}
-
+};
 
 exports.getDebtList = async (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -703,7 +683,7 @@ exports.getDebtList = async (req, res, next) => {
         const perPage = 7;
 
         const customersDb = await customerM.getListByDebt();
-        const customers = customersDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+        const customers = customersDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
 
         res.render('debt_list', {
             active: { customer: true },
@@ -712,16 +692,14 @@ exports.getDebtList = async (req, res, next) => {
             total: customersDb.length,
             perPage,
             page: page,
-            user: req.session.passport.user
+            user: req.session.passport.user,
         });
-
     } catch (err) {
         next(err);
     }
-}
+};
 
 exports.getReceipts = async (req, res, next) => {
-
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
@@ -732,11 +710,10 @@ exports.getReceipts = async (req, res, next) => {
 
         const receiptsDb = await receiptM.getReceiptJoinCustomer();
 
-        const receipts = receiptsDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+        const receipts = receiptsDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
 
-        receipts.forEach(receipt => {
+        receipts.forEach((receipt) => {
             receipt.paymentDate = new Date(receipt.paymentDate).toLocaleDateString('zh-Hans-CN');
-
         });
 
         res.render('receipt', {
@@ -746,19 +723,15 @@ exports.getReceipts = async (req, res, next) => {
             total: receiptsDb.length,
             perPage,
             page: page,
-            user: req.session.passport.user
+            user: req.session.passport.user,
         });
-
     } catch (err) {
         next(err);
     }
-
 };
 
 exports.postReceiptCreate = async (req, res, next) => {
-
     try {
-
         const receiptsDb = await receiptM.getAll();
         var receiptID;
         if (!receiptsDb || !receiptsDb?.length) {
@@ -771,8 +744,8 @@ exports.postReceiptCreate = async (req, res, next) => {
             receiptID,
             customerID: parseInt(req.body.customerID),
             amountPaid: parseInt(req.body.amountPaid),
-            paymentDate: new Date(req.body.date)
-        }
+            paymentDate: new Date(req.body.date),
+        };
 
         var customerDb = await customerM.byCustomerID(newReceipt.customerID);
 
@@ -783,16 +756,13 @@ exports.postReceiptCreate = async (req, res, next) => {
             const customer = await customerM.editCustomer(customerDb);
             res.redirect('/debt');
         }
-
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
 
 exports.postReceiptUpdate = async (req, res, next) => {
-
     try {
-
         const newReceipt = {
             receiptID: req.body.receiptID,
             customerID: req.body.customerID,
@@ -802,10 +772,9 @@ exports.postReceiptUpdate = async (req, res, next) => {
             phone: req.body.phone,
             paymentDate: new Date(req.body.date),
             amountPaid: req.body.amountPaid,
-            applyRule: req.body.applyRule
-        }
+            applyRule: req.body.applyRule,
+        };
 
-        console.log(newReceipt);
         const receiptDb = await receiptM.byReceiptID(newReceipt.receiptID);
         const customerDb = await customerM.byCustomerID(newReceipt.customerID);
 
@@ -819,7 +788,6 @@ exports.postReceiptUpdate = async (req, res, next) => {
             const originDebt = customerDb.unpaidAmount + receiptDb.amountPaid;
 
             if (newReceipt.amountPaid != receiptDb.amountPaid) {
-
                 if (newReceipt.amountPaid > originDebt) {
                     return res.redirect('/receipt');
                 }
@@ -827,8 +795,7 @@ exports.postReceiptUpdate = async (req, res, next) => {
                 //update debt
                 customerDb.unpaidAmount = originDebt - newReceipt.amountPaid;
             }
-        }
-        else {
+        } else {
             const oldCustomerDb = await customerM.byCustomerID(receiptDb.customerID);
 
             if (!oldCustomerDb) {
@@ -846,10 +813,9 @@ exports.postReceiptUpdate = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
 
 exports.postReceiptDelete = async (req, res, next) => {
-
     try {
         const dataObjects = req.body.dataObjects;
 
@@ -857,17 +823,15 @@ exports.postReceiptDelete = async (req, res, next) => {
             if (dataObject) {
                 await receiptM.deleteReceiptByID(dataObject.receiptID);
             }
-        })
+        });
 
         res.redirect('/receipt');
-
     } catch (error) {
         next(error);
     }
-}
+};
 
 exports.getReports = async (req, res, next) => {
-
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
@@ -881,7 +845,7 @@ exports.getReports = async (req, res, next) => {
         total: 20,
         perPage,
         page: page,
-        user: req.session.passport.user
+        user: req.session.passport.user,
     });
 };
 
@@ -893,7 +857,7 @@ exports.getRegulations = async (req, res, next) => {
     const perPage = 8;
 
     const regulationDb = await regulationM.getAll();
-    const regulation = regulationDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+    const regulation = regulationDb.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
 
     res.render('regulation', {
         active: { regulation: true },
@@ -902,20 +866,16 @@ exports.getRegulations = async (req, res, next) => {
         perPage,
         page: page,
         regulation,
-        user: req.session.passport.user
+        user: req.session.passport.user,
     });
 };
 
 exports.getRegulationUpdate = async (req, res, next) => {
-
     res.render('update_regulation', {
-        active: { regulation: true }
+        active: { regulation: true },
     });
-}
+};
 
 exports.postRegulationUpdate = async (req, res, next) => {
     res.redirect('/regulation');
-}
-
-
-
+};
