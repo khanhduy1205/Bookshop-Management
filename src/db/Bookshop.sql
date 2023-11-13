@@ -1,134 +1,1260 @@
--- Database: Bookshop
-
--- DROP DATABASE IF EXISTS "Bookshop";
-
-CREATE DATABASE "Bookshop"
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'English_United States.1252'
-    LC_CTYPE = 'English_United States.1252'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
-
-	
 DROP TABLE IF EXISTS "Accounts";
-CREATE TABLE "Accounts" (
-	"accountID" int4 NOT NULL,
-	"username" varchar(255) NOT NULL,
-	"fullname" varchar(255) NOT NULL,
-  	"password" varchar(255) NOT NULL,
-	"address" varchar(255) NOT NULL,
-	"email" varchar(255) NOT NULL,
-	"phone" varchar(255) NOT NULL
-);
-
 DROP TABLE IF EXISTS "Customers";
-CREATE TABLE "Customers" (
-	"customerID" int4 NOT NULL,
-	"fullname" varchar(255) NOT NULL,
-	"address" varchar(255) NOT NULL,
-	"email" varchar(255) NOT NULL,
-	"phone" varchar(255) NOT NULL,
-	"unpaidAmount" int4 NOT NULL
-);
-
 DROP TABLE IF EXISTS "Books";
-CREATE TABLE "Books" (
-	"bookID" int4 NOT NULL,
-	"bookname" varchar(255) NOT NULL,
-	"category" varchar(255) NOT NULL,
-	"author" varchar(255) NOT NULL,
-	"quantity" int4 NOT NULL,
-	"price" int4 NOT NULL	
-);
-
 DROP TABLE IF EXISTS "Imports";
-CREATE TABLE "Imports" (
-	"importID" int4 NOT NULL,
- 	"importDate" date NOT NULL	
-);
-
 DROP TABLE IF EXISTS "ImportDetails";
-CREATE TABLE "ImportDetails" (
-	"importDetailID" int4 NOT NULL,
- 	"bookID" int4 NOT NULL,
-	"importID" int4 NOT NULL,
-	"bookname" varchar(255) NOT NULL,
-	"quantity" int4 NOT NULL
-);
-
 DROP TABLE IF EXISTS "Invoices";
-CREATE TABLE "Invoices" (
-	"invoiceID" int4 NOT NULL,
-	"customerID" int4 NOT NULL,
-	"fullname" varchar(255) NOT NULL,
- 	"invoiceDate" date NOT NULL	
-);
-
 DROP TABLE IF EXISTS "InvoiceDetails";
-CREATE TABLE "InvoiceDetails" (
-	"invoiceDetailID" int4 NOT NULL,
-	"bookID" int4 NOT NULL,
-	"invoiceID" int4 NOT NULL,
- 	"quantity" int4 NOT NULL,
-	"price" int4 NOT NULL
-);
-
 DROP TABLE IF EXISTS "Receipts";
-CREATE TABLE "Receipts" (
-	"receiptID" int4 NOT NULL,
-	"customerID" int4 NOT NULL,
-	"amountPaid" int4 NOT NULL,
-	"paymentDate" date NOT NULL
-);
-
 DROP TABLE IF EXISTS "InventoryReports";
-CREATE TABLE "InventoryReports" (
-	"inventoryReportID" int4 NOT NULL,
-	"Month" int4 NOT NULL,
-	"Year" int4 NOT NULL
-);
-
-DROP TABLE IF EXISTS "InventoryReportDetails";
-CREATE TABLE "InventoryReportDetails" (
-	"inventoryReportDetailID" int4 NOT NULL,
-	"inventoryReportID" int4 NOT NULL,
-	"bookID" int4 NOT NULL,
-	"bookname" varchar(255) NOT NULL,
-	"beginningInventory" int4 NOT NULL,
-	"endingInventory" int4 NOT NULL,
-	"inventoryChanges" int4 NOT NULL
-);
-
 DROP TABLE IF EXISTS "DebtReports";
-CREATE TABLE "DebtReports" (
-	"debtReportID" int4 NOT NULL,
-	"Month" int4 NOT NULL,
-	"Year" int4 NOT NULL
-);
 
-DROP TABLE IF EXISTS "DebtReportDetails";
-CREATE TABLE "DebtReportDetails" (
-	"debtReportDetailID" int4 NOT NULL,
-	"debtReportID" int4 NOT NULL,
-	"customerID" int4 NOT NULL,
-	"fullname" varchar(255) NOT NULL,	
-	"initialDebt" int4 NOT NULL,
-	"finalDebt" int4 NOT NULL,
-	"debtChanges" int4 NOT NULL
+create table "Accounts" (
+	"accountID" INT,
+	username VARCHAR(50),
+	fullname VARCHAR(50),
+	password VARCHAR(100),
+	address VARCHAR(50),
+	email VARCHAR(50),
+	phone VARCHAR(50)
 );
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (1, 'vcollelton0', 'Violet Collelton', '$2a$04$LyBAesnhc8iVr42CkDftrupHl2K7CkdvJFcnyXUjXpV31V0OYYYmK', '91839 Bultman Terrace', 'vcollelton0@theatlantic.com', '960-427-6834');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (2, 'kcornels1', 'Kaila Cornels', '$2a$04$QlJFZzfQJSXnSAi9sJ45RexKPsIc51hCLovUrGQ56OgFMiGYLtTIa', '03 Westport Pass', 'kcornels1@about.me', '773-697-5999');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (3, 'tshewen2', 'Tiffi Shewen', '$2a$04$KnBVABOZdpkXK3t2mv4KBuqSet.PXS4eo4bvWz8c5h3mAJ4j4hoW2', '691 Monica Trail', 'tshewen2@noaa.gov', '998-914-1968');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (4, 'jjest3', 'Joceline Jest', '$2a$04$1R4JWLbScG4dVApjeqeY0uIk7IIbloUpnl9GzmPsbDdbf2.LMY0F6', '59 Paget Park', 'jjest3@nih.gov', '706-612-6770');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (5, 'ngryglewski4', 'Nowell Gryglewski', '$2a$04$.m44PuyVXO1IDNLNaH0XOudCJpBOWJEDNjpBbZQI0jyrcvugVYd5e', '09478 Loomis Center', 'ngryglewski4@uol.com.br', '156-223-1412');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (6, 'rudale5', 'Rikki Udale', '$2a$04$6gRCRXM.Mknb2J0bikUNQOJCImANlUlPoofIw.fTzDndC1W2jrW8y', '1 Ridge Oak Drive', 'rudale5@washington.edu', '936-255-9230');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (7, 'mwestby6', 'Murvyn Westby', '$2a$04$cnNESz2ZG2G/iC8HJpMIiekTOS215kKDkbgoorhSx/2ibhzyQPyRa', '3 Weeping Birch Alley', 'mwestby6@opera.com', '138-210-0454');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (8, 'ggehrels7', 'Gilligan Gehrels', '$2a$04$7pP67slm5uh5BNwosL8/vuUCfxXGnpKgnwUd9cMdwHFtKMlWlfdq6', '3676 2nd Pass', 'ggehrels7@hexun.com', '390-323-3251');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (9, 'pdurtnall8', 'Philly Durtnall', '$2a$04$tMWNKtdrWD7RXkZdQ6UAZusKpB59Uqzz8z5owwjX4rERKdu3n9PPe', '976 Comanche Road', 'pdurtnall8@spiegel.de', '961-633-2285');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (10, 'jjelks9', 'Jonathan Jelks', '$2a$04$IvYUnNx5CDMCC3Lsy.vhl.4FDekhxuDbt5z.S1HLh3FJQcKJYbH.C', '7 Scofield Lane', 'jjelks9@multiply.com', '534-380-7634');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (11, 'wsimmilla', 'Willi Simmill', '$2a$04$xXrCsVZFCVMWRneJfh822ebcssYI6mUj2/UCB5Fx7zqbdvkkBM/Rq', '877 Steensland Crossing', 'wsimmilla@tripod.com', '450-764-9541');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (12, 'kbuxamb', 'Kip Buxam', '$2a$04$/SO5k0THZY4FseToEhDPNOBZgfO5wf35HZQMzbz3HDxR/iVmKEiZa', '0671 Cherokee Park', 'kbuxamb@ucoz.com', '391-449-2883');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (13, 'lharesignc', 'Lyndsay Haresign', '$2a$04$mWEwO0vKbXOF/gSVqYjIWec/UMseGRo8WjIiKDDjXJFJ4TKaLklW.', '05 Badeau Avenue', 'lharesignc@who.int', '488-939-5272');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (14, 'ranslowd', 'Randell Anslow', '$2a$04$ffeWq3j3nxXP9z4mSBiMcur6n0mfZWYQcGR8q0ou4mSwO40wDti7.', '118 Johnson Trail', 'ranslowd@apple.com', '946-775-9254');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (15, 'mcozzie', 'Madge Cozzi', '$2a$04$1.1pRuIYU1O6H/kyTrV0d.YUEzbDX24e/s.WGnq/NXPeCFabrGlHG', '76139 Jenifer Court', 'mcozzie@twitter.com', '967-373-4058');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (16, 'mburbagef', 'Merell Burbage', '$2a$04$e.K.R6S/czDaX479/.q.KuwFgzoU.TFC9RZUaeQNLoIgFNz3t/PgC', '73 Towne Parkway', 'mburbagef@list-manage.com', '515-331-9514');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (17, 'sdietzlerg', 'Sapphira Dietzler', '$2a$04$14VqDrvuRecIPORBan//yOfk2dH4yLTQKoPVsRVKHzRBqaouwlory', '5 American Ash Place', 'sdietzlerg@hubpages.com', '924-292-7541');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (18, 'cborgheseh', 'Christophe Borghese', '$2a$04$ofxMV1.jzAz3ZH2y4xftQeAWSsVJAjYeyKhLuqXvcmkl.Sit2JD.S', '030 Independence Way', 'cborgheseh@fema.gov', '957-384-9287');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (19, 'jwelli', 'Jermaine Well', '$2a$04$F9UqUOZO/AdYdpa.G1xbbeE66ZadSBwAmxudOQbqM3KFPdQ3LFRNm', '21356 Haas Hill', 'jwelli@nifty.com', '186-877-3986');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (20, 'bclausj', 'Brook Claus', '$2a$04$JO94JqBa5cNID.lIDtWx2uKPomYeIiu/FAumXRAIW3aF7uaysd8xK', '32783 Pierstorff Place', 'bclausj@unesco.org', '287-391-3003');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (21, 'hkernockek', 'Hortense Kernocke', '$2a$04$XGEbRL2u.ri2GB/I6ZvAOOHrBk8dNgFvbW1EkhhRPrV1OFrjtdRVW', '377 Memorial Plaza', 'hkernockek@jiathis.com', '266-284-5730');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (22, 'lholahl', 'Lona Holah', '$2a$04$HhSwODConvPmgyXWsY.YNepJTlTfF5eOpqWsXH66YWRMBxwZbhUFa', '2 Dorton Road', 'lholahl@biblegateway.com', '138-664-5181');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (23, 'avanm', 'Ayn Van Brug', '$2a$04$2pLgDhdaKGAEgq1Uklwxt.0o1z6FCo7tS3dLef6PI6alAX59cU/tG', '3640 Tennyson Alley', 'avanm@nbcnews.com', '379-325-2142');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (24, 'rgrannelln', 'Rubetta Grannell', '$2a$04$NkjrWoxVmWK2Jl/Vq4FYmeQ5KDd37OpCpJrYuhp.D8tpBP4LvQGVq', '94281 Fulton Circle', 'rgrannelln@php.net', '570-376-2339');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (25, 'rwhimpero', 'Rhianon Whimper', '$2a$04$6LZG3/mvy2LM9P.CWZ3gHuMmEeHux60BjfBb.tS8vgs9hw1JDm0e.', '0692 Bayside Circle', 'rwhimpero@foxnews.com', '887-578-6354');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (26, 'tfarrearp', 'Taddeo Farrear', '$2a$04$WPcfRZ8p3sKJYO5cAuagfunebbXnJm67UxyDoc8XM9TZIc9NCsBvC', '0 Declaration Crossing', 'tfarrearp@pbs.org', '764-987-5925');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (27, 'nshilstonq', 'Nola Shilston', '$2a$04$dp0gK3oIGACfiqlx3agxwuLjsmgYdt6nzvvVPjRwtOThnh2JJIHSK', '126 Briar Crest Hill', 'nshilstonq@ycombinator.com', '935-802-2518');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (28, 'nmorrillr', 'Nikolaos Morrill', '$2a$04$dPypICed3cW8OEF9S7veaOS3S9bdQBLJoL8YB8Fnn/51B9wQLRW0W', '3 School Junction', 'nmorrillr@ask.com', '130-578-7924');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (29, 'theads', 'Theresita Head', '$2a$04$17Oj1I0dxphju16MureKGePM8rbWn0X6mLZfqJqDiXu4JHXXrZ.9.', '4700 Daystar Terrace', 'theads@sfgate.com', '222-484-5746');
+insert into "Accounts" ("accountID", username, fullname, password, address, email, phone) values (30, 'sredhouset', 'Shaun Redhouse', '$2a$04$OrztaxUfUU3kVqsmw5.FtudIdKfi2JmcnvzaAG3Akq1rDzquWWekC', '8 Riverside Road', 'sredhouset@is.gd', '515-846-7725');
 
-DROP TABLE IF EXISTS "Regulations";
-CREATE TABLE "Regulations" (
-	"regulationID" int4 NOT NULL,
-	"regulationName" varchar(255) NOT NULL,	
-	"content" varchar(255) NOT NULL,	
-	"status" boolean NOT NULL,
-	"type" varchar(255) NOT NULL,
-	"value" int4 NOT NULL
+
+create table "Customers" (
+	"customerID" INT,
+	fullname VARCHAR(50),
+	address VARCHAR(50),
+	email VARCHAR(50),
+	phone VARCHAR(50),
+	"unpaidAmount" INT
 );
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (1, 'Marianne Cayle', '18 Fulton Place', 'mcayle0@nature.com', '477-619-6957', 138653);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (2, 'Romona Littrell', '483 Autumn Leaf Place', 'rlittrell1@google.com', '601-421-5674', 443119);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (3, 'Ivett Shearme', '94 Iowa Way', 'ishearme2@dailymail.co.uk', '404-572-1497', 489387);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (4, 'Florence Greenall', '4 Ruskin Court', 'fgreenall3@blinklist.com', '405-442-2665', 281913);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (5, 'Osbourne Hriinchenko', '8 Debra Court', 'ohriinchenko4@independent.co.uk', '894-103-4564', 69680);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (6, 'Orsola Ethington', '084 Packers Alley', 'oethington5@usgs.gov', '588-179-0744', 92277);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (7, 'Kippy Rowlett', '410 Eggendart Center', 'krowlett6@hibu.com', '557-298-3700', 222551);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (8, 'Helaina Guiel', '334 Lighthouse Bay Junction', 'hguiel7@plala.or.jp', '730-593-5394', 213358);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (9, 'Cloe Stoeck', '24 Sherman Point', 'cstoeck8@jalbum.net', '207-147-4306', 179148);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (10, 'Thornton Carlyon', '12605 Lukken Terrace', 'tcarlyon9@odnoklassniki.ru', '145-355-3187', 75691);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (11, 'Sonnie Duffrie', '966 Buell Trail', 'sduffriea@usda.gov', '629-653-2213', 237970);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (12, 'Goldarina Lyall', '177 Fisk Plaza', 'glyallb@yellowbook.com', '260-449-4401', 151757);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (13, 'Gillan Alexandre', '0 Jackson Pass', 'galexandrec@toplist.cz', '798-846-5038', 131111);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (14, 'Broderic Cummungs', '9 Springview Way', 'bcummungsd@epa.gov', '457-503-6497', 351053);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (15, 'Kirsten Oneal', '72127 Merchant Alley', 'koneale@paginegialle.it', '327-524-7870', 192975);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (16, 'Demetra Roussell', '1166 Harper Park', 'droussellf@deviantart.com', '881-667-9411', 139297);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (17, 'Norah McNiven', '1342 Merrick Street', 'nmcniveng@ca.gov', '553-428-0365', 466792);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (18, 'Suzi McPake', '2 Grover Alley', 'smcpakeh@foxnews.com', '417-582-9560', 399289);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (19, 'Zebadiah Popplestone', '502 Daystar Way', 'zpopplestonei@tuttocitta.it', '609-421-9302', 92825);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (20, 'Pernell Burde', '9 Tony Park', 'pburdej@linkedin.com', '498-540-4640', 281006);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (21, 'Serena Bampkin', '17606 Milwaukee Lane', 'sbampkink@statcounter.com', '180-322-9726', 481297);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (22, 'Kassandra Jozwiak', '053 American Ash Crossing', 'kjozwiakl@miibeian.gov.cn', '390-762-2253', 192148);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (23, 'Shaina Tireman', '24 Lukken Plaza', 'stiremanm@admin.ch', '867-933-5416', 379738);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (24, 'Meade Shemilt', '76899 Moulton Drive', 'mshemiltn@washington.edu', '880-725-5165', 332378);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (25, 'Christophe Marval', '5 Carberry Road', 'cmarvalo@loc.gov', '602-234-0619', 41067);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (26, 'Fredericka Melbury', '67952 Blaine Junction', 'fmelburyp@surveymonkey.com', '278-384-0628', 331143);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (27, 'Dalenna Lynam', '0 Derek Place', 'dlynamq@webeden.co.uk', '134-780-5333', 114472);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (28, 'Fredericka MacTrustram', '8 Nobel Pass', 'fmactrustramr@cafepress.com', '827-909-6500', 68042);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (29, 'Kalle Mc Curlye', '5789 Maywood Street', 'kmcs@cmu.edu', '633-112-9156', 295919);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (30, 'Bord Phillcox', '64 Fallview Plaza', 'bphillcoxt@dion.ne.jp', '903-541-3744', 60413);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (31, 'Minny Delacroux', '28486 Portage Place', 'mdelacrouxu@cisco.com', '457-687-3794', 72773);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (32, 'Locke Crockley', '5306 Anderson Plaza', 'lcrockleyv@comsenz.com', '480-363-3555', 187541);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (33, 'Brook Patmore', '224 Rieder Parkway', 'bpatmorew@illinois.edu', '356-424-5979', 99291);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (34, 'Clare Hobble', '37703 Dahle Street', 'chobblex@apple.com', '581-231-6805', 346194);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (35, 'Salvatore Vinten', '99707 Londonderry Trail', 'svinteny@msn.com', '797-261-9670', 71198);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (36, 'Bobbe Bletsoe', '6310 Ridge Oak Hill', 'bbletsoez@msu.edu', '798-606-9044', 267734);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (37, 'Garry Rosenschein', '245 Glacier Hill Lane', 'grosenschein10@answers.com', '195-119-8777', 83560);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (38, 'Marsiella Gibby', '0 Village Green Lane', 'mgibby11@friendfeed.com', '231-253-9319', 398773);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (39, 'Sula Gallyhaock', '50134 Macpherson Drive', 'sgallyhaock12@ucsd.edu', '911-590-1741', 415571);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (40, 'Aldous Wotherspoon', '9 Claremont Hill', 'awotherspoon13@github.io', '191-816-3576', 28689);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (41, 'Antin Dumke', '09969 Springs Park', 'adumke14@auda.org.au', '281-123-3988', 80761);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (42, 'Hillier Arlott', '57 Lotheville Park', 'harlott15@xrea.com', '710-884-7139', 174800);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (43, 'Allis Ponting', '9151 Acker Drive', 'aponting16@elegantthemes.com', '226-929-2637', 84838);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (44, 'Kym Myrick', '6 Dixon Hill', 'kmyrick17@yandex.ru', '684-711-0607', 249237);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (45, 'Timothee Casterou', '9794 Debra Avenue', 'tcasterou18@microsoft.com', '668-358-0169', 431143);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (46, 'Shana Jalland', '05516 Pennsylvania Drive', 'sjalland19@tinypic.com', '942-190-9816', 399100);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (47, 'Eve Tolefree', '384 Main Center', 'etolefree1a@miitbeian.gov.cn', '735-326-8316', 42590);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (48, 'Cherey Pike', '3 Iowa Junction', 'cpike1b@ovh.net', '741-967-6764', 97573);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (49, 'Blake Beyn', '8571 Mcbride Hill', 'bbeyn1c@hhs.gov', '265-496-9448', 357646);
+insert into "Customers" ("customerID", fullname, address, email, phone, "unpaidAmount") values (50, 'Ax Hayford', '369 Drewry Way', 'ahayford1d@ucsd.edu', '742-328-7056', 180500);
+
+create table "Books" (
+	"bookID" INT,
+	bookname VARCHAR(50),
+	category VARCHAR(50),
+	author VARCHAR(50),
+	quantity INT,
+	price INT
+);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (1, 'Hudsonian godwit', 'Epoxy Flooring', 'Bibby Somerville', 397, 76801);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (2, 'Blue peacock', 'Glass & Glazing', 'Loreen Posvner', 266, 339800);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (3, 'Lizard (unidentified)', 'Glass & Glazing', 'Jacob Connett', 251, 87335);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (4, 'Boat-billed heron', 'Curb & Gutter', 'Eudora Sandle', 446, 450525);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (5, 'Beaver, european', 'Structural & Misc Steel Erection', 'Erminie Davis', 278, 356716);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (6, 'Cat, tiger', 'Wall Protection', 'Ezmeralda O''Driscole', 369, 355228);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (7, 'Cockatoo, red-tailed', 'Glass & Glazing', 'Micheil Basson', 390, 264735);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (8, 'Kookaburra, laughing', 'Epoxy Flooring', 'Ad Chard', 235, 229142);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (9, 'Reindeer', 'Epoxy Flooring', 'Ximenez Prattington', 345, 197084);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (10, 'Starling, red-shouldered glossy', 'HVAC', 'Krisha Seavers', 369, 99968);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (11, 'Loris, slender', 'Rebar & Wire Mesh Install', 'Dev Farfolomeev', 208, 384764);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (12, 'Downy woodpecker', 'Doors, Frames & Hardware', 'Beckie Brazil', 433, 495450);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (13, 'Rufous-collared sparrow', 'Rebar & Wire Mesh Install', 'Neale Ram', 343, 260759);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (14, 'Dusky rattlesnake', 'Drywall & Acoustical (FED)', 'Corinne Newbold', 333, 102593);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (15, 'Burchell''s gonolek', 'Soft Flooring and Base', 'Chet Klazenga', 266, 361531);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (16, 'Sea birds (unidentified)', 'Drywall & Acoustical (FED)', 'Valaree Garfath', 389, 336685);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (17, 'Eagle, white-bellied sea', 'Glass & Glazing', 'Megen Offill', 491, 495690);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (18, 'Giant anteater', 'Fire Protection', 'Hamnet Awmack', 247, 341890);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (19, 'Weaver, white-browed sparrow', 'Drywall & Acoustical (MOB)', 'Clarice MacLaughlin', 313, 343766);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (20, 'Galapagos penguin', 'EIFS', 'Arlette Piquard', 392, 131755);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (21, 'Skua, long-tailed', 'Site Furnishings', 'Ban Coard', 345, 469702);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (22, 'Dove, white-winged', 'Wall Protection', 'Valeda Ales0', 301, 396119);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (23, 'Gecko, bent-toed', 'Ornamental Railings', 'Tucker Matuszinski', 283, 213354);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (24, 'Manatee', 'Exterior Signage', 'Mathias Greenroa', 246, 377013);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (25, 'Blue-breasted cordon bleu', 'Landscaping & Irrigation', 'Charlotta Follen', 241, 136370);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (26, 'Phalarope, red', 'Electrical and Fire Alarm', 'Con Curman', 291, 166198);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (27, 'Nilgai', 'Electrical', 'Oby Chaplain', 466, 117251);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (28, 'Goose, greylag', 'Landscaping & Irrigation', 'Stern Myhan', 346, 71467);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (29, 'Arctic ground squirrel', 'Epoxy Flooring', 'Farris Whitham', 461, 396283);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (30, 'Sage grouse', 'Masonry & Precast', 'Halsy Foux', 332, 475461);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (31, 'American alligator', 'Ornamental Railings', 'Alistair Ochterlony', 312, 324805);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (32, 'Trotter, lily', 'Prefabricated Aluminum Metal Canopies', 'Xylina Webland', 250, 171446);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (33, 'Waxbill, violet-eared', 'Curb & Gutter', 'Andris Le Frank', 234, 172873);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (34, 'Skimmer, four-spotted', 'HVAC', 'Gabriella Baitman', 478, 347349);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (35, 'Shelduck, common', 'Drywall & Acoustical (FED)', 'Had Gasticke', 484, 362681);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (36, 'Langur, hanuman', 'Wall Protection', 'Marten Trathan', 251, 492709);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (37, 'Macaque, japanese', 'Prefabricated Aluminum Metal Canopies', 'Shandee Bartaletti', 255, 194506);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (38, 'Egyptian cobra', 'Retaining Wall and Brick Pavers', 'Paten Andresser', 413, 454954);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (39, 'Banded mongoose', 'Waterproofing & Caulking', 'Corette Poat', 231, 278175);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (40, 'Turtle, snake-necked', 'Electrical', 'Tim Gotcliffe', 314, 219062);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (41, 'Black rhinoceros', 'Epoxy Flooring', 'Franciskus Rainville', 347, 225775);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (42, 'Snow goose', 'Soft Flooring and Base', 'Britt Tapsfield', 441, 235404);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (43, 'Lesser masked weaver', 'RF Shielding', 'Kerstin Blodgetts', 367, 351312);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (44, 'Snake, western patch-nosed', 'Elevator', 'Verge Paddy', 215, 104474);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (45, 'Sheep, red', 'Temp Fencing, Decorative Fencing and Gates', 'Freddy Blanden', 460, 377726);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (46, 'Red and blue macaw', 'Landscaping & Irrigation', 'Ogden Gravenor', 393, 374562);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (47, 'Blue-faced booby', 'Masonry', 'Petrina Broadway', 273, 459804);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (48, 'African elephant', 'Drywall & Acoustical (MOB)', 'Cecil Sinnock', 461, 199750);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (49, 'Long-billed corella', 'Drilled Shafts', 'Maurise Sellick', 418, 133235);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (50, 'Brocket, red', 'Construction Clean and Final Clean', 'Editha Kobpac', 257, 159566);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (51, 'Bandicoot, long-nosed', 'Doors, Frames & Hardware', 'Christoper Plumridge', 278, 308144);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (52, 'Partridge, coqui', 'Marlite Panels (FED)', 'Kate Senton', 280, 135567);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (53, 'Snake, green vine', 'Construction Clean and Final Clean', 'Olympia McGlaughn', 500, 262336);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (54, 'Crocodile, nile', 'Fire Protection', 'Corena Muffin', 459, 132494);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (55, 'Quoll, spotted-tailed', 'Granite Surfaces', 'Joey Kilalea', 498, 169717);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (56, 'Squirrel, european red', 'Overhead Doors', 'Uriah Inmett', 337, 459033);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (57, 'Nighthawk, common', 'Roofing (Metal)', 'Coreen Coppock.', 404, 83596);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (58, 'Tern, white-winged black', 'Framing (Wood)', 'Grayce Paroni', 244, 62769);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (59, 'Cardinal, red-capped', 'Hard Tile & Stone', 'Nickolaus Santhouse', 226, 232843);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (60, 'Genoveva', 'Asphalt Paving', 'Natalya Cardoe', 372, 363753);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (61, 'Frilled lizard', 'Granite Surfaces', 'Chrysler Nardoni', 287, 280766);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (62, 'Baleen whale', 'Electrical and Fire Alarm', 'Wakefield Thormwell', 472, 168295);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (63, 'Seal, northern elephant', 'Marlite Panels (FED)', 'Corette Threadkell', 368, 316367);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (64, 'Monitor, white-throated', 'Hard Tile & Stone', 'Maegan Tilzey', 334, 242590);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (65, 'Flying fox (unidentified)', 'Wall Protection', 'Lenette Glandfield', 254, 263316);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (66, 'Rose-ringed parakeet', 'Curb & Gutter', 'Norina Meanwell', 462, 421821);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (67, 'Deer, barasingha', 'RF Shielding', 'Shaun Bere', 342, 270781);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (68, 'Cape fox', 'Epoxy Flooring', 'Jarrett Shorey', 281, 202138);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (69, 'Chilean flamingo', 'Epoxy Flooring', 'Minor Vasyaev', 343, 358747);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (70, 'Wattled crane', 'Rebar & Wire Mesh Install', 'Syman Vinnicombe', 299, 232940);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (71, 'Tiger snake', 'Epoxy Flooring', 'Rosella Boundley', 277, 63962);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (72, 'Blue-tongued skink', 'Electrical', 'Upton Terron', 341, 354146);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (73, 'Tern, white-winged', 'Structural and Misc Steel (Fabrication)', 'Maureene McEvay', 243, 398416);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (74, 'Stork, white-necked', 'Soft Flooring and Base', 'Morgen Vanne', 416, 202253);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (75, 'Great white pelican', 'Roofing (Metal)', 'Carling Gallop', 296, 478806);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (76, 'Pelican, brown', 'Waterproofing & Caulking', 'Dallas Foster', 415, 336074);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (77, 'Langur, hanuman', 'Electrical and Fire Alarm', 'Jourdain Stanesby', 250, 319907);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (78, 'Gnu, brindled', 'Termite Control', 'Dwight MacKim', 214, 79838);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (79, 'Red and blue macaw', 'Drywall & Acoustical (MOB)', 'Rafaellle Switsur', 280, 456358);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (80, 'Red-headed woodpecker', 'Wall Protection', 'Geralda Foucar', 301, 85395);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (81, 'Common wallaroo', 'Structural and Misc Steel (Fabrication)', 'Lucille Vasilischev', 232, 207220);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (82, 'Zorro, azara''s', 'Casework', 'Georgette Amoss', 258, 185436);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (83, 'Squirrel, malabar', 'Curb & Gutter', 'Cosetta Winser', 440, 192624);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (84, 'Reindeer', 'Drywall & Acoustical (FED)', 'Charmine Gauche', 472, 391817);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (85, 'Vulture, lappet-faced', 'HVAC', 'Nanni Macrow', 421, 201361);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (86, 'Goliath heron', 'Masonry & Precast', 'Fayre Possa', 272, 261507);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (87, 'Finch, common melba', 'Masonry', 'Cyril Richardes', 430, 392887);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (88, 'Bushpig', 'RF Shielding', 'Taylor Moakler', 298, 147504);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (89, 'Magistrate black colobus', 'Epoxy Flooring', 'Caresa Karlsen', 441, 340660);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (90, 'Common boubou shrike', 'Structural and Misc Steel (Fabrication)', 'Gregorius Inderwick', 410, 281920);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (91, 'Komodo dragon', 'Glass & Glazing', 'Caprice Hearsey', 236, 263707);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (92, 'Siskin, pine', 'Electrical and Fire Alarm', 'Kippie Mewis', 269, 287535);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (93, 'Albatross, galapagos', 'Structural & Misc Steel Erection', 'Jessey Izzat', 485, 116662);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (94, 'Wombat, common', 'Wall Protection', 'Giacomo Mcmanaman', 450, 341893);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (95, 'Pigeon, wood', 'RF Shielding', 'Nikolai Esselin', 226, 239535);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (96, 'Finch, common melba', 'Doors, Frames & Hardware', 'Corena McColgan', 365, 222636);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (97, 'Bengal vulture', 'Plumbing & Medical Gas', 'Donalt Malcher', 246, 298590);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (98, 'Blackbird, red-winged', 'Casework', 'Glenden Beecker', 390, 493034);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (99, 'Vulture, white-rumped', 'Exterior Signage', 'Nettie Kneath', 292, 272128);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (100, 'Ground legaan', 'Elevator', 'Marnie Aiskrigg', 324, 399822);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (101, 'Stork, white', 'Soft Flooring and Base', 'Bevvy Colmore', 326, 297227);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (102, 'Glider, feathertail', 'Rebar & Wire Mesh Install', 'Odette Draycott', 376, 474334);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (103, 'Kingfisher, malachite', 'Drywall & Acoustical (MOB)', 'Rosalyn Callaway', 340, 435043);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (104, 'Swainson''s francolin', 'Drywall & Acoustical (MOB)', 'Franny Dmiterko', 293, 315364);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (105, 'Mouflon', 'Fire Protection', 'Gelya Siemens', 496, 108431);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (106, 'Feathertail glider', 'Fire Protection', 'Bat Hayhow', 255, 254969);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (107, 'Southern brown bandicoot', 'Soft Flooring and Base', 'Tedra Mattiazzo', 419, 423334);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (108, 'Herring gull', 'Epoxy Flooring', 'Andra Callis', 410, 355857);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (109, 'Galah', 'Painting & Vinyl Wall Covering', 'Jacquelynn Pedwell', 363, 389248);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (110, 'Owl, great horned', 'Painting & Vinyl Wall Covering', 'Addie Prior', 336, 425104);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (111, 'Roe deer', 'Masonry', 'Brandon Valentine', 267, 111608);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (112, 'Hornbill, leadbeateri''s ground', 'Structural and Misc Steel (Fabrication)', 'Woody Clempton', 224, 86762);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (113, 'Lion, california sea', 'Framing (Steel)', 'Tibold Brunstan', 274, 222653);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (114, 'Wallaby, whip-tailed', 'Structural & Misc Steel Erection', 'Elora Braunroth', 354, 248292);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (115, 'Salmon pink bird eater tarantula', 'Roofing (Metal)', 'Kristyn Goldster', 365, 84896);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (116, 'Macaque, japanese', 'Hard Tile & Stone', 'Charis Roistone', 404, 116044);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (117, 'Cow, scottish highland', 'Construction Clean and Final Clean', 'Vivyan D''Agostini', 379, 279255);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (118, 'Waxbill, black-cheeked', 'Fire Protection', 'Sherwood Nibloe', 362, 435008);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (119, 'White-tailed deer', 'Electrical', 'Rachele Guthrie', 327, 299033);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (120, 'Asian foreset tortoise', 'Exterior Signage', 'Marne Ronaghan', 209, 144650);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (121, 'Meerkat', 'Masonry', 'Gillie Bernette', 451, 122526);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (122, 'Red-capped cardinal', 'RF Shielding', 'Minnnie Gawler', 370, 179467);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (123, 'Lemming, arctic', 'Elevator', 'Sheila Fashion', 266, 368318);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (124, 'Hoffman''s sloth', 'Drywall & Acoustical (FED)', 'Shepherd Drover', 226, 498150);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (125, 'Raccoon, common', 'Structural and Misc Steel (Fabrication)', 'Ermengarde Duligal', 268, 398711);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (126, 'Moorhen, purple', 'Masonry & Precast', 'Dorie Learmonth', 370, 377084);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (127, 'Leopard, indian', 'Painting & Vinyl Wall Covering', 'Nelly Cypler', 385, 83403);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (128, 'Seal, southern elephant', 'Elevator', 'Sean Geator', 447, 262297);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (129, 'Possum, pygmy', 'Waterproofing & Caulking', 'Sterne Dewis', 295, 329697);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (130, 'Rattlesnake, eastern diamondback', 'Temp Fencing, Decorative Fencing and Gates', 'Margie Panther', 363, 320654);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (131, 'Dromedary camel', 'Electrical', 'Rosalia Ivanenko', 234, 191386);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (132, 'Porcupine, indian', 'Masonry', 'Dorris McClounan', 294, 62474);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (133, 'Crown of thorns starfish', 'EIFS', 'Karen Laddle', 377, 336832);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (134, 'Woodcock, american', 'Asphalt Paving', 'Goddart Treece', 447, 366002);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (135, 'Civet, small-toothed palm', 'Doors, Frames & Hardware', 'Nata Fancet', 353, 280151);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (136, 'Fowl, helmeted guinea', 'Hard Tile & Stone', 'Cora Luquet', 401, 319336);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (137, 'Stanley bustard', 'Electrical and Fire Alarm', 'Elissa Belden', 364, 132364);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (138, 'Southern ground hornbill', 'Sitework & Site Utilities', 'Sam Killigrew', 404, 349237);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (139, 'Brocket, brown', 'Site Furnishings', 'Joshua Edghinn', 277, 460477);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (140, 'Bulbul, black-fronted', 'Fire Protection', 'Aeriel Minmagh', 457, 418408);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (141, 'Pheasant, ring-necked', 'Casework', 'Arabella Isaacson', 297, 303876);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (142, 'Antelope, four-horned', 'Roofing (Metal)', 'Aldo Thickin', 290, 387681);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (143, 'Large-eared bushbaby', 'Soft Flooring and Base', 'Darb Saltman', 347, 369953);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (144, 'Lourie, grey', 'Prefabricated Aluminum Metal Canopies', 'Elka Edmondson', 262, 488425);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (145, 'Eastern white pelican', 'Asphalt Paving', 'Cristin Folley', 248, 467373);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (146, 'Greater flamingo', 'Electrical and Fire Alarm', 'Fee Lumsdale', 304, 262300);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (147, 'Sheep, american bighorn', 'Asphalt Paving', 'Ryann O''Mannion', 202, 119669);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (148, 'Blue racer', 'Rebar & Wire Mesh Install', 'Rosanne Karpushkin', 322, 99303);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (149, 'Waxbill, violet-eared', 'Soft Flooring and Base', 'Fifi Parish', 450, 148697);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (150, 'Komodo dragon', 'Rebar & Wire Mesh Install', 'Glenna Vicary', 210, 118652);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (151, 'Herring gull', 'Elevator', 'Harmony Delamere', 279, 193714);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (152, 'Blue wildebeest', 'Masonry & Precast', 'Gerrie Lowth', 452, 187251);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (153, 'Rufous tree pie', 'Fire Protection', 'Aguistin Bowmaker', 377, 215945);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (154, 'Common green iguana', 'Site Furnishings', 'Scarlett Ruddom', 422, 122565);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (155, 'Mynah, common', 'Epoxy Flooring', 'Michel Nurcombe', 481, 61889);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (156, 'Four-horned antelope', 'Electrical and Fire Alarm', 'Josee Dowdall', 282, 188201);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (157, 'Horned rattlesnake', 'Glass & Glazing', 'Evangeline Grinston', 366, 299168);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (158, 'Western patch-nosed snake', 'Temp Fencing, Decorative Fencing and Gates', 'Ferd Bruster', 455, 440273);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (159, 'Bee-eater, carmine', 'Curb & Gutter', 'Dorri Stroder', 394, 490853);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (160, 'Wallaby, red-necked', 'Retaining Wall and Brick Pavers', 'Karalynn Angell', 446, 241636);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (161, 'Toddy cat', 'Prefabricated Aluminum Metal Canopies', 'Olav Synke', 469, 250437);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (162, 'Uinta ground squirrel', 'Structural and Misc Steel (Fabrication)', 'Roderic Wigin', 225, 305200);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (163, 'Roan antelope', 'Ornamental Railings', 'Gail Jurczyk', 248, 422806);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (164, 'Chital', 'Roofing (Asphalt)', 'Rudyard Boyle', 378, 67065);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (165, 'Little grebe', 'Marlite Panels (FED)', 'Gram Rubinsaft', 229, 384225);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (166, 'Openbill, asian', 'Masonry', 'Shalna Camplin', 487, 447781);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (167, 'Blacksmith plover', 'Rebar & Wire Mesh Install', 'Shel Malecky', 289, 446992);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (168, 'Possum, golden brush-tailed', 'Framing (Wood)', 'Saxe Lowdes', 466, 361997);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (169, 'Albatross, waved', 'Prefabricated Aluminum Metal Canopies', 'Izak Waterland', 344, 361792);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (170, 'Sockeye salmon', 'Site Furnishings', 'Moina Westberg', 361, 236932);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (171, 'Squirrel, golden-mantled ground', 'Structural and Misc Steel (Fabrication)', 'Leonerd Dessant', 467, 356419);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (172, 'Mockingbird, galapagos', 'Roofing (Metal)', 'Harmony Dreossi', 245, 300559);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (173, 'Gnu, brindled', 'Prefabricated Aluminum Metal Canopies', 'Gunar Salack', 322, 182302);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (174, 'Northern fur seal', 'Soft Flooring and Base', 'Christophe Relton', 435, 77903);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (175, 'Anaconda (unidentified)', 'Rebar & Wire Mesh Install', 'Lori Catanheira', 329, 335748);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (176, 'Squirrel, richardson''s ground', 'Structural & Misc Steel Erection', 'Roze Wroughton', 415, 146611);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (177, 'Water moccasin', 'Wall Protection', 'Teddy Dranfield', 375, 359864);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (178, 'Bleu, blue-breasted cordon', 'Masonry', 'Dehlia Minto', 274, 168094);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (179, 'Raven, white-necked', 'Electrical', 'Leonie Scargle', 464, 249173);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (180, 'Genoveva', 'Overhead Doors', 'Tisha Claasen', 398, 190259);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (181, 'Common wombat', 'Roofing (Asphalt)', 'Fidel Matonin', 437, 378133);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (182, 'Bee-eater, nubian', 'Painting & Vinyl Wall Covering', 'Harmony Keirl', 409, 280110);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (183, 'Sugar glider', 'Site Furnishings', 'Maureene Dovidaitis', 343, 244670);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (184, 'Common waterbuck', 'Wall Protection', 'Cullen Collimore', 338, 446952);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (185, 'Eland, common', 'Drywall & Acoustical (MOB)', 'Melany Ughi', 263, 200370);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (186, 'Rat, arboral spiny', 'Construction Clean and Final Clean', 'Deb Naul', 202, 399266);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (187, 'Porcupine, indian', 'EIFS', 'Elvin Huck', 427, 455836);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (188, 'Western spotted skunk', 'Roofing (Asphalt)', 'Allsun Grundon', 380, 262811);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (189, 'Indian jackal', 'Roofing (Asphalt)', 'Ross Bunyard', 478, 433700);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (190, 'Ferret, black-footed', 'Wall Protection', 'Olympia Cresser', 435, 463045);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (191, 'Mountain duck', 'Asphalt Paving', 'Quincy Collens', 292, 294968);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (192, 'Capuchin, weeper', 'Retaining Wall and Brick Pavers', 'Sophey Chancellor', 276, 160430);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (193, 'Dromedary camel', 'Marlite Panels (FED)', 'Charita Tidy', 452, 473607);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (194, 'Cat, european wild', 'Prefabricated Aluminum Metal Canopies', 'Clerissa Huson', 314, 305889);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (195, 'Heron, black-crowned night', 'Electrical', 'Darsey Itzakson', 320, 212352);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (196, 'Penguin, magellanic', 'Framing (Wood)', 'Dixie Fidian', 365, 426219);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (197, 'Brush-tailed phascogale', 'Glass & Glazing', 'Berke Hughlock', 272, 294578);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (198, 'Jaeger, long-tailed', 'Hard Tile & Stone', 'Barret Gonin', 325, 294600);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (199, 'Nile crocodile', 'Site Furnishings', 'Rafferty Aldus', 241, 296047);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (200, 'Owl, white-browed', 'Doors, Frames & Hardware', 'Quentin McCafferky', 273, 271502);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (201, 'Numbat', 'Framing (Wood)', 'Egor Bates', 210, 339215);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (202, 'Zebra, common', 'Temp Fencing, Decorative Fencing and Gates', 'Godfree Kunkler', 355, 358430);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (203, 'Japanese macaque', 'Doors, Frames & Hardware', 'Starlin Duxbury', 279, 471677);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (204, 'Tortoise, galapagos', 'Retaining Wall and Brick Pavers', 'Vaughn Rubenchik', 216, 108607);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (205, 'Red-billed tropic bird', 'Temp Fencing, Decorative Fencing and Gates', 'Ezri Askin', 366, 57258);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (206, 'African red-eyed bulbul', 'Glass & Glazing', 'Merrill Goodwin', 204, 183786);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (207, 'Vulture, black', 'Electrical and Fire Alarm', 'Monica Record', 212, 452193);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (208, 'Rattlesnake, dusky', 'Fire Protection', 'Aleece Burnyeat', 372, 124194);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (209, 'Lapwing, southern', 'Masonry & Precast', 'Bibi Meggison', 292, 189607);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (210, 'Water monitor', 'Construction Clean and Final Clean', 'Lyndy Ollerenshaw', 266, 237139);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (211, 'Sheathbill, snowy', 'Masonry', 'Charline Philps', 459, 476057);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (212, 'Greater flamingo', 'HVAC', 'Gunilla Slevin', 468, 104734);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (213, 'Pigeon, feral rock', 'Retaining Wall and Brick Pavers', 'Towny Bourgaize', 383, 362727);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (214, 'Dove, emerald-spotted wood', 'Fire Protection', 'Molly Skinner', 214, 243276);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (215, 'Squirrel, malabar', 'EIFS', 'Lyndsie Bessant', 359, 161571);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (216, 'Grant''s gazelle', 'Landscaping & Irrigation', 'Quintin Bunning', 403, 236856);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (217, 'Pelican, brown', 'Rebar & Wire Mesh Install', 'Jacinda Saintsbury', 463, 281577);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (218, 'Coot, red-knobbed', 'Fire Sprinkler System', 'Bonnie Hatfield', 472, 210262);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (219, 'Knob-nosed goose', 'Elevator', 'Hedvig Everson', 313, 107412);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (220, 'African clawless otter', 'Termite Control', 'Seka Rudgley', 429, 101967);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (221, 'Oryx, fringe-eared', 'Sitework & Site Utilities', 'Virginia Aprahamian', 470, 222963);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (222, 'Western pygmy possum', 'Doors, Frames & Hardware', 'Vivienne Faughey', 383, 260777);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (223, 'Wild water buffalo', 'Drilled Shafts', 'Mariele Commucci', 375, 143337);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (224, 'Mongoose, small indian', 'Doors, Frames & Hardware', 'Marcia Wintringham', 308, 86428);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (225, 'Fisher', 'Construction Clean and Final Clean', 'Janine Fownes', 327, 430592);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (226, 'Gecko, barking', 'Elevator', 'Micky Presman', 399, 454872);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (227, 'Giant otter', 'Elevator', 'Torr Wapplington', 427, 146018);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (228, 'Jackal, golden', 'Marlite Panels (FED)', 'Saleem Dignon', 200, 293391);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (229, 'Southern lapwing', 'Painting & Vinyl Wall Covering', 'Henderson Epps', 392, 306918);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (230, 'Brocket, red', 'HVAC', 'Thaxter Raikes', 221, 361933);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (231, 'Pig-tailed macaque', 'Waterproofing & Caulking', 'Malinda Larose', 408, 86809);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (232, 'Horned rattlesnake', 'Rebar & Wire Mesh Install', 'Mellicent Akitt', 312, 170602);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (233, 'Savanna fox', 'Plumbing & Medical Gas', 'Leona Tunaclift', 471, 484360);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (234, 'Lava gull', 'Granite Surfaces', 'Stanleigh Jizhaki', 394, 412813);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (235, 'Emerald green tree boa', 'Termite Control', 'Myrtice Lynn', 441, 280716);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (236, 'Dove, galapagos', 'Painting & Vinyl Wall Covering', 'Giorgi Ivasechko', 309, 211879);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (237, 'Eastern boa constrictor', 'Ornamental Railings', 'Julianne Childs', 217, 479304);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (238, 'Pocket gopher (unidentified)', 'Marlite Panels (FED)', 'Brant Ducker', 420, 424861);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (239, 'Clark''s nutcracker', 'Drywall & Acoustical (FED)', 'Vernen Ballendine', 308, 159356);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (240, 'Penguin, little blue', 'Ornamental Railings', 'Vera MacAskie', 326, 142172);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (241, 'Heron, gray', 'Prefabricated Aluminum Metal Canopies', 'Codee Smiz', 288, 146395);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (242, 'Cobra (unidentified)', 'Exterior Signage', 'Mabelle Laidlow', 418, 85864);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (243, 'Boa, cook''s tree', 'Structural & Misc Steel Erection', 'Johnathon Oswick', 284, 79487);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (244, 'Falcon, peregrine', 'HVAC', 'Justen Stivey', 220, 132740);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (245, 'Python, carpet', 'Retaining Wall and Brick Pavers', 'Hannah Huglin', 399, 495914);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (246, 'Squirrel, pine', 'Construction Clean and Final Clean', 'Norma Staley', 327, 202020);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (247, 'Gerbil (unidentified)', 'Curb & Gutter', 'Billie Headly', 383, 377934);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (248, 'Flicker, field', 'Casework', 'Zachariah Rainey', 487, 179104);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (249, 'Southern sea lion', 'Structural & Misc Steel Erection', 'Morey Rew', 462, 272506);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (250, 'Praying mantis (unidentified)', 'Electrical', 'Alessandro Gonthard', 396, 275726);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (251, 'Bat, asian false vampire', 'Landscaping & Irrigation', 'Benedick Garter', 496, 97761);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (252, 'Leopard, indian', 'Electrical and Fire Alarm', 'Ronny Forton', 497, 372883);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (253, 'Dingo', 'Fire Protection', 'Ulla M''Chirrie', 430, 462780);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (254, 'Eagle, white-bellied sea', 'HVAC', 'Sosanna Habin', 456, 197253);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (255, 'Gull, kelp', 'EIFS', 'Theresita Di Biaggi', 429, 87433);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (256, 'North American beaver', 'Granite Surfaces', 'Wallace Norcross', 338, 262005);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (257, 'Puma', 'Hard Tile & Stone', 'Bernete Lack', 256, 389718);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (258, 'Green-winged macaw', 'HVAC', 'Vasilis Sanson', 323, 136496);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (259, 'Gecko, ring-tailed', 'Hard Tile & Stone', 'Timoteo Kingdon', 335, 214427);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (260, 'Macaw, red and blue', 'Electrical', 'Anne-marie Crisp', 304, 289085);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (261, 'African darter', 'Structural & Misc Steel Erection', 'Darla Capeling', 425, 81940);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (262, 'Ocelot', 'Wall Protection', 'Sophey Godthaab', 376, 393300);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (263, 'Japanese macaque', 'Drywall & Acoustical (FED)', 'Lily Bulcroft', 379, 286432);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (264, 'Giant heron', 'Framing (Steel)', 'Meryl Bennell', 322, 445915);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (265, 'Hawk, galapagos', 'Temp Fencing, Decorative Fencing and Gates', 'Alidia Toulamain', 308, 442236);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (266, 'Blue and gold macaw', 'Casework', 'Clemmie Strong', 469, 69302);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (267, 'Galapagos hawk', 'Epoxy Flooring', 'Ermanno Gimert', 488, 280709);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (268, 'Marten, american', 'Fire Sprinkler System', 'Alanah Guymer', 291, 494277);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (269, 'Mourning collared dove', 'Termite Control', 'Ainslie Klimpke', 316, 248444);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (270, 'Trumpeter, dark-winged', 'Termite Control', 'Tonnie Bebbington', 445, 380519);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (271, 'Argalis', 'Rebar & Wire Mesh Install', 'Lelah Krammer', 482, 168914);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (272, 'Skink, african', 'Overhead Doors', 'Emelina Guinan', 475, 416062);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (273, 'Red squirrel', 'Painting & Vinyl Wall Covering', 'Mellicent Aprahamian', 396, 191098);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (274, 'Komodo dragon', 'Wall Protection', 'Stavro Matkin', 386, 159281);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (275, 'Flicker, campo', 'Roofing (Metal)', 'Kara McMurrugh', 479, 212753);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (276, 'Spurfowl, yellow-necked', 'Glass & Glazing', 'Jerri Claus', 374, 325877);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (277, 'Kafue flats lechwe', 'Casework', 'Rosmunda Heikkinen', 376, 468166);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (278, 'Ring-tailed possum', 'Electrical and Fire Alarm', 'Luce Olphert', 381, 453580);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (279, 'Cormorant, flightless', 'Painting & Vinyl Wall Covering', 'Marven Seson', 290, 239875);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (280, 'Sage grouse', 'Site Furnishings', 'Katherine Shaul', 248, 445871);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (281, 'Pine siskin', 'Electrical and Fire Alarm', 'Katheryn Cutting', 468, 93078);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (282, 'Monkey, black spider', 'Exterior Signage', 'Shannon Chung', 454, 206732);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (283, 'Squirrel, malabar', 'Asphalt Paving', 'Dacy Le Barr', 254, 414736);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (284, 'Common dolphin', 'Framing (Steel)', 'Corrie Kelling', 429, 411405);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (285, 'Skunk, western spotted', 'Marlite Panels (FED)', 'Colene Curtoys', 201, 191910);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (286, 'Starfish, crown of thorns', 'Wall Protection', 'Ermentrude Kilduff', 216, 67556);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (287, 'Antechinus, brown', 'Doors, Frames & Hardware', 'Rosie Hassen', 289, 121463);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (288, 'Python (unidentified)', 'Wall Protection', 'Base Sprey', 305, 342407);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (289, 'Kongoni', 'Drilled Shafts', 'Odelia Carluccio', 253, 143216);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (290, 'American black bear', 'Framing (Wood)', 'Brunhilde Purvey', 332, 208874);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (291, 'Tayra', 'EIFS', 'Lizzy Lockner', 305, 136226);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (292, 'Plains zebra', 'Landscaping & Irrigation', 'Scottie Daldry', 458, 64459);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (293, 'Red-headed woodpecker', 'Construction Clean and Final Clean', 'Bernice Cathro', 425, 213417);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (294, 'Giant otter', 'Landscaping & Irrigation', 'Raffarty McLafferty', 201, 373385);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (295, 'Dog, black-tailed prairie', 'Hard Tile & Stone', 'Casey Milner', 259, 377274);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (296, 'Dark-winged trumpeter', 'Soft Flooring and Base', 'Sheridan Tybalt', 386, 141311);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (297, 'Eagle, white-bellied sea', 'Fire Sprinkler System', 'Shena Dundendale', 260, 421227);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (298, 'Shrike, crimson-breasted', 'EIFS', 'Alfi Shephard', 205, 78382);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (299, 'Rat, arboral spiny', 'Drywall & Acoustical (FED)', 'Andie Howgate', 391, 273474);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (300, 'Owl, madagascar hawk', 'Drywall & Acoustical (MOB)', 'Ambros Giercke', 237, 144153);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (301, 'Wattled crane', 'Construction Clean and Final Clean', 'Lita Blazewski', 458, 174276);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (302, 'Lorikeet, scaly-breasted', 'Sitework & Site Utilities', 'Grover Gontier', 343, 383154);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (303, 'Grouse, greater sage', 'Prefabricated Aluminum Metal Canopies', 'Theresita Rainy', 374, 247499);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (304, 'Currasow (unidentified)', 'Epoxy Flooring', 'Krishna Castano', 470, 97301);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (305, 'Kelp gull', 'Exterior Signage', 'Bendite Flori', 302, 120548);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (306, 'Hummingbird (unidentified)', 'Roofing (Asphalt)', 'Felisha Tolussi', 352, 311510);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (307, 'Peccary, collared', 'Soft Flooring and Base', 'Matilda Ianittello', 450, 199277);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (308, 'Fox, savanna', 'Wall Protection', 'Cathryn Couthard', 424, 135103);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (309, 'Squirrel, nelson ground', 'Plumbing & Medical Gas', 'Dilan McQuilkin', 306, 276188);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (310, 'Galah', 'Drywall & Acoustical (FED)', 'Marina Massow', 421, 307255);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (311, 'Brazilian otter', 'Doors, Frames & Hardware', 'Rozanne Trevna', 317, 171178);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (312, 'Blue racer', 'Structural and Misc Steel (Fabrication)', 'Prent Tawse', 436, 169604);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (313, 'American bighorn sheep', 'Drywall & Acoustical (MOB)', 'Uriah Pockey', 315, 148544);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (314, 'Orca', 'Marlite Panels (FED)', 'Wini Belward', 357, 275223);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (315, 'Wood pigeon', 'Roofing (Asphalt)', 'Jasun Snadden', 402, 335729);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (316, 'Echidna, short-beaked', 'Doors, Frames & Hardware', 'Carlyn Peatman', 202, 213394);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (317, 'Argalis', 'Doors, Frames & Hardware', 'Thorsten Droogan', 460, 418037);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (318, 'Trumpeter swan', 'Roofing (Asphalt)', 'Arlie Mawford', 311, 456693);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (319, 'South American puma', 'Framing (Wood)', 'Ad Stealy', 403, 466140);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (320, 'Jungle kangaroo', 'Epoxy Flooring', 'Arin Priddis', 492, 279527);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (321, 'Red-shouldered glossy starling', 'Waterproofing & Caulking', 'Bennie Coles', 488, 62443);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (322, 'Cormorant, flightless', 'Wall Protection', 'Loy Shooter', 273, 385991);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (323, 'Indian peacock', 'Rebar & Wire Mesh Install', 'Elmore Glennie', 394, 124197);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (324, 'Blue peacock', 'Waterproofing & Caulking', 'Marianna Avon', 455, 234657);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (325, 'Starling, cape', 'Site Furnishings', 'Anna Haet', 407, 318703);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (326, 'Heron, black-crowned night', 'Fire Sprinkler System', 'Zebulon Gisbourn', 286, 100418);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (327, 'Eagle, african fish', 'Fire Sprinkler System', 'Shell Ruddiforth', 292, 295429);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (328, 'Slender-billed cockatoo', 'Prefabricated Aluminum Metal Canopies', 'Gaby Redholls', 266, 251600);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (329, 'Brush-tailed rat kangaroo', 'Electrical', 'Dorie Lamdin', 454, 475149);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (330, 'Legaan, Monitor (unidentified)', 'Fire Sprinkler System', 'Rozalie Tysack', 384, 291249);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (331, 'Scaly-breasted lorikeet', 'Wall Protection', 'Emlen Passey', 385, 184936);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (332, 'Heron, black-crowned night', 'Landscaping & Irrigation', 'Nikki Paireman', 311, 285746);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (333, 'Lion, southern sea', 'Drywall & Acoustical (FED)', 'Demetrius Lammin', 239, 355224);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (334, 'Western grey kangaroo', 'Fire Sprinkler System', 'Pepe Littleover', 439, 341935);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (335, 'Red-necked phalarope', 'Structural & Misc Steel Erection', 'Dawna Filipiak', 224, 142289);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (336, 'Beaver, north american', 'Electrical', 'Darryl Gajownik', 259, 149701);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (337, 'Black-collared barbet', 'Elevator', 'Jehu Emmert', 423, 278485);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (338, 'Kinkajou', 'Structural and Misc Steel (Fabrication)', 'Paige Croxall', 415, 288395);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (339, 'Nighthawk, common', 'Plumbing & Medical Gas', 'Micah Rillstone', 311, 410137);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (340, 'Skink, african', 'Soft Flooring and Base', 'Padriac Daen', 417, 121518);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (341, 'South American meadowlark (unidentified)', 'Painting & Vinyl Wall Covering', 'Paule Prendeguest', 243, 112542);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (342, 'Shrike, southern white-crowned', 'Rebar & Wire Mesh Install', 'Tobiah Vinnick', 241, 454941);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (343, 'Lory, rainbow', 'Termite Control', 'Joellen Matteoli', 278, 361119);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (344, 'Civet cat', 'Soft Flooring and Base', 'Ilka Dessent', 336, 309666);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (345, 'Rhesus monkey', 'Masonry', 'Chrissy Pringle', 432, 56696);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (346, 'Armadillo, nine-banded', 'Framing (Steel)', 'Bradney Scimone', 406, 197861);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (347, 'Tortoise, radiated', 'Doors, Frames & Hardware', 'Edy Ray', 451, 247967);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (348, 'Golden jackal', 'Framing (Steel)', 'Timothea Baribal', 254, 62987);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (349, 'Red deer', 'Drilled Shafts', 'Abigail McCuish', 455, 61963);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (350, 'Sage hen', 'Structural & Misc Steel Erection', 'Alden Schaumann', 344, 329451);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (351, 'Cat, european wild', 'Roofing (Asphalt)', 'Kerrill Andrini', 250, 184859);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (352, 'Corella, long-billed', 'RF Shielding', 'Huberto Huthart', 392, 492804);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (353, 'Gull, herring', 'Electrical', 'Aksel Matussevich', 418, 106690);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (354, 'Finch, common melba', 'Drywall & Acoustical (MOB)', 'Reggie Cuthbert', 306, 84780);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (355, 'Hartebeest, red', 'Plumbing & Medical Gas', 'Pearle Huddles', 419, 272754);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (356, 'Gazelle, grant''s', 'Drywall & Acoustical (FED)', 'Nikki Spavon', 467, 179792);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (357, 'Llama', 'Framing (Steel)', 'Libbie Almon', 480, 385792);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (358, 'Magistrate black colobus', 'Site Furnishings', 'Nathalie Tousy', 371, 431957);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (359, 'Parakeet, rose-ringed', 'Epoxy Flooring', 'Shelley Tetlow', 488, 382900);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (360, 'Vulture, griffon', 'Framing (Wood)', 'Marilin Nettle', 443, 142103);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (361, 'Eastern indigo snake', 'RF Shielding', 'Raynard Gindghill', 342, 263215);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (362, 'Boubou, southern', 'Termite Control', 'Godwin Ferry', 269, 236163);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (363, 'Woolly-necked stork', 'Fire Sprinkler System', 'Richmond Towll', 401, 437553);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (364, 'Sheep, red', 'Soft Flooring and Base', 'Denny Glas', 352, 113374);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (365, 'Barbet, levaillant''s', 'Structural and Misc Steel (Fabrication)', 'Janessa Marguerite', 413, 219683);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (366, 'Squirrel, smith''s bush', 'RF Shielding', 'Timoteo Klaus', 387, 476299);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (367, 'Striped dolphin', 'Temp Fencing, Decorative Fencing and Gates', 'Wallie Vasyushkhin', 382, 235175);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (368, 'Woolly-necked stork', 'Soft Flooring and Base', 'Gordie Durbin', 374, 221550);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (369, 'Red-knobbed coot', 'Curb & Gutter', 'Thorin Sinderson', 297, 131916);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (370, 'Dog, raccoon', 'Prefabricated Aluminum Metal Canopies', 'Katherine McNair', 369, 313771);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (371, 'Beaver, north american', 'Sitework & Site Utilities', 'Doro Ciccottio', 242, 129692);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (372, 'Pademelon, red-legged', 'Roofing (Metal)', 'Tamas Miroy', 288, 51207);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (373, 'Hare, arctic', 'Waterproofing & Caulking', 'Elna Mundy', 494, 444188);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (374, 'American woodcock', 'Curb & Gutter', 'Donny Gwynne', 363, 93695);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (375, 'Roseat flamingo', 'Ornamental Railings', 'Ron Tallon', 212, 286275);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (376, 'Rhea, common', 'Framing (Wood)', 'Dorey Detloff', 461, 75571);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (377, 'Bottle-nose dolphin', 'Fire Sprinkler System', 'Isaac Ketteridge', 271, 104747);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (378, 'Crowned eagle', 'RF Shielding', 'Carlin Merali', 438, 67204);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (379, 'Black-tailed tree creeper', 'Marlite Panels (FED)', 'Domini Eddoes', 254, 113042);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (380, 'Brazilian otter', 'Sitework & Site Utilities', 'Jody Byatt', 442, 218336);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (381, 'Yellow mongoose', 'Construction Clean and Final Clean', 'Mylo Cryer', 243, 231364);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (382, 'Yellow-necked spurfowl', 'Retaining Wall and Brick Pavers', 'Phaidra Farra', 473, 361294);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (383, 'Vulture, lappet-faced', 'Fire Protection', 'Northrop Titcomb', 475, 88521);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (384, 'Gull, herring', 'Fire Protection', 'Tully Bastiman', 317, 471475);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (385, 'Roller, lilac-breasted', 'Drilled Shafts', 'Eileen Dashwood', 387, 254016);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (386, 'Gray rhea', 'Casework', 'Nedda Etheredge', 292, 253710);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (387, 'Ibex', 'Electrical', 'Benny Matschke', 207, 141483);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (388, 'Baboon, gelada', 'Elevator', 'Ignaz Elcock', 373, 267435);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (389, 'Malleefowl', 'Plumbing & Medical Gas', 'Virge Bothbie', 355, 248571);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (390, 'Cat, tiger', 'RF Shielding', 'Norby Sherebrooke', 218, 356354);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (391, 'Meerkat, red', 'Rebar & Wire Mesh Install', 'Jillayne Pidcock', 288, 54885);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (392, 'Lesser masked weaver', 'Landscaping & Irrigation', 'Agosto Goodson', 446, 336695);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (393, 'Tern, white-winged black', 'Overhead Doors', 'Gregor Wilson', 314, 380828);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (394, 'Wallaby, river', 'Drilled Shafts', 'Rubie Froude', 324, 442847);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (395, 'Tyrant flycatcher', 'Temp Fencing, Decorative Fencing and Gates', 'Jackie Worsfield', 247, 428817);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (396, 'Flamingo, greater', 'Overhead Doors', 'Cordelie Lanphier', 401, 278893);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (397, 'Lesser masked weaver', 'Roofing (Asphalt)', 'Hilly O''Dowd', 408, 296774);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (398, 'African fish eagle', 'Casework', 'Fairfax Penylton', 457, 483403);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (399, 'Polar bear', 'Roofing (Metal)', 'Anastassia Whitley', 242, 100404);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (400, 'Sable antelope', 'Wall Protection', 'Smith Chicco', 291, 292563);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (401, 'Tawny eagle', 'Site Furnishings', 'Kali Burtonshaw', 201, 498825);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (402, 'Blue-breasted cordon bleu', 'Ornamental Railings', 'Klarrisa Caswall', 491, 327026);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (403, 'Magellanic penguin', 'Marlite Panels (FED)', 'Neville Pettus', 374, 68721);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (404, 'Coatimundi, white-nosed', 'Soft Flooring and Base', 'Brendin Goggin', 496, 234769);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (405, 'Curve-billed thrasher', 'Granite Surfaces', 'Merell Giacomuzzi', 393, 265512);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (406, 'Cat, toddy', 'Drilled Shafts', 'Lori Sevitt', 377, 190410);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (407, 'Skink, blue-tongued', 'Prefabricated Aluminum Metal Canopies', 'Starla Cleiment', 381, 369345);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (408, 'Swan, black', 'Waterproofing & Caulking', 'Arly Fereday', 239, 498397);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (409, 'Goose, canada', 'Ornamental Railings', 'Ermengarde Baggelley', 261, 148909);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (410, 'Indian tree pie', 'HVAC', 'Jonas Heineken', 297, 340451);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (411, 'Yellow-headed caracara', 'Roofing (Asphalt)', 'Alexis Lunt', 239, 316927);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (412, 'Knob-nosed goose', 'Retaining Wall and Brick Pavers', 'Farr Bakesef', 455, 308799);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (413, 'Lapwing, southern', 'Elevator', 'Izaak Kubasek', 211, 358447);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (414, 'Rufous-collared sparrow', 'Granite Surfaces', 'Chere MacKenny', 350, 433572);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (415, 'Porcupine, crested', 'Electrical', 'Gabrielle Micka', 328, 463492);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (416, 'Roseat flamingo', 'Prefabricated Aluminum Metal Canopies', 'Calypso Colliver', 484, 288125);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (417, 'Mongoose, small indian', 'Drywall & Acoustical (FED)', 'Rubia Maddinon', 260, 496271);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (418, 'Red-legged pademelon', 'Prefabricated Aluminum Metal Canopies', 'Packston Syres', 282, 211866);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (419, 'Bonnet macaque', 'Fire Sprinkler System', 'Lester Labell', 491, 245225);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (420, 'Common turkey', 'Fire Sprinkler System', 'Celina McGourty', 252, 86726);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (421, 'Mockingbird, galapagos', 'Masonry', 'Samson Shakesby', 314, 401055);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (422, 'Giant girdled lizard', 'Masonry', 'Guthrey Learmonth', 358, 315291);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (423, 'Crested barbet', 'Termite Control', 'Marius Oliphant', 305, 447070);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (424, 'Dog, black-tailed prairie', 'Granite Surfaces', 'Roi Kyllford', 402, 228474);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (425, 'Pie, rufous tree', 'Roofing (Asphalt)', 'Janella Kirkham', 346, 495292);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (426, 'Crane, wattled', 'Asphalt Paving', 'Gillie Tregido', 204, 135545);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (427, 'Black-collared barbet', 'Retaining Wall and Brick Pavers', 'Michaela Sugar', 210, 398317);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (428, 'Crake, african black', 'Exterior Signage', 'Israel Giacoboni', 478, 61060);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (429, 'Dingo', 'Drywall & Acoustical (MOB)', 'Nolan Menghi', 333, 207346);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (430, 'Hudsonian godwit', 'Masonry & Precast', 'Dicky Tomet', 258, 254159);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (431, 'Brown pelican', 'Drilled Shafts', 'Lishe Cullnean', 497, 77815);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (432, 'Laughing kookaburra', 'Drywall & Acoustical (MOB)', 'Marnie Freegard', 361, 301733);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (433, 'Oryx, beisa', 'Fire Sprinkler System', 'Papagena Stanlock', 288, 252750);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (434, 'Warthog', 'Framing (Steel)', 'Donica Blenkharn', 237, 369931);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (435, 'Blue and gold macaw', 'Asphalt Paving', 'Catharine Kondratowicz', 410, 147140);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (436, 'Dusky rattlesnake', 'Temp Fencing, Decorative Fencing and Gates', 'Broddy McMoyer', 393, 312170);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (437, 'Currasow (unidentified)', 'Site Furnishings', 'Robbie Ginni', 343, 83863);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (438, 'Ant (unidentified)', 'Asphalt Paving', 'Eyde Jeffreys', 229, 482401);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (439, 'European red squirrel', 'Termite Control', 'Vin Calterone', 435, 427356);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (440, 'Buffalo, wild water', 'Hard Tile & Stone', 'Vittoria Hayller', 345, 84056);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (441, 'European badger', 'Marlite Panels (FED)', 'Blair Ingerson', 435, 442737);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (442, 'Cow, scottish highland', 'Site Furnishings', 'Tamra Denison', 402, 102438);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (443, 'Red-legged pademelon', 'Retaining Wall and Brick Pavers', 'Diane-marie Gaffey', 268, 326564);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (444, 'Eagle, bald', 'Structural & Misc Steel Erection', 'Misha Sweedland', 211, 180739);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (445, 'Frogmouth, tawny', 'Roofing (Asphalt)', 'Moses Fick', 296, 300090);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (446, 'Sulfur-crested cockatoo', 'Electrical and Fire Alarm', 'Allegra Churchley', 201, 330842);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (447, 'Magpie, black-backed', 'Fire Sprinkler System', 'Horton Leedes', 214, 344832);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (448, 'Groundhog', 'Doors, Frames & Hardware', 'Dunc Eagan', 288, 309545);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (449, 'Brocket, red', 'Fire Sprinkler System', 'Bank Prickett', 254, 78293);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (450, 'Arctic tern', 'Glass & Glazing', 'Thatcher Deans', 296, 404389);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (451, 'Common shelduck', 'Painting & Vinyl Wall Covering', 'Jerad Barnwille', 500, 384261);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (452, 'European red squirrel', 'Electrical', 'Rae Muxworthy', 372, 257891);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (453, 'Langur, hanuman', 'Drywall & Acoustical (MOB)', 'Babette Startin', 307, 487760);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (454, 'Long-tailed skua', 'Waterproofing & Caulking', 'Neale Lineker', 461, 159996);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (455, 'Boar, wild', 'Waterproofing & Caulking', 'Alexa Skep', 261, 222553);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (456, 'White-nosed coatimundi', 'Overhead Doors', 'Nicolette Caret', 313, 123929);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (457, 'Darwin ground finch (unidentified)', 'Painting & Vinyl Wall Covering', 'Leshia Rawls', 353, 90173);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (458, 'Bent-toed gecko', 'Granite Surfaces', 'Hobie Rameaux', 306, 85800);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (459, 'Otter, african clawless', 'Asphalt Paving', 'Ardyce Alcoran', 233, 320082);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (460, 'Pelican, great white', 'Termite Control', 'Fredelia MacTavish', 288, 110307);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (461, 'Spectacled caiman', 'HVAC', 'Melly Isherwood', 397, 236468);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (462, 'Turkey, wild', 'Framing (Wood)', 'Adora Devin', 269, 457710);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (463, 'Bear, black', 'Termite Control', 'Cal McInnerny', 310, 109290);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (464, 'Water monitor', 'Elevator', 'Kirsti Hazelby', 451, 346607);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (465, 'White-winged dove', 'Framing (Wood)', 'Sharlene Torregiani', 326, 396869);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (466, 'American black bear', 'Electrical', 'Yancey Davidovitch', 222, 74659);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (467, 'Indian tree pie', 'Framing (Wood)', 'Trev Glanton', 249, 209057);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (468, 'Spoonbill, white', 'Electrical and Fire Alarm', 'Sean Atlay', 330, 227510);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (469, 'Flamingo, greater', 'Framing (Wood)', 'Nyssa Mattaser', 223, 461828);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (470, 'Common brushtail possum', 'Sitework & Site Utilities', 'Staci Hierro', 377, 166912);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (471, 'Caiman, spectacled', 'Structural & Misc Steel Erection', 'Arne Cawse', 425, 322508);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (472, 'Paca', 'Exterior Signage', 'Elise Kellogg', 491, 340640);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (473, 'Tawny frogmouth', 'Wall Protection', 'Charin Sopp', 290, 444053);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (474, 'Deer, red', 'EIFS', 'Lianne Hollibone', 302, 353893);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (475, 'Lechwe, kafue flats', 'Electrical and Fire Alarm', 'Gwenny Rogers', 378, 86684);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (476, 'Asian lion', 'Construction Clean and Final Clean', 'Maggie Orleton', 500, 373753);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (477, 'Two-toed tree sloth', 'Exterior Signage', 'Linnet Le Brum', 457, 325899);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (478, 'Common waterbuck', 'Epoxy Flooring', 'Elene Farress', 425, 354808);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (479, 'Vulture, king', 'EIFS', 'Paolina Ipsley', 460, 79441);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (480, 'Lemur, sportive', 'Curb & Gutter', 'Brandie Kryszkiecicz', 362, 354350);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (481, 'Buffalo, american', 'Roofing (Metal)', 'Alva Pointing', 490, 350344);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (482, 'Bahama pintail', 'Fire Sprinkler System', 'Sebastien Edler', 497, 119860);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (483, 'African darter', 'Prefabricated Aluminum Metal Canopies', 'Cristian Vedenyapin', 204, 170930);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (484, 'Brown antechinus', 'Curb & Gutter', 'Cherye Monketon', 359, 354050);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (485, 'Common raccoon', 'Fire Sprinkler System', 'Merilyn Sargeant', 340, 54306);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (486, 'Seal, southern elephant', 'Masonry & Precast', 'Ted Downham', 457, 499300);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (487, 'Common raccoon', 'Electrical', 'Dodie Beggi', 406, 453380);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (488, 'Green-winged macaw', 'Soft Flooring and Base', 'Jerrome Mafham', 465, 405106);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (489, 'Cereopsis goose', 'Masonry & Precast', 'Free Heathfield', 200, 474516);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (490, 'Blue-footed booby', 'Exterior Signage', 'Fanechka Jezzard', 245, 481565);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (491, 'Red lava crab', 'Prefabricated Aluminum Metal Canopies', 'Sayres Medcalf', 463, 202349);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (492, 'Snake, carpet', 'Marlite Panels (FED)', 'Kennith Trimming', 363, 52460);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (493, 'Frog (unidentified)', 'Soft Flooring and Base', 'Alessandro Torr', 368, 175177);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (494, 'Kingfisher, malachite', 'Structural and Misc Steel (Fabrication)', 'Vance Dodgshon', 406, 246648);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (495, 'Levaillant''s barbet', 'HVAC', 'Crawford Aymes', 448, 57785);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (496, 'Dragon, ornate rock', 'Ornamental Railings', 'Garv Hassall', 217, 343786);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (497, 'Seal, northern fur', 'Drywall & Acoustical (FED)', 'Karil Brader', 318, 88048);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (498, 'Snow goose', 'Curb & Gutter', 'Roseann Yu', 355, 336981);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (499, 'Dingo', 'Elevator', 'Peterus Woodison', 242, 365584);
+insert into "Books" ("bookID", bookname, category, author, quantity, price) values (500, 'White-browed sparrow weaver', 'RF Shielding', 'Francene O''Carran', 356, 382335);
+
+create table "Imports" (
+	"importID" INT,
+	"importDate" DATE
+);
+insert into "Imports" ("importID", "importDate") values (1, '2023-07-06');
+insert into "Imports" ("importID", "importDate") values (2, '2023-10-11');
+insert into "Imports" ("importID", "importDate") values (3, '2022-11-29');
+insert into "Imports" ("importID", "importDate") values (4, '2023-06-19');
+insert into "Imports" ("importID", "importDate") values (5, '2022-12-04');
+insert into "Imports" ("importID", "importDate") values (6, '2022-11-12');
+insert into "Imports" ("importID", "importDate") values (7, '2023-06-27');
+insert into "Imports" ("importID", "importDate") values (8, '2022-12-11');
+insert into "Imports" ("importID", "importDate") values (9, '2023-04-09');
+insert into "Imports" ("importID", "importDate") values (10, '2023-05-10');
+insert into "Imports" ("importID", "importDate") values (11, '2023-01-29');
+insert into "Imports" ("importID", "importDate") values (12, '2023-04-04');
+insert into "Imports" ("importID", "importDate") values (13, '2023-06-07');
+insert into "Imports" ("importID", "importDate") values (14, '2023-05-22');
+insert into "Imports" ("importID", "importDate") values (15, '2023-06-17');
+insert into "Imports" ("importID", "importDate") values (16, '2023-08-01');
+insert into "Imports" ("importID", "importDate") values (17, '2023-07-09');
+insert into "Imports" ("importID", "importDate") values (18, '2023-04-06');
+insert into "Imports" ("importID", "importDate") values (19, '2023-03-31');
+insert into "Imports" ("importID", "importDate") values (20, '2023-10-07');
+insert into "Imports" ("importID", "importDate") values (21, '2023-05-22');
+insert into "Imports" ("importID", "importDate") values (22, '2023-03-28');
+insert into "Imports" ("importID", "importDate") values (23, '2023-04-30');
+insert into "Imports" ("importID", "importDate") values (24, '2023-06-09');
+insert into "Imports" ("importID", "importDate") values (25, '2023-03-21');
+insert into "Imports" ("importID", "importDate") values (26, '2023-06-17');
+insert into "Imports" ("importID", "importDate") values (27, '2023-07-20');
+insert into "Imports" ("importID", "importDate") values (28, '2023-11-09');
+insert into "Imports" ("importID", "importDate") values (29, '2022-12-19');
+insert into "Imports" ("importID", "importDate") values (30, '2023-04-11');
+insert into "Imports" ("importID", "importDate") values (31, '2023-03-09');
+insert into "Imports" ("importID", "importDate") values (32, '2023-09-03');
+insert into "Imports" ("importID", "importDate") values (33, '2023-05-21');
+insert into "Imports" ("importID", "importDate") values (34, '2023-09-22');
+insert into "Imports" ("importID", "importDate") values (35, '2023-09-28');
+insert into "Imports" ("importID", "importDate") values (36, '2023-08-19');
+insert into "Imports" ("importID", "importDate") values (37, '2023-02-22');
+insert into "Imports" ("importID", "importDate") values (38, '2023-02-27');
+insert into "Imports" ("importID", "importDate") values (39, '2023-04-25');
+insert into "Imports" ("importID", "importDate") values (40, '2022-12-06');
+insert into "Imports" ("importID", "importDate") values (41, '2023-04-02');
+insert into "Imports" ("importID", "importDate") values (42, '2023-10-12');
+insert into "Imports" ("importID", "importDate") values (43, '2023-01-17');
+insert into "Imports" ("importID", "importDate") values (44, '2022-11-25');
+insert into "Imports" ("importID", "importDate") values (45, '2023-03-05');
+insert into "Imports" ("importID", "importDate") values (46, '2023-03-10');
+insert into "Imports" ("importID", "importDate") values (47, '2022-11-25');
+insert into "Imports" ("importID", "importDate") values (48, '2023-05-22');
+insert into "Imports" ("importID", "importDate") values (49, '2023-08-13');
+insert into "Imports" ("importID", "importDate") values (50, '2023-09-12');
+
+create table "ImportDetails" (
+	"importDetailID" INT,
+	"bookID" INT,
+	"importID" INT,
+	quantity INT
+);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (1, 6, 1, 35);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (2, 472, 2, 47);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (3, 438, 3, 28);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (4, 96, 4, 16);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (5, 75, 5, 82);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (6, 148, 6, 68);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (7, 432, 7, 53);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (8, 192, 8, 192);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (9, 43, 9, 90);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (10, 473, 10, 182);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (11, 146, 11, 188);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (12, 425, 12, 199);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (13, 70, 13, 42);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (14, 70, 14, 32);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (15, 357, 15, 184);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (16, 245, 16, 37);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (17, 295, 17, 161);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (18, 110, 18, 140);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (19, 187, 19, 122);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (20, 169, 20, 26);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (21, 238, 21, 89);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (22, 444, 22, 49);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (23, 485, 23, 113);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (24, 316, 24, 23);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (25, 81, 25, 168);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (26, 115, 26, 123);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (27, 298, 27, 75);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (28, 361, 28, 26);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (29, 366, 29, 81);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (30, 301, 30, 139);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (31, 433, 31, 38);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (32, 483, 32, 102);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (33, 411, 33, 36);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (34, 422, 34, 47);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (35, 210, 35, 122);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (36, 255, 36, 68);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (37, 98, 37, 27);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (38, 138, 38, 127);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (39, 68, 39, 131);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (40, 419, 40, 68);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (41, 375, 41, 155);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (42, 391, 42, 174);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (43, 390, 43, 165);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (44, 64, 44, 53);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (45, 301, 45, 175);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (46, 372, 46, 40);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (47, 8, 47, 178);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (48, 408, 48, 182);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (49, 421, 49, 38);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (50, 182, 50, 98);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (51, 483, 1, 88);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (52, 480, 2, 68);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (53, 347, 3, 109);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (54, 366, 4, 48);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (55, 125, 5, 188);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (56, 215, 6, 105);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (57, 308, 7, 80);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (58, 229, 8, 190);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (59, 496, 9, 190);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (60, 419, 10, 49);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (61, 146, 11, 11);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (62, 45, 12, 111);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (63, 472, 13, 55);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (64, 285, 14, 133);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (65, 289, 15, 76);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (66, 445, 16, 33);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (67, 342, 17, 24);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (68, 402, 18, 56);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (69, 142, 19, 14);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (70, 28, 20, 183);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (71, 451, 21, 121);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (72, 306, 22, 44);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (73, 434, 23, 173);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (74, 315, 24, 23);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (75, 198, 25, 134);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (76, 463, 26, 57);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (77, 172, 27, 96);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (78, 344, 28, 132);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (79, 472, 29, 134);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (80, 414, 30, 141);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (81, 156, 31, 153);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (82, 242, 32, 167);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (83, 316, 33, 123);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (84, 325, 34, 27);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (85, 117, 35, 39);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (86, 290, 36, 62);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (87, 398, 37, 116);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (88, 102, 38, 99);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (89, 80, 39, 183);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (90, 192, 40, 150);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (91, 362, 41, 38);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (92, 337, 42, 94);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (93, 55, 43, 99);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (94, 368, 44, 63);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (95, 16, 45, 109);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (96, 52, 46, 142);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (97, 372, 47, 180);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (98, 175, 48, 143);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (99, 71, 49, 74);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (100, 340, 50, 115);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (101, 231, 1, 79);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (102, 269, 2, 98);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (103, 86, 3, 183);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (104, 49, 4, 82);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (105, 53, 5, 158);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (106, 406, 6, 179);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (107, 52, 7, 31);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (108, 476, 8, 50);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (109, 175, 9, 21);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (110, 283, 10, 188);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (111, 270, 11, 161);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (112, 406, 12, 175);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (113, 347, 13, 41);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (114, 122, 14, 129);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (115, 61, 15, 101);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (116, 416, 16, 68);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (117, 104, 17, 48);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (118, 355, 18, 133);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (119, 369, 19, 135);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (120, 171, 20, 95);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (121, 67, 21, 95);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (122, 374, 22, 114);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (123, 38, 23, 173);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (124, 10, 24, 173);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (125, 273, 25, 99);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (126, 216, 26, 46);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (127, 371, 27, 181);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (128, 113, 28, 142);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (129, 413, 29, 62);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (130, 462, 30, 73);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (131, 33, 31, 130);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (132, 102, 32, 192);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (133, 337, 33, 28);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (134, 154, 34, 18);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (135, 237, 35, 60);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (136, 229, 36, 137);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (137, 138, 37, 182);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (138, 4, 38, 172);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (139, 331, 39, 62);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (140, 273, 40, 185);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (141, 405, 41, 133);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (142, 264, 42, 121);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (143, 294, 43, 88);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (144, 124, 44, 79);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (145, 431, 45, 44);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (146, 77, 46, 173);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (147, 213, 47, 130);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (148, 357, 48, 157);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (149, 174, 49, 110);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (150, 343, 50, 69);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (151, 257, 1, 193);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (152, 283, 2, 87);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (153, 39, 3, 119);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (154, 356, 4, 56);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (155, 138, 5, 144);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (156, 324, 6, 35);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (157, 188, 7, 113);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (158, 107, 8, 74);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (159, 316, 9, 178);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (160, 338, 10, 87);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (161, 169, 11, 85);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (162, 359, 12, 130);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (163, 304, 13, 20);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (164, 291, 14, 18);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (165, 296, 15, 11);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (166, 62, 16, 178);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (167, 26, 17, 57);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (168, 151, 18, 22);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (169, 465, 19, 194);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (170, 84, 20, 10);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (171, 439, 21, 65);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (172, 286, 22, 58);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (173, 212, 23, 86);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (174, 413, 24, 132);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (175, 235, 25, 135);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (176, 170, 26, 154);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (177, 369, 27, 183);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (178, 206, 28, 153);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (179, 114, 29, 131);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (180, 299, 30, 55);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (181, 53, 31, 122);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (182, 421, 32, 28);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (183, 144, 33, 191);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (184, 238, 34, 135);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (185, 213, 35, 138);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (186, 112, 36, 68);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (187, 172, 37, 158);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (188, 82, 38, 121);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (189, 250, 39, 177);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (190, 261, 40, 28);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (191, 338, 41, 25);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (192, 421, 42, 63);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (193, 387, 43, 136);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (194, 64, 44, 80);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (195, 10, 45, 144);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (196, 165, 46, 65);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (197, 341, 47, 40);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (198, 141, 48, 196);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (199, 30, 49, 192);
+insert into "ImportDetails" ("importDetailID", "bookID", "importID", quantity) values (200, 426, 50, 102);
+
+create table "Invoices" (
+	"invoiceID" INT,
+	"customerID" INT,
+	"invoiceDate" DATE
+);
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (1, 1, '2022-11-25');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (2, 2, '2023-08-17');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (3, 3, '2023-03-27');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (4, 4, '2023-01-16');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (5, 5, '2023-09-27');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (6, 6, '2022-11-17');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (7, 7, '2023-10-20');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (8, 8, '2023-10-22');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (9, 9, '2023-02-12');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (10, 10, '2023-05-02');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (11, 11, '2023-10-29');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (12, 12, '2022-12-10');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (13, 13, '2023-03-21');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (14, 14, '2023-03-01');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (15, 15, '2023-01-17');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (16, 16, '2023-10-26');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (17, 17, '2023-01-30');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (18, 18, '2023-01-09');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (19, 19, '2023-08-23');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (20, 20, '2023-10-11');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (21, 21, '2022-11-26');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (22, 22, '2023-06-07');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (23, 23, '2023-05-10');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (24, 24, '2023-10-08');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (25, 25, '2023-05-31');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (26, 26, '2023-05-21');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (27, 27, '2023-10-02');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (28, 28, '2023-09-26');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (29, 29, '2023-07-20');
+insert into "Invoices" ("invoiceID", "customerID", "invoiceDate") values (30, 30, '2023-01-10');
+
+create table "InvoiceDetails" (
+	"invoiceDetailID" INT,
+	"bookID" INT,
+	"invoiceID" INT,
+	quantity INT
+);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (1, 158, 1, 192);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (2, 416, 2, 155);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (3, 462, 3, 26);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (4, 391, 4, 32);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (5, 481, 5, 148);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (6, 90, 6, 45);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (7, 123, 7, 48);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (8, 321, 8, 21);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (9, 391, 9, 37);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (10, 439, 10, 99);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (11, 173, 11, 91);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (12, 285, 12, 92);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (13, 249, 13, 84);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (14, 21, 14, 159);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (15, 58, 15, 112);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (16, 453, 16, 16);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (17, 321, 17, 48);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (18, 373, 18, 34);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (19, 463, 19, 15);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (20, 50, 20, 114);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (21, 391, 21, 62);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (22, 240, 22, 45);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (23, 191, 23, 82);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (24, 233, 24, 136);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (25, 377, 25, 152);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (26, 137, 26, 63);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (27, 121, 27, 102);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (28, 421, 28, 13);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (29, 6, 29, 72);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (30, 418, 30, 36);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (31, 43, 1, 146);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (32, 443, 2, 167);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (33, 65, 3, 14);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (34, 405, 4, 130);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (35, 435, 5, 69);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (36, 140, 6, 42);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (37, 177, 7, 85);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (38, 67, 8, 168);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (39, 6, 9, 199);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (40, 390, 10, 200);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (41, 317, 11, 103);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (42, 118, 12, 12);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (43, 287, 13, 145);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (44, 363, 14, 179);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (45, 161, 15, 173);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (46, 71, 16, 146);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (47, 333, 17, 40);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (48, 5, 18, 21);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (49, 150, 19, 103);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (50, 121, 20, 20);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (51, 98, 21, 70);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (52, 382, 22, 81);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (53, 368, 23, 39);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (54, 87, 24, 39);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (55, 270, 25, 61);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (56, 3, 26, 42);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (57, 377, 27, 101);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (58, 412, 28, 38);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (59, 161, 29, 106);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (60, 56, 30, 18);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (61, 21, 1, 137);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (62, 283, 2, 110);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (63, 223, 3, 37);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (64, 143, 4, 165);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (65, 215, 5, 73);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (66, 156, 6, 173);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (67, 234, 7, 194);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (68, 28, 8, 152);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (69, 43, 9, 192);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (70, 52, 10, 21);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (71, 330, 11, 28);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (72, 471, 12, 21);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (73, 476, 13, 138);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (74, 160, 14, 82);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (75, 399, 15, 190);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (76, 400, 16, 175);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (77, 9, 17, 74);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (78, 304, 18, 49);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (79, 87, 19, 81);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (80, 276, 20, 99);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (81, 365, 21, 119);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (82, 293, 22, 163);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (83, 55, 23, 176);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (84, 173, 24, 79);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (85, 293, 25, 32);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (86, 266, 26, 48);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (87, 465, 27, 39);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (88, 246, 28, 95);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (89, 70, 29, 102);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (90, 23, 30, 160);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (91, 482, 1, 195);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (92, 216, 2, 10);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (93, 467, 3, 74);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (94, 218, 4, 171);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (95, 257, 5, 67);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (96, 12, 6, 61);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (97, 10, 7, 133);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (98, 110, 8, 11);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (99, 93, 9, 125);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (100, 109, 10, 14);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (101, 345, 11, 196);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (102, 99, 12, 40);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (103, 397, 13, 129);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (104, 335, 14, 13);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (105, 355, 15, 150);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (106, 394, 16, 28);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (107, 380, 17, 89);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (108, 445, 18, 200);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (109, 414, 19, 62);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (110, 365, 20, 52);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (111, 384, 21, 154);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (112, 317, 22, 58);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (113, 173, 23, 164);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (114, 366, 24, 73);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (115, 29, 25, 38);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (116, 45, 26, 59);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (117, 140, 27, 121);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (118, 417, 28, 83);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (119, 305, 29, 174);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (120, 7, 30, 195);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (121, 71, 1, 49);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (122, 299, 2, 30);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (123, 174, 3, 56);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (124, 327, 4, 174);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (125, 130, 5, 197);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (126, 441, 6, 130);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (127, 177, 7, 164);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (128, 322, 8, 22);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (129, 297, 9, 130);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (130, 18, 10, 80);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (131, 415, 11, 161);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (132, 306, 12, 12);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (133, 417, 13, 154);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (134, 392, 14, 62);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (135, 7, 15, 180);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (136, 387, 16, 115);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (137, 95, 17, 110);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (138, 432, 18, 182);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (139, 497, 19, 61);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (140, 41, 20, 137);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (141, 385, 21, 187);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (142, 268, 22, 178);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (143, 186, 23, 121);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (144, 162, 24, 99);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (145, 428, 25, 198);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (146, 27, 26, 24);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (147, 196, 27, 155);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (148, 298, 28, 168);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (149, 309, 29, 113);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (150, 350, 30, 113);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (151, 263, 1, 147);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (152, 149, 2, 92);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (153, 309, 3, 117);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (154, 438, 4, 34);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (155, 268, 5, 173);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (156, 21, 6, 107);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (157, 197, 7, 149);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (158, 63, 8, 147);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (159, 58, 9, 100);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (160, 163, 10, 29);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (161, 316, 11, 14);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (162, 186, 12, 20);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (163, 365, 13, 10);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (164, 154, 14, 200);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (165, 485, 15, 61);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (166, 268, 16, 24);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (167, 303, 17, 135);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (168, 413, 18, 123);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (169, 150, 19, 195);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (170, 436, 20, 75);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (171, 484, 21, 48);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (172, 294, 22, 113);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (173, 406, 23, 103);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (174, 176, 24, 81);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (175, 386, 25, 134);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (176, 88, 26, 179);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (177, 132, 27, 169);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (178, 355, 28, 119);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (179, 34, 29, 49);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (180, 99, 30, 62);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (181, 446, 1, 97);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (182, 30, 2, 39);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (183, 69, 3, 124);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (184, 303, 4, 163);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (185, 330, 5, 117);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (186, 22, 6, 15);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (187, 351, 7, 23);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (188, 49, 8, 97);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (189, 448, 9, 71);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (190, 106, 10, 43);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (191, 366, 11, 121);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (192, 258, 12, 139);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (193, 183, 13, 131);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (194, 476, 14, 12);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (195, 265, 15, 139);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (196, 374, 16, 166);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (197, 357, 17, 107);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (198, 325, 18, 55);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (199, 110, 19, 15);
+insert into "InvoiceDetails" ("invoiceDetailID", "bookID", "invoiceID", quantity) values (200, 84, 20, 95);
+
+create table "Receipts" (
+	"receiptID" INT,
+	"customerID" INT,
+	"amountPaid" INT,
+	"paymentDate" DATE
+);
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (1, 1, 169561, '2023-11-13');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (2, 2, 81367, '2023-11-16');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (3, 3, 168881, '2023-11-17');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (4, 4, 141819, '2023-11-13');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (5, 5, 133238, '2023-11-14');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (6, 6, 126408, '2023-11-15');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (7, 7, 125093, '2023-11-17');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (8, 8, 122847, '2023-11-16');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (9, 9, 172471, '2023-11-13');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (10, 10, 170423, '2023-11-12');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (11, 11, 127743, '2023-11-17');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (12, 12, 84248, '2023-11-11');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (13, 13, 150996, '2023-11-17');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (14, 14, 95479, '2023-11-14');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (15, 15, 123272, '2023-11-14');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (16, 16, 169733, '2023-11-14');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (17, 17, 87814, '2023-11-10');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (18, 18, 85081, '2023-11-13');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (19, 19, 75736, '2023-11-14');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (20, 20, 128595, '2023-11-11');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (21, 21, 130840, '2023-11-15');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (22, 22, 151008, '2023-11-16');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (23, 23, 119414, '2023-11-10');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (24, 24, 109513, '2023-11-13');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (25, 25, 90188, '2023-11-12');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (26, 26, 136398, '2023-11-15');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (27, 27, 82435, '2023-11-13');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (28, 28, 88868, '2023-11-14');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (29, 29, 171742, '2023-11-15');
+insert into "Receipts" ("receiptID", "customerID", "amountPaid", "paymentDate") values (30, 30, 158429, '2023-11-12');
+
+create table "InventoryReports" (
+	"inventoryReportID" INT,
+	"bookID" INT,
+	"beginningInventory" INT,
+	"endingInventory" INT,
+	"inventoryChanges" INT
+);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (1, 173, 78, 50, 82);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (2, 21, 86, 54, 71);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (3, 379, 85, 68, 80);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (4, 174, 64, 98, 67);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (5, 338, 82, 86, 65);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (6, 416, 81, 83, 70);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (7, 310, 93, 53, 50);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (8, 248, 97, 75, 94);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (9, 302, 71, 72, 54);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (10, 22, 76, 64, 74);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (11, 428, 97, 76, 81);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (12, 114, 91, 100, 85);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (13, 200, 51, 88, 82);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (14, 92, 89, 98, 74);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (15, 449, 64, 63, 69);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (16, 413, 74, 84, 59);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (17, 321, 66, 71, 67);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (18, 324, 82, 93, 68);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (19, 3, 89, 71, 75);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (20, 163, 83, 95, 90);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (21, 223, 69, 88, 57);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (22, 232, 51, 93, 83);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (23, 99, 97, 72, 73);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (24, 146, 52, 73, 82);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (25, 276, 94, 87, 66);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (26, 413, 63, 90, 57);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (27, 38, 54, 80, 91);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (28, 37, 62, 100, 92);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (29, 71, 71, 58, 82);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (30, 410, 98, 60, 98);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (31, 139, 93, 64, 63);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (32, 13, 64, 68, 95);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (33, 155, 62, 51, 67);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (34, 83, 88, 81, 61);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (35, 350, 60, 79, 79);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (36, 29, 81, 57, 53);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (37, 356, 69, 79, 74);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (38, 226, 59, 90, 72);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (39, 496, 61, 86, 82);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (40, 441, 78, 58, 99);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (41, 309, 99, 85, 81);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (42, 101, 97, 53, 58);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (43, 264, 88, 97, 69);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (44, 250, 83, 74, 58);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (45, 466, 74, 92, 98);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (46, 144, 88, 97, 54);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (47, 251, 97, 93, 53);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (48, 10, 50, 94, 99);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (49, 344, 91, 75, 79);
+insert into "InventoryReports" ("inventoryReportID", "bookID", "beginningInventory", "endingInventory", "inventoryChanges") values (50, 209, 95, 58, 71);
+
+create table "DebtReports" (
+	"debtReportID" INT,
+	"customerID" INT,
+	"initialDebt" INT,
+	"finalDebt" INT,
+	"debtChanges" INT
+);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (1, 1, 446523, 253502, 210541);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (2, 2, 212060, 347023, 246352);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (3, 3, 421572, 242847, 359456);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (4, 4, 82436, 61726, 307953);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (5, 5, 221133, 476805, 410722);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (6, 6, 321377, 423337, 495965);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (7, 7, 116483, 272439, 11712);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (8, 8, 115708, 155830, 484591);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (9, 9, 320011, 367021, 357639);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (10, 10, 405530, 317587, 222192);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (11, 11, 407474, 296668, 177859);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (12, 12, 386319, 175325, 59723);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (13, 13, 57885, 130113, 354897);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (14, 14, 168735, 164208, 475962);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (15, 15, 353137, 364194, 353191);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (16, 16, 400358, 122237, 494857);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (17, 17, 88576, 45634, 462906);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (18, 18, 167620, 310668, 179529);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (19, 19, 176640, 219391, 205482);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (20, 20, 470579, 193064, 143248);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (21, 21, 248804, 414399, 40962);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (22, 22, 320810, 17261, 46806);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (23, 23, 729, 5180, 391527);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (24, 24, 454786, 341428, 472552);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (25, 25, 132010, 329955, 29244);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (26, 26, 448255, 472798, 132729);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (27, 27, 87290, 409354, 236423);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (28, 28, 482291, 311816, 38263);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (29, 29, 222598, 363160, 210671);
+insert into "DebtReports" ("debtReportID", "customerID", "initialDebt", "finalDebt", "debtChanges") values (30, 30, 15731, 372052, 199447);
 
 -- ----------------------------------------------------------------------------------------------------------------------------
 ALTER TABLE "Accounts" ADD CONSTRAINT "PK_Accounts" PRIMARY KEY ("accountID");
@@ -141,68 +1267,18 @@ ALTER TABLE "InvoiceDetails" ADD CONSTRAINT "PK_InvoiceDetails" PRIMARY KEY ("in
 ALTER TABLE "Receipts" ADD CONSTRAINT "PK_Receipts" PRIMARY KEY ("receiptID");
 ALTER TABLE "InventoryReports" ADD CONSTRAINT "PK_InventoryReports" PRIMARY KEY ("inventoryReportID");
 ALTER TABLE "DebtReports" ADD CONSTRAINT "PK_DebtReports" PRIMARY KEY ("debtReportID");
-ALTER TABLE "Regulations" ADD CONSTRAINT "PK_Regulations" PRIMARY KEY ("regulationID");
-ALTER TABLE "InventoryReportDetails" ADD CONSTRAINT "PK_InventoryReportDetails" PRIMARY KEY ("inventoryReportDetailID");
-ALTER TABLE "DebtReportDetails" ADD CONSTRAINT "PK_DebtReportDetails" PRIMARY KEY ("DebtReportDetailID");
 
 -- ------------------------------------------------------------------------------------------------------------------------------------
 ALTER TABLE "Invoices" ADD CONSTRAINT "FK_Invoices_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
 ALTER TABLE "Receipts" ADD CONSTRAINT "FK_Receipts_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
-ALTER TABLE "DebtReportDetails" ADD CONSTRAINT "FK_DebtReportDetails_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
-
-ALTER TABLE "DebtReportDetails" ADD CONSTRAINT "FK_DebtReportDetails_DebtReports" FOREIGN KEY ("debtReportID") REFERENCES "DebtReports" ("debtReportID");
+ALTER TABLE "DebtReports" ADD CONSTRAINT "FK_DebtReports_Customers" FOREIGN KEY ("customerID") REFERENCES "Customers" ("customerID");
 
 ALTER TABLE "InvoiceDetails" ADD CONSTRAINT "FK_InvoiceDetails_Invoices" FOREIGN KEY ("invoiceID") REFERENCES "Invoices" ("invoiceID");
 
 ALTER TABLE "InvoiceDetails" ADD CONSTRAINT "FK_InvoiceDetails_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
 ALTER TABLE "ImportDetails" ADD CONSTRAINT "FK_ImportDetails_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
-ALTER TABLE "InventoryReportDetails" ADD CONSTRAINT "FK_InventoryReportDetails_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
-
-ALTER TABLE "InventoryReportDetails" ADD CONSTRAINT "FK_InventoryReportDetails_InventoryReports" FOREIGN KEY ("inventoryReportID") REFERENCES "InventoryReports" ("inventoryReportID");
+ALTER TABLE "InventoryReports" ADD CONSTRAINT "FK_InventoryReports_Books" FOREIGN KEY ("bookID") REFERENCES "Books" ("bookID");
 
 ALTER TABLE "ImportDetails" ADD CONSTRAINT "FK_ImportDetails_Imports" FOREIGN KEY ("importID") REFERENCES "Imports" ("importID");
-	
--- Insert to customers --------------------------------------------------------
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (0, 'Phạm Hoài Nam', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'phnam@gmail.com', '0123455672', 0);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (1, 'Hồ Thanh Nhân', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'htnhan@gmail.com', '012655568', 0);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (2, 'Đoàn Nhật Trường', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'dntruong@gmail.com', '0132489672', 25000);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (3, 'Hà Bảo Ngọc', 'Lương Định Của, Đông Hoà, Dĩ An, Bình Dương, Việt Nam' ,'hbngoc@gmail.com', '0123455672', 50000);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (4, 'Nguyễn Hoàng Tuấn Anh', 'Dĩ An, Bình Dương, Việt Nam' ,'nhtanh@gmail.com', '0123455672', 0);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (5, 'Phan Trần Thu Hằng', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'ptthang@gmail.com', '0145123578', 0);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (6, 'Trần Quang Nhật', 'Lương Định Của, Đông Hoà, Dĩ An, Bình Dương, Việt Nam' ,'tqnhat@gmail.com', '0136547895', 25000);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (7, 'Đoàn Nguyễn Tấn Hưng', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'dnthung@gmail.com', '0135644892', 0);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (8, 'Võ Đăng Khoa', '200 Nguyễn Văn Cừ, Quận 5, TP.HCM, Việt Nam' ,'vdk@gmail.com', '01236545852', 12000);
-INSERT INTO "Customers"(
-	"customerID", fullname, address, email, phone, "unpaidAmount")
-	VALUES (9, 'Trần Hoài Nam', 'Dĩ An, Bình Dương, Việt Nam' ,'thnam@gmail.com', '01236542565', 60000);
-	
--- Insert to invoice ---------------------------
-INSERT INTO "Invoices"(
-	"invoiceID", "customerID", fullname, "invoiceDate")
-	VALUES (0, 0, 'Phạm Hoài Nam', '2023-06-27');
 
--- Insert to invoice details---------------------------
-INSERT INTO "InvoiceDetails"(
-	"invoiceDetailID", "bookID", "invoiceID", quantity, price)
-	VALUES (0, 0, 0, 1, 86000);
-INSERT INTO "InvoiceDetails"(
-	"invoiceDetailID", "bookID", "invoiceID", quantity, price)
-	VALUES (1, 2, 0, 2, 158000);
+-- ------------------------------------------------------------------

@@ -6,7 +6,7 @@ const cn = {
     port: '5432',
     database: 'Bookshop',
     user: 'postgres',
-    password: '20120275'
+    password: '20120275',
 };
 
 const db = pgp(cn);
@@ -16,24 +16,30 @@ module.exports = {
         const result = await db.any('SELECT * FROM "Invoices" ORDER BY "invoiceID" ASC');
         return result;
     },
-    add: async invoice => {
-        const result = await db.one('INSERT INTO "Invoices"("invoiceID", "customerID", "fullname", "invoiceDate") VALUES($1, $2, $3, $4) RETURNING *',
-            [invoice.invoiceID, invoice.customerID, invoice.fullname, invoice.invoiceDate]);
+    add: async (invoice) => {
+        const result = await db.one(
+            'INSERT INTO "Invoices"("invoiceID", "customerID", "invoiceDate") VALUES($1, $2, $3) RETURNING *',
+            [invoice.invoiceID, invoice.customerID, invoice.invoiceDate],
+        );
         return result;
     },
-    byInvoiceID: async invoiceID => {
-        const result = await db.one('SELECT * FROM "Invoices" WHERE "invoiceID"=$1',
-            [invoiceID]);
+    byInvoiceID: async (invoiceID) => {
+        const result = await db.one(
+            'SELECT * FROM "Invoices" invoice JOIN "Customers" customer on invoice."customerID" = customer."customerID" WHERE "invoiceID"=$1',
+            [invoiceID],
+        );
         return result;
     },
-    editInvoice: async invoice => {
-        const result = await db.none('UPDATE "Invoices" SET "customerID"=$1, "fullname"=$2, "invoiceDate"=$3 WHERE "invoiceID"=$4',
-            [invoice.customerID, invoice.fullname, invoice.invoiceDate, customer.invoiceID]);
+    editInvoice: async (invoice) => {
+        const result = await db.none('UPDATE "Invoices" SET "customerID"=$1, "invoiceDate"=$3 WHERE "invoiceID"=$4', [
+            invoice.customerID,
+            invoice.invoiceDate,
+            customer.invoiceID,
+        ]);
         return result;
     },
     deleteInvoiceByID: async (id) => {
-        const result = await db.none('DELETE FROM "Invoices" WHERE "invoiceID"=$1',
-            [id]);
+        const result = await db.none('DELETE FROM "Invoices" WHERE "invoiceID"=$1', [id]);
         return result;
-    }
-}
+    },
+};

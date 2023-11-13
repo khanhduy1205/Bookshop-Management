@@ -68,7 +68,6 @@ exports.getSearch = async (req, res, next) => {
         const perPage = 8;
 
         const booksDb = await booksM.getAll();
-        console.log(booksDb);
 
         if (!currentBooks || currentBooks.length == 0) {
             currentBooks = booksDb;
@@ -199,8 +198,10 @@ exports.getImportCreate = async (req, res, next) => {
         importID = imports.length;
     }
 
-    const fistRegulation = await regulationM.byID(0);
-    const secondRegulation = await regulationM.byID(1);
+    // const fistRegulation = await regulationM.byID(0);
+    // const secondRegulation = await regulationM.byID(1);
+    const fistRegulation = 0;
+    const secondRegulation = 0;
 
     res.render('create_import', {
         active: { import: true },
@@ -214,7 +215,7 @@ exports.getImportCreate = async (req, res, next) => {
     });
 };
 
-//bấm nút hoàn tất
+//bấm nút hoàn tất thêm import
 exports.postImportCreate = async (req, res, next) => {
     // add new import to import list
     const { importDate } = req.body;
@@ -279,7 +280,6 @@ exports.postImportCreate = async (req, res, next) => {
             importDetailID,
             bookID,
             importID,
-            bookname: listBooks[i].bookname,
             quantity: listBooks[i].quantity,
             totalBook,
             totalPrice,
@@ -560,7 +560,6 @@ exports.postInvoicePayment = async (req, res, next) => {
                     bookID: book.bookID,
                     invoiceID: newInvoiceID,
                     quantity: book.quantity,
-                    price: book.price,
                 };
 
                 await invoiceDetailM.add(newDetail);
@@ -635,7 +634,7 @@ exports.postAddBookToInvoice = async (req, res, next) => {
         const invoiceInfo = req.body.invoiceInfo;
 
         const booksSelected = invoiceInfo.booksSelected;
-        const customerInfo = invoiceInfo.customerInfo;
+        // const customerInfo = invoiceInfo.customerInfo;
         const listBook = [];
 
         for (const bookSelected of booksSelected) {

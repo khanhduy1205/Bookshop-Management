@@ -6,13 +6,13 @@ const accountManager = require('../controllers/account_manager.c');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-router.get('/login', accountManager.getLogin)
+router.get('/login', accountManager.getLogin);
 
 router.post('/login', accountManager.postLogin);
 
-router.get('/register', accountManager.getRegister)
+router.get('/register', accountManager.getRegister);
 
-router.post('/register', accountManager.postRegister)
+router.post('/register', accountManager.postRegister);
 
 router.get('/logout', accountManager.getLogout);
 
