@@ -47,13 +47,6 @@ module.exports = (app) => {
     });
 
     passport.deserializeUser(async (user, done) => {
-        // try {
-        //     console.log("deserial");
-        //     const userDb = await userM.byUsername(user);
-        //     done(null, userDb);
-        // } catch (err) {
-        //     return done(err, null);
-        // }
         done(null, user);
     });
 };
